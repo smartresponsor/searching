@@ -1,0 +1,4 @@
+searching_search_result:
+    path: /search/result
+    controller: App\Searching\Service\SearchResultSurfaceBuilder::build
+    methods: [GET]

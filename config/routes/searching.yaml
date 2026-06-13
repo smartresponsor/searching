@@ -1,0 +1,142 @@
+searching_api_search:
+  path: /api/search
+  controller: App\Searching\Controller\Api\SearchApiController::__invoke
+  methods: [GET]
+
+searching_api_bridge_interfacing:
+  path: /api/search/bridge/interfacing
+  controller: App\Searching\Controller\Api\SearchBridgeApiController::interfacing
+  methods: [GET]
+
+searching_api_health:
+  path: /api/search/health
+  controller: App\Searching\Controller\Api\SearchHealthApiController::__invoke
+  methods: [GET]
+
+searching_api_resources:
+  path: /api/search/resource
+  controller: App\Searching\Controller\Api\SearchResourceApiController::__invoke
+  methods: [GET]
+
+searching_api_provider_status:
+  path: /api/search/provider/status
+  controller: App\Searching\Controller\Api\SearchProviderStatusApiController::__invoke
+  methods: [GET]
+
+searching_api_query_logs:
+  path: /api/search/query/log
+  controller: App\Searching\Controller\Api\SearchQueryLogApiController::__invoke
+  methods: [GET]
+
+searching_api_reindex:
+  path: /api/search/reindex
+  controller: App\Searching\Controller\Api\SearchReindexApiController::__invoke
+  methods: [POST]
+
+searching_api_reindex_jobs:
+  path: /api/search/reindex/job
+  controller: App\Searching\Controller\Api\SearchReindexJobApiController::list
+  methods: [GET]
+
+searching_api_reindex_job_view:
+  path: /api/search/reindex/job/{jobKey}
+  controller: App\Searching\Controller\Api\SearchReindexJobApiController::view
+  methods: [GET]
+
+searching_api_index_ensure:
+  path: /api/search/index/ensure
+  controller: App\Searching\Controller\Api\SearchIndexLifecycleApiController::ensure
+  methods: [POST]
+
+searching_api_index_delete:
+  path: /api/search/index/delete
+  controller: App\Searching\Controller\Api\SearchIndexLifecycleApiController::delete
+  methods: [POST]
+
+searching_api_indexes:
+  path: /api/search/index
+  controller: App\Searching\Controller\Api\SearchIndexApiController::list
+  methods: [GET]
+
+searching_api_indexes_create:
+  path: /api/search/index
+  controller: App\Searching\Controller\Api\SearchIndexApiController::create
+  methods: [POST]
+
+searching_api_indexes_update:
+  path: /api/search/index/{resourceType}
+  controller: App\Searching\Controller\Api\SearchIndexApiController::update
+  methods: [PATCH]
+
+searching_api_indexes_delete:
+  path: /api/search/index/{resourceType}
+  controller: App\Searching\Controller\Api\SearchIndexApiController::delete
+  methods: [DELETE]
+
+searching_api_relevance_profiles_list:
+  path: /api/search/relevance/profile
+  controller: App\Searching\Controller\Api\SearchRelevanceProfileApiController::list
+  methods: [GET]
+
+searching_api_relevance_profiles_create:
+  path: /api/search/relevance/profile
+  controller: App\Searching\Controller\Api\SearchRelevanceProfileApiController::create
+  methods: [POST]
+
+searching_api_relevance_profiles_update:
+  path: /api/search/relevance/profile/{id}
+  controller: App\Searching\Controller\Api\SearchRelevanceProfileApiController::update
+  requirements:
+    id: \d+
+  methods: [PATCH, PUT]
+
+searching_api_relevance_profiles_delete:
+  path: /api/search/relevance/profile/{id}
+  controller: App\Searching\Controller\Api\SearchRelevanceProfileApiController::delete
+  requirements:
+    id: \d+
+  methods: [DELETE]
+
+searching_api_synonyms_list:
+  path: /api/search/synonym
+  controller: App\Searching\Controller\Api\SearchSynonymApiController::list
+  methods: [GET]
+
+searching_api_synonyms_create:
+  path: /api/search/synonym
+  controller: App\Searching\Controller\Api\SearchSynonymApiController::create
+  methods: [POST]
+
+searching_api_synonyms_update:
+  path: /api/search/synonym/{id}
+  controller: App\Searching\Controller\Api\SearchSynonymApiController::update
+  requirements:
+    id: \d+
+  methods: [PATCH, PUT]
+
+searching_api_synonyms_delete:
+  path: /api/search/synonym/{id}
+  controller: App\Searching\Controller\Api\SearchSynonymApiController::delete
+  requirements:
+    id: \d+
+  methods: [DELETE]
+
+searching_api_surface_search:
+  path: /api/search/surface
+  controller: App\Searching\Controller\Api\SearchSurfaceApiController::search
+  methods: [GET]
+
+searching_api_surface_suggest:
+  path: /api/search/surface/suggest
+  controller: App\Searching\Controller\Api\SearchSurfaceApiController::suggest
+  methods: [GET]
+
+searching_api_surface_capability:
+  path: /api/search/surface/capability
+  controller: App\Searching\Controller\Api\SearchSurfaceApiController::capability
+  methods: [GET]
+
+searching_api_search_suggest:
+  path: /api/search/suggest
+  controller: App\Searching\Controller\Api\SearchSuggestionApiController::__invoke
+  methods: [GET]

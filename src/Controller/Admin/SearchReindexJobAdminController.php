@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Searching\Controller\Admin;
+
+use App\Searching\Service\Serialization\SearchReindexJobSerializer;
+use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
+use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
+
+final readonly class SearchReindexJobAdminController
+{
+    public function __construct(
+        private SearchReindexJobReaderInterface $reader,
+        private SearchReindexJobSerializer $serializer,
+        private int $defaultLimit = 50,
+    ) {
+    }
+
+    #[Route('/admin/search/reindex-jobs', name: 'searching_admin_reindex_jobs', methods: ['GET'])]
+    public function list(Request $request): JsonResponse
+    {
+        $criteria = SearchReindexJobCriteria::fromArray($request->query->all(), $this->defaultLimit);
+
+        return new JsonResponse([
+            'items' => $this->serializer->serializeList($this->reader->list($criteria)),
+            'total' => $this->reader->count($criteria),
+            'limit' => $criteria->limit,
+            'offset' => $criteria->offset,
+        ]);
+    }
+}

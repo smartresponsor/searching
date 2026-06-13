@@ -1,0 +1,56 @@
+{% extends 'interfacing/base.html.twig' %}
+
+{% block title %}{{ title|default('Search results') }}{% endblock %}
+
+{% block body %}
+  <main class="interfacing-provider-page" data-interfacing-provider-page="search-result">
+    <section class="interfacing-provider-page__header">
+      <p class="interfacing-eyebrow interfacing-eyebrow--flush">Searching</p>
+      <h1 class="interfacing-provider-page__title">{{ title|default('Search results') }}</h1>
+      <p class="interfacing-provider-page__description">
+        {% if searchQuery is defined and searchQuery is not empty %}
+          Results for <strong>{{ searchQuery }}</strong>.
+        {% else %}
+          Enter a query in the shell search to see results here.
+        {% endif %}
+      </p>
+    </section>
+
+    {% if searchError is defined and searchError is not null %}
+      <section class="interfacing-provider-page__section">
+        <div class="interfacing-provider-alert interfacing-provider-alert--warning">
+          Search is temporarily limited.
+        </div>
+      </section>
+    {% endif %}
+
+    {% if searchResult is not null %}
+      <section class="interfacing-provider-page__section">
+        <div class="interfacing-provider-panel">
+          <div class="interfacing-provider-panel__header">
+            <h2 class="interfacing-provider-panel__title">Results</h2>
+            <span class="interfacing-provider-panel__meta">{{ searchResult.total }} hits</span>
+          </div>
+
+          <div class="interfacing-provider-record-list">
+            {% for item in searchResult.items %}
+              <article class="interfacing-provider-record">
+                <div class="interfacing-provider-record__title">
+                  {{ item.title }}
+                </div>
+                {% if item.summary is not empty %}
+                  <div class="interfacing-provider-record__meta">{{ item.summary }}</div>
+                {% endif %}
+                <div class="interfacing-provider-record__meta">
+                  {{ item.component }} / {{ item.resourceType }} / {{ item.resourceId }}
+                </div>
+              </article>
+            {% else %}
+              <div class="interfacing-provider-record interfacing-provider-record--empty">No results found.</div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  </main>
+{% endblock %}

@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Searching\ServiceInterface\Tuning;
+
+use App\Searching\Entity\SearchRelevanceProfileEntity;
+use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
+
+interface SearchRelevanceProfileReaderInterface
+{
+    /**
+     * @return list<SearchRelevanceProfileEntity>
+     */
+    public function find(SearchRelevanceProfileCriteria $criteria): array;
+
+    public function count(SearchRelevanceProfileCriteria $criteria): int;
+
+    public function findOne(int $id): ?SearchRelevanceProfileEntity;
+}
