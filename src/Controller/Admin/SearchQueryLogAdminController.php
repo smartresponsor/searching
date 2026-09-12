@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
 use App\Searching\Service\Serialization\SearchQueryLogSerializer;
-use App\Searching\ServiceInterface\Query\SearchQueryLogReaderInterface;
 use App\Searching\Value\Query\SearchQueryLogCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ final readonly class SearchQueryLogAdminController
     ) {
     }
 
-    #[Route('/admin/search/query-logs', name: 'searching_admin_query_logs', methods: ['GET'])]
+    #[Route('/admin/search/query/log', name: 'searching_admin_query_logs', methods: ['GET'])]
     public function __invoke(Request $request): JsonResponse
     {
         $criteria = SearchQueryLogCriteria::fromArray($request->query->all(), $this->defaultLimit);

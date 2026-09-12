@@ -42,7 +42,7 @@ final readonly class SearchIndexedResourceCriteria
 
     private static function nullableString(mixed $value): ?string
     {
-        if (null === $value) {
+        if (null === $value || !is_scalar($value)) {
             return null;
         }
 
@@ -84,7 +84,14 @@ final readonly class SearchIndexedResourceCriteria
             return $default;
         }
 
-        $int = (int) $value;
+        if (!is_int($value) && !is_string($value) && !is_float($value)) {
+            return $default;
+        }
+
+        $int = filter_var($value, FILTER_VALIDATE_INT);
+        if (false === $int) {
+            return $default;
+        }
 
         return $int > 0 ? $int : $default;
     }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Query;
 
-use App\Searching\ServiceInterface\Producer\SearchResultItemHydratorInterface;
-use App\Searching\ServiceInterface\Query\SearchResultHydratorInterface;
+use App\Searching\Contract\Producer\SearchResultItemHydratorInterface;
+use App\Searching\Contract\Query\SearchResultHydratorInterface;
 use App\Searching\Value\Result\SearchResultHydrationResult;
 use App\Searching\Value\Result\SearchResultItem;
 

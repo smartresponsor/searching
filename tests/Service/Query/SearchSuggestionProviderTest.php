@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Query;
 
-use App\Searching\Service\Query\SearchSuggestionProvider;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
+use App\Searching\Provider\Query\SearchSuggestionProvider;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Provider\SearchProviderResult;
 use App\Searching\Value\Provider\SearchProviderStatus;
@@ -28,10 +28,15 @@ final class SearchSuggestionProviderTest extends TestCase
             limit: 5,
         ));
 
-        self::assertSame('pho', $backend->lastQuery?->query);
-        self::assertSame(['cataloging'], $backend->lastQuery?->components);
-        self::assertSame(['product'], $backend->lastQuery?->resourceTypes);
-        self::assertSame(5, $backend->lastQuery?->limit);
+        $lastQuery = $backend->lastQuery;
+        if (null === $lastQuery) {
+            self::fail('Expected delegated suggestion query.');
+        }
+
+        self::assertSame('pho', $lastQuery->query);
+        self::assertSame(['cataloging'], $lastQuery->components);
+        self::assertSame(['product'], $lastQuery->resourceTypes);
+        self::assertSame(5, $lastQuery->limit);
         self::assertSame('phone', $suggestions[0]->text);
     }
 

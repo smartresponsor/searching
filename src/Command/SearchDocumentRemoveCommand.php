@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
-use App\Searching\ServiceInterface\Indexing\SearchIncrementalIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -30,10 +30,19 @@ final class SearchDocumentRemoveCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $component = $input->getArgument('component');
+        $resourceType = $input->getArgument('resource');
+        $resourceId = $input->getArgument('id');
+        if (!is_string($component) || !is_string($resourceType) || !is_string($resourceId)) {
+            $output->writeln('<error>component, resource, and id must be strings.</error>');
+
+            return Command::INVALID;
+        }
+
         $result = $this->incrementalIndexer->removeResource(
-            component: (string) $input->getArgument('component'),
-            resourceType: (string) $input->getArgument('resource'),
-            resourceId: (string) $input->getArgument('id'),
+            component: $component,
+            resourceType: $resourceType,
+            resourceId: $resourceId,
             changeReason: 'command',
         );
 

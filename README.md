@@ -35,7 +35,7 @@ src/Service/Search/*SearchDocumentProvider.php
 Those classes implement:
 
 ```text
-App\Searching\ServiceInterface\Producer\SearchableDocumentProviderInterface
+App\Searching\Contract\Producer\SearchableDocumentProviderInterface
 ```
 
 Symfony autoconfiguration tags them as:
@@ -67,7 +67,7 @@ GET  /admin/search/indexes
 POST /admin/search/reindex
 ```
 
-The routes are declared in YAML and can be imported from `config/routes/searching.yaml`.
+The routes are declared in YAML and can be imported from `config/routes/search_routes.yaml`.
 
 ## v0.4 provider groundwork
 
@@ -77,9 +77,9 @@ Current provider flow:
 
 ```text
 SearchProviderInterface
-  -> ElasticsearchSearchProvider / OpenSearchSearchProvider
+  -> SearchElasticsearchProvider / SearchOpenSearchProvider
   -> SearchBackendClientInterface
-  -> UnavailableSearchBackendClient by default
+  -> SearchUnavailableBackendClient by default
 ```
 
 The unavailable backend is intentionally safe: it reports unavailable status and returns empty search results instead of attempting network access. A real Elasticsearch/OpenSearch client can later replace `SearchBackendClientInterface` without changing controllers, query services, producer providers, or Interfacing/Administering consumers.
@@ -92,8 +92,8 @@ New groundwork includes:
 - SearchIndexNameBuilder
 - SearchDocumentPayloadMapper
 - SearchQueryPayloadMapper
-- AbstractBackendSearchProvider
-- UnavailableSearchBackendClient
+- SearchAbstractBackendProvider
+- SearchUnavailableBackendClient
 ```
 
 
@@ -107,7 +107,7 @@ This slice adds the contract layer required before wiring a real Elasticsearch/O
 - `SearchBulkOperationBuilderInterface` and `SearchBulkOperationBuilder` normalize bulk index operations before they reach a backend client.
 - `SearchBulkOperation`, `SearchBulkOperationSet`, `SearchBackendQuery`, and `SearchIndexMapping` keep provider communication explicit and testable.
 
-The component still defaults to `UnavailableSearchBackendClient`, so Elasticsearch/OpenSearch can be enabled structurally without creating a hard runtime dependency on a vendor client package.
+The component still defaults to `SearchUnavailableBackendClient`, so Elasticsearch/OpenSearch can be enabled structurally without creating a hard runtime dependency on a vendor client package.
 
 
 ## v0.6 index lifecycle surface
@@ -157,7 +157,7 @@ Searching now records a provider-neutral query execution trace around every `Sea
 
 - `SearchQueryExecutionTrace` captures query text, user/tenant scope, provider name, provider total, returned total, denied count, duration, success/failure, provider metadata, and execution metadata.
 - `SearchQueryLoggerInterface` is the replaceable logging boundary.
-- `NullSearchQueryLogger` is the default no-op logger so local/dev runtimes stay safe without a database writer.
+- `SearchNullQueryLogger` is the default no-op logger so local/dev runtimes stay safe without a database writer.
 - `SearchQueryLog::fromTrace()` prepares SQLite/system-state persistence for `search_query_log` without forcing a concrete repository implementation yet.
 - `SearchQueryExecutionTraceSerializer` exposes traces for future Administering/observability surfaces.
 
@@ -250,7 +250,7 @@ The API surface remains stable at `GET /api/search/suggest`, now accepting optio
 Producer components can implement:
 
 ```php
-App\Searching\ServiceInterface\Producer\SearchResultItemHydratorInterface
+App\Searching\Contract\Producer\SearchResultItemHydratorInterface
 ```
 
 Autoconfiguration adds the tag:
@@ -382,8 +382,8 @@ searching:
 The async layer is intentionally narrow:
 
 - `SearchReindexDispatcherInterface` is the application-facing dispatch contract.
-- `SyncSearchReindexDispatcher` is the safe fallback.
-- `MessengerSearchReindexDispatcher` creates a persisted requested job and dispatches `SearchReindexMessage`.
+- `SearchSyncReindexDispatcher` is the safe fallback.
+- `SearchMessengerReindexDispatcher` creates a persisted requested job and dispatches `SearchReindexMessage`.
 - `SearchReindexMessageHandler` runs that same job through `SearchReindexCoordinator::reindexExistingJob()`.
 - `POST /api/search/reindex` accepts `async: true` / `queued: true`.
 - `bin/console searching:index:enqueue` dispatches through the configured dispatcher.
@@ -427,7 +427,7 @@ search.query
 search.reindex.dispatch
 ```
 
-Default runtime remains safe: `flow_control.enabled: false` aliases `SearchOperationLimiterInterface` to `NullSearchOperationLimiter`. When enabled, the bundled in-memory limiter can reject or defer operations and exposes retry metadata for API callers. Production hosts may replace the limiter with Symfony RateLimiter, Redis, API gateway, or tenant-aware quota logic.
+Default runtime remains safe: `flow_control.enabled: false` aliases `SearchOperationLimiterInterface` to `SearchNullOperationLimiter`. When enabled, the bundled in-memory limiter can reject or defer operations and exposes retry metadata for API callers. Production hosts may replace the limiter with Symfony RateLimiter, Redis, API gateway, or tenant-aware quota logic.
 
 See `docs/flow-control.md`.
 
@@ -449,23 +449,23 @@ bin/console searching:health
 
 The health report is advisory/operational. It does not affect relevance scoring, access-control decisions, producer source-truth validation, or provider selection.
 
-## v0.25 SearchSurface contract
+## v0.25 Search response boundary
 
 `Searching` now exposes a bridge-facing surface contract for Interfacing integration:
 
 ```text
-SearchSurfaceProviderInterface
-SearchSuggestionSurfaceProviderInterface
+SearchResponseProviderInterface
+SearchSuggestionResponseProviderInterface
 ```
 
-Use these contracts through Bridging for UI consumption. They return `SearchSurface*` values and intentionally hide backend/index/reindex internals.
+Use these interfaces through Bridging for UI consumption. They return `SearchResponse*` values and intentionally hide backend/index/reindex internals.
 
 Surface endpoints:
 
 ```text
-GET /api/search/surface
-GET /api/search/surface/suggest
-GET /api/search/surface/capability
+GET /api/search/response
+GET /api/search/response/suggest
+GET /api/search/capability
 ```
 
 See `docs/interfacing-bridging-contract.md`.
@@ -483,7 +483,7 @@ The bridge payload includes autocomplete config, result-page route hints, empty/
 
 ## v0.27 integration seal
 
-Searching now exposes a first stable Interfacing consumption boundary through SearchSurface and SearchBridge contracts. Interfacing should consume search through Bridging and must not depend on provider/backend/index/reindex internals.
+Searching now exposes a first stable Interfacing consumption boundary through SearchResponse values and SearchBridge interfaces. Interfacing should consume search through Bridging and must not depend on provider/backend/index/reindex internals.
 
 See:
 

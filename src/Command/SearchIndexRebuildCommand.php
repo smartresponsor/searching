@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

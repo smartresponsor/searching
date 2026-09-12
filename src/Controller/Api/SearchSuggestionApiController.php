@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
+use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
 use App\Searching\Service\Serialization\SearchResultSerializer;
-use App\Searching\ServiceInterface\Observability\SearchExecutionContextResolverInterface;
-use App\Searching\ServiceInterface\Query\SearchSuggestionProviderInterface;
 use App\Searching\Value\Query\SearchSuggestionQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,10 @@ final readonly class SearchSuggestionApiController
     private function csv(mixed $value): array
     {
         if (is_array($value)) {
-            return array_values(array_filter(array_map('strval', $value), static fn (string $item): bool => '' !== trim($item)));
+            return array_values(array_filter(array_map(
+                static fn (mixed $item): string => is_scalar($item) ? (string) $item : '',
+                $value,
+            ), static fn (string $item): bool => '' !== trim($item)));
         }
 
         if (!is_string($value) || '' === trim($value)) {

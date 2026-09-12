@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Provider;
 
-use App\Searching\Service\Provider\SearchBulkOperationBuilder;
+use App\Searching\Builder\Provider\SearchBulkOperationBuilder;
+use App\Searching\Builder\Provider\SearchIndexNameBuilder;
 use App\Searching\Service\Provider\SearchDocumentPayloadMapper;
-use App\Searching\Service\Provider\SearchIndexNameBuilder;
 use App\Searching\Value\Document\SearchDocument;
 use PHPUnit\Framework\TestCase;
 

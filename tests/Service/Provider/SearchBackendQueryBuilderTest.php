@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Provider;
 
-use App\Searching\Service\Provider\SearchBackendQueryBuilder;
+use App\Searching\Builder\Provider\SearchBackendQueryBuilder;
 use App\Searching\Value\Provider\SearchProviderConfiguration;
 use App\Searching\Value\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +28,7 @@ final class SearchBackendQueryBuilderTest extends TestCase
                 userId: 'user-1',
             ),
             new SearchProviderConfiguration(
-                name: 'elasticsearch',
+                nameEntity: 'elasticsearch',
                 enabled: true,
                 dsn: null,
                 indexPrefix: 'sr',
@@ -37,7 +37,7 @@ final class SearchBackendQueryBuilderTest extends TestCase
         );
 
         $payload = $backendQuery->toPayload();
-
+        /** @var array{from: int, size: int, highlight: array<string, mixed>, aggs: array<string, mixed>, sort: array<string, string>, _searching: array{components: list<string>}} $payload */
         self::assertSame(10, $payload['from']);
         self::assertSame(10, $payload['size']);
         self::assertArrayHasKey('highlight', $payload);

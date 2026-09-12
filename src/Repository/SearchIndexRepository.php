@@ -10,6 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
+/** @extends ServiceEntityRepository<SearchIndexEntity> */
 final class SearchIndexRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -40,7 +41,8 @@ final class SearchIndexRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('searchIndex');
         $this->applyCriteria($qb, $criteria);
 
-        return $qb
+        /** @var list<SearchIndexEntity> $result */
+        $result = $qb
             ->orderBy('searchIndex.provider', 'ASC')
             ->addOrderBy('searchIndex.component', 'ASC')
             ->addOrderBy('searchIndex.resourceType', 'ASC')
@@ -48,6 +50,8 @@ final class SearchIndexRepository extends ServiceEntityRepository
             ->setFirstResult($criteria->offset)
             ->getQuery()
             ->getResult();
+
+        return $result;
     }
 
     public function countByCriteria(SearchIndexCriteria $criteria): int

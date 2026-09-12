@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Security;
 
-use App\Searching\ServiceInterface\Security\SearchPermissionCheckerInterface;
+use App\Searching\Contract\Security\SearchPermissionCheckerInterface;
 use App\Searching\Value\Query\SearchQuery;
 use App\Searching\Value\Result\SearchResultItem;
 use App\Searching\Value\Security\SearchPermissionDecision;

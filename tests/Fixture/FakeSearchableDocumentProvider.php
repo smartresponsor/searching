@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Fixture;
 
-use App\Searching\ServiceInterface\Producer\SearchableDocumentProviderInterface;
+use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 
 final readonly class FakeSearchableDocumentProvider implements SearchableDocumentProviderInterface

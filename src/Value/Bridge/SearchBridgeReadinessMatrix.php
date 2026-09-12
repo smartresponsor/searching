@@ -23,30 +23,30 @@ final readonly class SearchBridgeReadinessMatrix
     {
         return new self(
             '0.27',
-            'Searching exposes SearchSurface/SearchBridge contracts for Interfacing through Bridging without leaking provider, index, reindex, ledger, or backend internals.',
+            'Searching exposes SearchResponse/SearchBridge integration types for Interfacing through Bridging without leaking provider, index, reindex, ledger, or backend internals.',
             [
                 new SearchBridgeReadinessItem(
                     'Top search box',
                     'ready',
                     'Interfacing',
-                    'SearchBridgeSurfaceConfig',
+                    'SearchBridgeConfig',
                     'GET /api/search/bridge/interfacing',
-                    'Interfacing renders the control from bridge metadata and submits to the configured surface endpoint.'
+                    'Interfacing renders the control from bridge metadata and submits to the configured response endpoint.'
                 ),
                 new SearchBridgeReadinessItem(
                     'Autocomplete',
                     'ready',
                     'Searching',
-                    'SearchSurfaceSuggestionQuery',
-                    'GET /api/search/surface/suggest',
-                    'Bridging forwards UI query parameters and returns SearchSurfaceSuggestion DTOs only.'
+                    'SearchSuggestionRequest',
+                    'GET /api/search/response/suggest',
+                    'Bridging forwards UI query parameters and returns SearchSuggestionResponse DTOs only.'
                 ),
                 new SearchBridgeReadinessItem(
                     'Result page',
                     'ready',
                     'Searching',
-                    'SearchSurfaceResult',
-                    'GET /api/search/surface',
+                    'SearchResponse',
+                    'GET /api/search/response',
                     'Results expose title, summary, highlights, facets, route targets, and metadata safe for UI consumption.'
                 ),
                 new SearchBridgeReadinessItem(
@@ -63,14 +63,14 @@ final readonly class SearchBridgeReadinessMatrix
                     'Searching',
                     'SearchBridgeDegradedState',
                     'GET /api/search/bridge/interfacing',
-                    'Provider outage or disabled backend is represented as a bridge state, not as a UI exception contract.'
+                    'Provider outage or disabled backend is represented as a bridge state, not as a UI exception convention.'
                 ),
                 new SearchBridgeReadinessItem(
                     'Provider internals',
                     'sealed',
                     'Searching',
                     'Interfacing',
-                    'SearchSurfaceProviderInterface',
+                    'SearchResponseProviderInterface',
                     'Interfacing must not depend on SearchProviderInterface, backend payloads, lifecycle, query logs, or reindex jobs.'
                 ),
                 new SearchBridgeReadinessItem(
@@ -79,7 +79,7 @@ final readonly class SearchBridgeReadinessMatrix
                     'Producer components + Searching',
                     'Interfacing',
                     'hydration + permission filtering',
-                    'Backend hits are hydrated and permission-filtered before SearchSurface DTOs are returned.'
+                    'Backend hits are hydrated and permission-filtered before SearchResponse DTOs are returned.'
                 ),
             ]
         );

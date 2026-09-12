@@ -20,8 +20,13 @@ final class SearchReindexMessageContextTest extends TestCase
             executionContext: $context,
         );
 
-        self::assertSame('corr-2', $message->executionContext?->correlationId);
-        self::assertSame('administering', $message->executionContext?->sourceComponent);
-        self::assertSame('search.reindex', $message->executionContext?->sourceOperation);
+        $messageContext = $message->executionContext;
+        if (null === $messageContext) {
+            self::fail('Expected reindex message execution context.');
+        }
+
+        self::assertSame('corr-2', $messageContext->correlationId);
+        self::assertSame('administering', $messageContext->sourceComponent);
+        self::assertSame('search.reindex', $messageContext->sourceOperation);
     }
 }

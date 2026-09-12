@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Health\SearchHealthCheckerInterface;
 use App\Searching\Service\Serialization\SearchHealthReportSerializer;
-use App\Searching\ServiceInterface\Health\SearchHealthCheckerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 

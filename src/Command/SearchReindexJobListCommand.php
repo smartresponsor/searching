@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
+use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Value\Indexing\SearchReindexJobCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Registry;
 
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 
 final class SearchProviderRegistry
 {

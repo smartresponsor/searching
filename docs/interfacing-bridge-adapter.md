@@ -7,8 +7,8 @@
 ```text
 Interfacing UI
   -> Bridging adapter
-  -> InterfacingSearchBridgeProviderInterface
-  -> SearchSurfaceProviderInterface / SearchSuggestionSurfaceProviderInterface
+  -> SearchInterfacingBridgeProviderInterface
+  -> SearchResponseProviderInterface / SearchSuggestionResponseProviderInterface
   -> Searching runtime
 ```
 
@@ -36,15 +36,15 @@ metadata
 Interfacing consumes only bridge/surface DTOs:
 
 ```text
-SearchBridgeSurfaceConfig
+SearchBridgeConfig
 SearchBridgeAutocompleteConfig
 SearchBridgeResultPageConfig
 SearchBridgeEmptyState
 SearchBridgeDegradedState
-SearchSurfaceQuery
-SearchSurfaceResult
-SearchSurfaceSuggestionQuery
-SearchSurfaceSuggestion
+SearchQueryRequest
+SearchResponse
+SearchSuggestionRequest
+SearchSuggestionResponse
 ```
 
 Interfacing must not depend on:
@@ -56,8 +56,8 @@ SearchIndexLifecycleManager
 SearchReindexCoordinator
 SearchIndexedResource
 SearchQueryLog
-ElasticsearchSearchProvider
-OpenSearchSearchProvider
+SearchElasticsearchProvider
+SearchOpenSearchProvider
 ```
 
 ## Degraded mode

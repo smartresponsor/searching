@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Flow;
 
-use App\Searching\ServiceInterface\Flow\SearchOperationLimiterInterface;
+use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
 use App\Searching\Value\Flow\SearchOperationLimitDecision;
 use App\Searching\Value\Flow\SearchOperationLimitRequest;
 
@@ -35,9 +35,9 @@ final class SearchOperationLimiter implements SearchOperationLimiterInterface
             ]);
         }
 
-        $max = max(1, (int) ($limit['limit'] ?? 1));
-        $windowSeconds = max(1, (int) ($limit['window_seconds'] ?? 60));
-        $mode = (string) ($limit['mode'] ?? $this->defaultMode);
+        $max = max(1, $limit['limit']);
+        $windowSeconds = max(1, $limit['window_seconds']);
+        $mode = '' !== $limit['mode'] ? $limit['mode'] : $this->defaultMode;
         $now = time();
         $bucketKey = $request->operation.'|'.($request->identity ?? 'anonymous');
         $bucket = $this->buckets[$bucketKey] ?? ['window_start' => $now, 'used' => 0];

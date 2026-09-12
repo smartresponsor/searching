@@ -21,7 +21,7 @@ final class SearchHealthReportSerializerTest extends TestCase
         );
 
         $payload = $serializer->serializeReport($report);
-
+        /** @var array{status: string, ready: bool, indicators: list<array{nameEntity: string, metrics: array{available: int}}>} $payload */
         self::assertSame('degraded', $payload['status']);
         self::assertTrue($payload['ready']);
         self::assertSame('providers', $payload['indicators'][0]['nameEntity']);

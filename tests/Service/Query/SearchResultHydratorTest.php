@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Query;
 
+use App\Searching\Contract\Producer\SearchResultItemHydratorInterface;
 use App\Searching\Service\Query\SearchResultHydrator;
-use App\Searching\ServiceInterface\Producer\SearchResultItemHydratorInterface;
 use App\Searching\Value\Result\SearchResultItem;
 use PHPUnit\Framework\TestCase;
 

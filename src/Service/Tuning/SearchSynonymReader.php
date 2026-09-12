@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Tuning;
 
+use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Entity\SearchSynonymEntity;
 use App\Searching\Repository\SearchSynonymRepository;
-use App\Searching\ServiceInterface\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Value\Tuning\SearchSynonymCriteria;
 
 final readonly class SearchSynonymReader implements SearchSynonymReaderInterface

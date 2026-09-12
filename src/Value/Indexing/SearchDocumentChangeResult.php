@@ -19,11 +19,13 @@ final readonly class SearchDocumentChangeResult
     ) {
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function indexed(string $component, string $resourceType, string $resourceId, array $metadata = []): self
     {
         return new self('index', $component, $resourceType, $resourceId, 'indexed', $metadata);
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function removed(string $component, string $resourceType, string $resourceId, array $metadata = []): self
     {
         return new self('delete', $component, $resourceType, $resourceId, 'removed', $metadata);

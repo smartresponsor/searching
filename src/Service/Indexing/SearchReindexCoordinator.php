@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
-use App\Searching\ServiceInterface\Indexing\SearchDocumentIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobTrackerInterface;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
+use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
+use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Value\Indexing\SearchReindexResult;
 use App\Searching\Value\Observability\SearchExecutionContext;
 
@@ -16,7 +16,7 @@ final readonly class SearchReindexCoordinator implements SearchReindexCoordinato
     public function __construct(
         private SearchableResourceRegistryInterface $resourceRegistry,
         private SearchDocumentIndexerInterface $documentIndexer,
-        private SearchReindexJobTrackerInterface $jobTracker = new NullSearchReindexJobTracker(),
+        private SearchReindexJobTrackerInterface $jobTracker = new SearchNullReindexJobTracker(),
     ) {
     }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Service\Serialization\SearchRegistrySerializer;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 

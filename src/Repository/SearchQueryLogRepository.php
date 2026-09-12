@@ -10,6 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
+/** @extends ServiceEntityRepository<SearchQueryLogEntity> */
 final class SearchQueryLogRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

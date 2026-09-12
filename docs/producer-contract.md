@@ -9,7 +9,7 @@ src/Service/Search/*SearchDocumentProvider.php
 Each provider implements:
 
 ```text
-App\Searching\ServiceInterface\Producer\SearchableDocumentProviderInterface
+App\Searching\Contract\Producer\SearchableDocumentProviderInterface
 ```
 
 The bundle autoconfigures those services with the `searching.searchable_document_provider` tag. Searching then collects them through `SearchableResourceRegistry` and reindexes through `SearchReindexCoordinator`.

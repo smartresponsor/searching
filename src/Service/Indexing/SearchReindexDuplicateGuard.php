@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
+use App\Searching\Contract\Indexing\SearchReindexDuplicateGuardInterface;
 use App\Searching\Entity\SearchReindexJobEntity;
 use App\Searching\Repository\SearchReindexJobRepository;
-use App\Searching\ServiceInterface\Indexing\SearchReindexDuplicateGuardInterface;
 
 final readonly class SearchReindexDuplicateGuard implements SearchReindexDuplicateGuardInterface
 {

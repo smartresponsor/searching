@@ -8,6 +8,7 @@ use App\Searching\Value\Query\SearchQuery;
 
 final readonly class SearchOperationLimitRequest
 {
+    /** @param array<string, mixed> $metadata */
     public function __construct(
         public string $operation,
         public ?string $identity = null,

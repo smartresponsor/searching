@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
-use App\Searching\Service\Bridge\SearchBridgeSurfaceConfigSerializer;
-use App\Searching\ServiceInterface\Bridge\InterfacingSearchBridgeProviderInterface;
+use App\Searching\Contract\Bridge\SearchInterfacingBridgeProviderInterface;
+use App\Searching\Service\Bridge\SearchBridgeConfigSerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 final readonly class SearchBridgeAdminController
 {
     public function __construct(
-        private InterfacingSearchBridgeProviderInterface $interfacingBridgeProvider,
-        private SearchBridgeSurfaceConfigSerializer $serializer,
+        private SearchInterfacingBridgeProviderInterface $interfacingBridgeProvider,
+        private SearchBridgeConfigSerializer $serializer,
     ) {
     }
 
@@ -22,7 +22,7 @@ final readonly class SearchBridgeAdminController
     {
         return new JsonResponse([
             'bridge' => 'interfacing',
-            'surface' => $this->serializer->serializeConfig($this->interfacingBridgeProvider->getSurfaceConfig()),
+            'config' => $this->serializer->serializeConfig($this->interfacingBridgeProvider->getBridgeConfig()),
         ]);
     }
 }

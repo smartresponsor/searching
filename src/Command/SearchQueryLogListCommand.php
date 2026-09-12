@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
+use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
 use App\Searching\Service\Serialization\SearchQueryLogSerializer;
-use App\Searching\ServiceInterface\Query\SearchQueryLogReaderInterface;
 use App\Searching\Value\Query\SearchQueryLogCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

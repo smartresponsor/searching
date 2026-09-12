@@ -16,11 +16,13 @@ final readonly class SearchPermissionDecision
     ) {
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function allow(string $reason = 'allowed', array $metadata = []): self
     {
         return new self(true, $reason, $metadata);
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function deny(string $reason = 'denied', array $metadata = []): self
     {
         return new self(false, $reason, $metadata);

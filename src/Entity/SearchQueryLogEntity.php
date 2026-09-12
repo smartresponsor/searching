@@ -192,6 +192,11 @@ class SearchQueryLogEntity
         return $this->createdAt;
     }
 
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
     /**
      * @return array<string, mixed>
      */

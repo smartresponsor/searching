@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
+use App\Searching\Contract\Indexing\SearchReindexDispatcherInterface;
+use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
 use App\Searching\Service\Serialization\SearchReindexDispatchResultSerializer;
 use App\Searching\Service\Serialization\SearchReindexResultSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexDispatcherInterface;
-use App\Searching\ServiceInterface\Observability\SearchExecutionContextResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -28,8 +28,10 @@ final readonly class SearchReindexApiController
     public function __invoke(Request $request): JsonResponse
     {
         $payload = json_decode($request->getContent() ?: '{}', true);
-        $payload = is_array($payload) ? $payload : [];
-
+        if (!is_array($payload)) {
+            $payload = [];
+        }
+        /** @var array<string, mixed> $payload */
         $changedSince = $this->changedSinceFromPayload($payload);
         $component = $this->stringOrNull($payload['component'] ?? null);
         $resourceType = $this->stringOrNull($payload['resourceType'] ?? $payload['resource'] ?? null);
@@ -70,8 +72,17 @@ final readonly class SearchReindexApiController
      */
     private function dispatchHeaders(array $payload): array
     {
-        $retryAfter = $payload['metadata']['operation_limit']['retry_after_seconds'] ?? null;
+        $metadata = $payload['metadata'] ?? null;
+        if (!is_array($metadata)) {
+            return [];
+        }
 
+        $operationLimit = $metadata['operation_limit'] ?? null;
+        if (!is_array($operationLimit)) {
+            return [];
+        }
+
+        $retryAfter = $operationLimit['retry_after_seconds'] ?? null;
         if (!is_int($retryAfter)) {
             return [];
         }
@@ -84,7 +95,8 @@ final readonly class SearchReindexApiController
      */
     private function dispatchStatusCode(array $payload, bool $queued): int
     {
-        $operationLimit = $payload['metadata']['operation_limit'] ?? null;
+        $metadata = $payload['metadata'] ?? null;
+        $operationLimit = is_array($metadata) ? ($metadata['operation_limit'] ?? null) : null;
 
         if (is_array($operationLimit) && ($operationLimit['allowed'] ?? true) === false) {
             return ($operationLimit['deferred'] ?? false) === true ? 202 : 429;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Indexing;
 
+use App\Searching\Provider\Backend\SearchNullProvider;
 use App\Searching\Service\Indexing\SearchDocumentIndexer;
 use App\Searching\Service\Indexing\SearchReindexCoordinator;
-use App\Searching\Service\Provider\NullSearchProvider;
 use App\Searching\Service\Registry\SearchableResourceRegistry;
 use App\Searching\Tests\Fixture\FakeSearchableDocumentProvider;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ final class SearchReindexCoordinatorTest extends TestCase
 
         $coordinator = new SearchReindexCoordinator(
             $registry,
-            new SearchDocumentIndexer(new NullSearchProvider()),
+            new SearchDocumentIndexer(new SearchNullProvider()),
         );
 
         $result = $coordinator->reindex('cataloging', 'product');

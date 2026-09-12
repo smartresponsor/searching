@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
+use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
 use App\Searching\Service\Serialization\SearchIndexSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexReaderInterface;
 use App\Searching\Value\Indexing\SearchIndexCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Indexing;
 
+use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
 use App\Searching\Event\SearchDocumentChangedEvent;
 use App\Searching\Event\SearchDocumentRemovedEvent;
-use App\Searching\ServiceInterface\Indexing\SearchIncrementalIndexerInterface;
 use App\Searching\Subscriber\SearchDocumentChangeSubscriber;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Indexing\SearchDocumentChangeResult;

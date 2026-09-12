@@ -17,9 +17,9 @@ Producer components expose `SearchableDocumentProviderInterface` implementations
 
 ## MVP providers
 
-- `NullSearchProvider` for disabled/local/test mode.
-- `ElasticsearchSearchProvider` placeholder for future Elasticsearch implementation.
-- `OpenSearchSearchProvider` placeholder for future OpenSearch implementation.
+- `SearchNullProvider` for disabled/local/test mode.
+- `SearchElasticsearchProvider` placeholder for future Elasticsearch implementation.
+- `SearchOpenSearchProvider` placeholder for future OpenSearch implementation.
 
 ## v0.3 API and admin surface
 
@@ -42,9 +42,9 @@ The component keeps Elasticsearch/OpenSearch as provider infrastructure, not as 
 Default behavior is safe unavailable mode:
 
 ```text
-ElasticsearchSearchProvider
-OpenSearchSearchProvider
-  -> UnavailableSearchBackendClient
+SearchElasticsearchProvider
+SearchOpenSearchProvider
+  -> SearchUnavailableBackendClient
 ```
 
 This means the providers can be registered and inspected by Administering without requiring a real cluster or client library during early architecture waves. The actual client implementation should later be introduced behind `SearchBackendClientInterface`.
@@ -77,7 +77,7 @@ This slice adds the contract layer required before wiring a real Elasticsearch/O
 - `SearchBulkOperationBuilderInterface` and `SearchBulkOperationBuilder` normalize bulk index operations before they reach a backend client.
 - `SearchBulkOperation`, `SearchBulkOperationSet`, `SearchBackendQuery`, and `SearchIndexMapping` keep provider communication explicit and testable.
 
-The component still defaults to `UnavailableSearchBackendClient`, so Elasticsearch/OpenSearch can be enabled structurally without creating a hard runtime dependency on a vendor client package.
+The component still defaults to `SearchUnavailableBackendClient`, so Elasticsearch/OpenSearch can be enabled structurally without creating a hard runtime dependency on a vendor client package.
 
 
 ## v0.6 index lifecycle surface
@@ -123,7 +123,7 @@ Search backend filtering is treated as an optimization only. User-facing results
 
 ## v0.9 query logging and metrics
 
-Searching treats query logging as an application-level observability responsibility, not as a backend-provider concern. The runtime boundary is `SearchQueryLoggerInterface`; the default implementation is `NullSearchQueryLogger`.
+Searching treats query logging as an application-level observability responsibility, not as a backend-provider concern. The runtime boundary is `SearchQueryLoggerInterface`; the default implementation is `SearchNullQueryLogger`.
 
 Execution flow:
 
@@ -180,7 +180,7 @@ The runtime path is intentionally separate from provider/backend concerns:
 SearchQueryExecutor
   -> SearchQueryExecutionTrace
   -> SearchQueryLoggerInterface
-  -> NullSearchQueryLogger | DoctrineSearchQueryLogger
+  -> SearchNullQueryLogger | SearchDoctrineQueryLogger
   -> search_query_log
 ```
 
@@ -408,8 +408,8 @@ searching:
 The async layer is intentionally narrow:
 
 - `SearchReindexDispatcherInterface` is the application-facing dispatch contract.
-- `SyncSearchReindexDispatcher` is the safe fallback.
-- `MessengerSearchReindexDispatcher` creates a persisted requested job and dispatches `SearchReindexMessage`.
+- `SearchSyncReindexDispatcher` is the safe fallback.
+- `SearchMessengerReindexDispatcher` creates a persisted requested job and dispatches `SearchReindexMessage`.
 - `SearchReindexMessageHandler` runs that same job through `SearchReindexCoordinator::reindexExistingJob()`.
 - `POST /api/search/reindex` accepts `async: true` / `queued: true`.
 - `bin/console searching:index:enqueue` dispatches through the configured dispatcher.
@@ -418,7 +418,7 @@ This keeps operational job state in `search_reindex_job` while allowing the exec
 
 ## v0.21 Messenger retry / duplicate-dispatch contract
 
-`Searching` now treats queued reindexing as an operational workflow rather than a blind message dispatch. `SearchReindexMessage` carries a stable idempotency key, attempt metadata and max-attempt metadata. `MessengerSearchReindexDispatcher` computes the key before dispatch, checks for an already-open matching job, and reuses the open job instead of enqueueing a duplicate.
+`Searching` now treats queued reindexing as an operational workflow rather than a blind message dispatch. `SearchReindexMessage` carries a stable idempotency key, attempt metadata and max-attempt metadata. `SearchMessengerReindexDispatcher` computes the key before dispatch, checks for an already-open matching job, and reuses the open job instead of enqueueing a duplicate.
 
 The canonical state split is:
 
@@ -473,26 +473,26 @@ bin/console searching:health
 
 Health is a monitoring/Administering integration surface only. It must not affect search relevance, permission filtering, provider selection, or stale-result validation.
 
-## v0.25 — SearchSurface / Bridging boundary
+## v0.25 — Search response / Bridging boundary
 
-`Searching` exposes `SearchSurfaceProviderInterface` and `SearchSuggestionSurfaceProviderInterface` for Bridging and Interfacing.
+`Searching` exposes `SearchResponseProviderInterface` and `SearchSuggestionResponseProviderInterface` for Bridging and Interfacing.
 
-The surface layer maps internal `SearchResult` / `SearchSuggestion` values into stable UI-facing `SearchSurface*` values. It strips raw backend metadata and keeps route targets, facets, highlights, and result summaries available for Interfacing.
+The response boundary maps internal `SearchResult` / `SearchSuggestion` values into stable UI-facing `SearchResponse*` values. It strips raw backend metadata and keeps route targets, facets, highlights, and result summaries available for Interfacing.
 
 Canonical rule:
 
 ```text
-Interfacing must consume Searching through Bridging/SearchSurface contracts, not through provider, index lifecycle, query log, reindex, or backend classes.
+Interfacing must consume Searching through Bridging and the SearchResponse provider interfaces, not through provider, index lifecycle, query log, reindex, or backend classes.
 ```
 
 ## v0.26 Interfacing bridge adapter
 
-`Searching` owns the search runtime and external search surface. `Interfacing` owns rendering. `Bridging` connects them through `InterfacingSearchBridgeProviderInterface` and the `SearchBridgeSurfaceConfig` DTO family.
+`Searching` owns the search runtime and external search surface. `Interfacing` owns rendering. `Bridging` connects them through `SearchInterfacingBridgeProviderInterface` and the `SearchBridgeConfig` DTO family.
 
 Canonical flow:
 
 ```text
-Interfacing UI -> Bridging -> InterfacingSearchBridgeProviderInterface -> SearchSurfaceProviderInterface -> Searching runtime
+Interfacing UI -> Bridging -> SearchInterfacingBridgeProviderInterface -> SearchResponseProviderInterface -> Searching runtime
 ```
 
 Bridge DTOs are the only sanctioned UI-facing contract for top search, autocomplete, results page route hints, empty state, and degraded state.

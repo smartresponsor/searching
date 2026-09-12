@@ -10,6 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
+/** @extends ServiceEntityRepository<SearchReindexJobEntity> */
 final class SearchReindexJobRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -47,13 +48,16 @@ final class SearchReindexJobRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('job');
         $this->applyCriteria($qb, $criteria);
 
-        return $qb
+        /** @var list<SearchReindexJobEntity> $jobs */
+        $jobs = $qb
             ->orderBy('job.createdAt', 'DESC')
             ->addOrderBy('job.id', 'DESC')
             ->setMaxResults($criteria->limit)
             ->setFirstResult($criteria->offset)
             ->getQuery()
             ->getResult();
+
+        return $jobs;
     }
 
     public function countByCriteria(SearchReindexJobCriteria $criteria): int

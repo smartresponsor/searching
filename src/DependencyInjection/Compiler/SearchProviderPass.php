@@ -21,6 +21,10 @@ final class SearchProviderPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('searching.provider') as $serviceId => $tags) {
             foreach ($tags as $tag) {
+                if (!is_array($tag)) {
+                    continue;
+                }
+
                 $nameEntity = isset($tag['nameEntity']) && is_string($tag['nameEntity']) ? $tag['nameEntity'] : $serviceId;
                 $registry->addMethodCall('add', [$nameEntity, new Reference($serviceId)]);
             }

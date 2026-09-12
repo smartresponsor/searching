@@ -19,6 +19,6 @@ final class SearchBridgeReadinessMatrixSerializerTest extends TestCase
         self::assertNotEmpty($payload['items']);
         self::assertSame('Top search box', $payload['items'][0]['area']);
         self::assertSame('ready', $payload['items'][0]['status']);
-        self::assertStringContainsString('SearchSurface/SearchBridge', $payload['summary']);
+        self::assertStringContainsString('SearchResponse/SearchBridge', $payload['summary']);
     }
 }

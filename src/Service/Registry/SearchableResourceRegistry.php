@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Registry;
 
-use App\Searching\ServiceInterface\Producer\SearchableDocumentProviderInterface;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
+use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Value\Registry\SearchableResourceDefinition;
 
 final class SearchableResourceRegistry implements SearchableResourceRegistryInterface

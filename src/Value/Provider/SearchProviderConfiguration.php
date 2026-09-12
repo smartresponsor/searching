@@ -23,12 +23,15 @@ final readonly class SearchProviderConfiguration
      */
     public static function fromArray(string $nameEntity, array $config): self
     {
+        $options = isset($config['options']) && is_array($config['options']) ? $config['options'] : [];
+        /** @var array<string, mixed> $options */
+
         return new self(
-            name: $nameEntity,
+            nameEntity: $nameEntity,
             enabled: (bool) ($config['enabled'] ?? false),
             dsn: isset($config['dsn']) && is_string($config['dsn']) && '' !== $config['dsn'] ? $config['dsn'] : null,
             indexPrefix: isset($config['index_prefix']) && is_string($config['index_prefix']) && '' !== $config['index_prefix'] ? $config['index_prefix'] : 'sr',
-            options: isset($config['options']) && is_array($config['options']) ? $config['options'] : [],
+            options: $options,
         );
     }
 

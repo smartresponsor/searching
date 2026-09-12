@@ -16,7 +16,7 @@ final class SearchRegistrySerializerTest extends TestCase
         $payload = $serializer->serializeDefinitions([
             new SearchableResourceDefinition('cataloging', 'product', 'ProductSearchDocumentProvider'),
         ]);
-
+        /** @var array{total: int, resources: list<array{key: string}>} $payload */
         self::assertSame(1, $payload['total']);
         self::assertSame('cataloging:product', $payload['resources'][0]['key']);
     }

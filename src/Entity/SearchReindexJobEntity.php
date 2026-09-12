@@ -297,7 +297,7 @@ class SearchReindexJobEntity
         $this->providerCount = $providerCount;
         $this->processedCount = $processedCount;
         $this->failedCount = $failedCount;
-        $this->errors = array_values($errors);
+        $this->errors = $errors;
         $this->errorMessage = [] === $errors ? null : implode("\n", $errors);
         $this->status = 0 === $failedCount ? 'completed' : 'completed_with_errors';
         $this->finishedAt = $now;
@@ -313,7 +313,7 @@ class SearchReindexJobEntity
         $this->providerCount = $providerCount;
         $this->processedCount = $processedCount;
         $this->failedCount = max(1, $failedCount);
-        $this->errors = array_values($errors);
+        $this->errors = $errors;
         $this->errorMessage = [] === $errors ? 'Reindex failed.' : implode("\n", $errors);
         $this->status = 'failed';
         $this->finishedAt = $now;

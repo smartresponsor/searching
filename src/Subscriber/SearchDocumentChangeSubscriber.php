@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Subscriber;
 
+use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
 use App\Searching\Event\SearchDocumentChangedEvent;
 use App\Searching\Event\SearchDocumentRemovedEvent;
-use App\Searching\ServiceInterface\Indexing\SearchIncrementalIndexerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchDocumentChangeSubscriber implements EventSubscriberInterface
