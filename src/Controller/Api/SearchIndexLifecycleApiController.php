@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Indexing\SearchIndexLifecycleManagerInterface;
 use App\Searching\Service\Serialization\SearchIndexLifecycleResultSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -64,8 +64,12 @@ final readonly class SearchIndexLifecycleApiController
     private function payload(Request $request): array
     {
         $decoded = json_decode($request->getContent(), true);
+        if (!is_array($decoded)) {
+            return [];
+        }
 
-        return is_array($decoded) ? $decoded : [];
+        /** @var array<string, mixed> $decoded */
+        return $decoded;
     }
 
     /**

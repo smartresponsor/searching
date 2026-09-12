@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Searching\Repository;
 
+use App\Searching\Entity\SearchIndexedResourceEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/** @extends ServiceEntityRepository<SearchIndexedResourceEntity> */
 final class SearchIndexedResourceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -34,7 +36,8 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
      */
     public function findStaleSince(\DateTimeImmutable $threshold, int $limit = 100): array
     {
-        return $this->createQueryBuilder('resource')
+        /** @var list<SearchIndexedResourceEntity> $resources */
+        $resources = $this->createQueryBuilder('resource')
             ->andWhere('resource.status = :status')
             ->andWhere('resource.sourceUpdatedAt < :threshold OR resource.indexedAt IS NULL')
             ->setParameter('status', 'indexed')
@@ -43,6 +46,8 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+
+        return $resources;
     }
 
     /**
@@ -53,13 +58,16 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('resource');
         $this->applyCriteria($qb, $criteria);
 
-        return $qb
+        /** @var list<SearchIndexedResourceEntity> $resources */
+        $resources = $qb
             ->orderBy('resource.updatedAt', 'DESC')
             ->addOrderBy('resource.id', 'DESC')
             ->setMaxResults($criteria->limit)
             ->setFirstResult($criteria->offset)
             ->getQuery()
             ->getResult();
+
+        return $resources;
     }
 
     public function countByCriteria(\App\Searching\Value\Indexing\SearchIndexedResourceCriteria $criteria): int

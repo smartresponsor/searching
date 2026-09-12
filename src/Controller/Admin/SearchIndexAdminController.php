@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Service\Provider\SearchProviderStatusCollector;
 use App\Searching\Service\Serialization\SearchIndexSerializer;
 use App\Searching\Service\Serialization\SearchProviderStatusSerializer;
 use App\Searching\Service\Serialization\SearchRegistrySerializer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexReaderInterface;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Value\Indexing\SearchIndexCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

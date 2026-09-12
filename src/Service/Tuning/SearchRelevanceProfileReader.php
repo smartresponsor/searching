@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Tuning;
 
+use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use App\Searching\Repository\SearchRelevanceProfileRepository;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
 
 final readonly class SearchRelevanceProfileReader implements SearchRelevanceProfileReaderInterface

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Query;
 
+use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
+use App\Searching\Contract\Query\SearchQueryExecutorInterface;
+use App\Searching\Contract\Query\SearchQueryLoggerInterface;
+use App\Searching\Contract\Query\SearchResultHydratorInterface;
+use App\Searching\Contract\Security\SearchPermissionFilterInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
-use App\Searching\ServiceInterface\Flow\SearchOperationLimiterInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryExecutorInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryLoggerInterface;
-use App\Searching\ServiceInterface\Query\SearchResultHydratorInterface;
-use App\Searching\ServiceInterface\Security\SearchPermissionFilterInterface;
 use App\Searching\Value\Flow\SearchOperationLimitRequest;
 use App\Searching\Value\Query\SearchQuery;
 use App\Searching\Value\Query\SearchQueryExecutionTrace;

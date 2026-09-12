@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Indexing;
 
+use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Service\Indexing\SearchDocumentFingerprintCalculator;
 use App\Searching\Service\Indexing\SearchDocumentIndexer;
 use App\Searching\Service\Indexing\SearchDocumentNormalizer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceTrackerInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Indexing\SearchDocumentFingerprint;
 use App\Searching\Value\Indexing\SearchIndexedResourceState;

@@ -37,7 +37,7 @@ final class SearchReindexDispatchResultSerializerTest extends TestCase
             queued: false,
             syncResult: new SearchReindexResult('job-2', 1, 10, 0),
         ));
-
+        /** @var array{jobId: string, queued: bool, syncResult: array{documentCount: int}} $payload */
         self::assertSame('job-2', $payload['jobId']);
         self::assertFalse($payload['queued']);
         self::assertSame(10, $payload['syncResult']['documentCount']);

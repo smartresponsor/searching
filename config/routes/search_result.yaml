@@ -1,4 +1,4 @@
 searching_search_result:
     path: /search/result
-    controller: App\Searching\Service\SearchResultSurfaceBuilder::build
+    controller: App\Searching\Builder\SearchResultPayloadBuilder::build
     methods: [GET]

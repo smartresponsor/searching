@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
-use App\Searching\ServiceInterface\Indexing\SearchDocumentIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceTrackerInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
+use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 
 final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInterface
@@ -15,7 +15,7 @@ final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInter
         private SearchProviderInterface $searchProvider,
         private SearchDocumentNormalizer $documentNormalizer = new SearchDocumentNormalizer(),
         private SearchDocumentFingerprintCalculator $fingerprintCalculator = new SearchDocumentFingerprintCalculator(),
-        private SearchIndexedResourceTrackerInterface $indexedResourceTracker = new NullSearchIndexedResourceTracker(),
+        private SearchIndexedResourceTrackerInterface $indexedResourceTracker = new SearchNullIndexedResourceTracker(),
         private bool $skipUnchangedDocuments = true,
     ) {
     }

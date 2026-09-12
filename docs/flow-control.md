@@ -10,7 +10,7 @@ SearchOperationLimitRequest
   -> SearchOperationLimitDecision
 ```
 
-The default runtime remains safe. `flow_control.enabled: false` uses `NullSearchOperationLimiter`, so local/dev installations are not blocked by missing cache/rate-limiter infrastructure.
+The default runtime remains safe. `flow_control.enabled: false` uses `SearchNullOperationLimiter`, so local/dev installations are not blocked by missing cache/rate-limiter infrastructure.
 
 When enabled, the bundled `SearchOperationLimiter` provides an in-memory fixed-window guard suitable for local/small host protection and integration tests. Production host applications may replace `SearchOperationLimiterInterface` with Redis, Symfony RateLimiter, API gateway, or tenant-aware quota logic.
 

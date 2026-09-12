@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Service\Serialization\SearchIndexedResourceSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

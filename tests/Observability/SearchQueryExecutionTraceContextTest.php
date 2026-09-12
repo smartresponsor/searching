@@ -29,6 +29,7 @@ final class SearchQueryExecutionTraceContextTest extends TestCase
         );
 
         $payload = (new SearchQueryExecutionTraceSerializer())->serialize($trace);
+        /** @var array{executionContext: array{correlation_id: string}} $payload */
         $log = SearchQueryLogEntity::fromTrace($trace);
 
         self::assertSame('corr-1', $payload['executionContext']['correlation_id']);

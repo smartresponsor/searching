@@ -5,7 +5,7 @@ This document seals the first stable integration contour for user-facing busines
 ## Ownership
 
 ```text
-Searching    owns SearchSurface/SearchBridge runtime contracts and search execution.
+Searching    owns SearchResponse/SearchBridge runtime contracts and search execution.
 Bridging     adapts Searching contracts into Interfacing-owned provider interfaces.
 Interfacing  owns shell rendering, top-search UI, result page rendering, and safe fallback.
 ```
@@ -15,9 +15,9 @@ Interfacing  owns shell rendering, top-search UI, result page rendering, and saf
 ```text
 Interfacing top search / result page
   -> App\Interfacing\ServiceInterface\Interfacing\Search\SearchBridgeProviderInterface
-  -> App\Bridging\Service\SearchingInterfacing\SearchingInterfacingSearchBridgeProvider
-  -> App\Searching\ServiceInterface\Bridge\InterfacingSearchBridgeProviderInterface
-  -> Searching SearchSurface runtime
+  -> App\Bridging\Service\SearchingInterfacing\SearchingSearchInterfacingBridgeProvider
+  -> App\Searching\Contract\Bridge\SearchInterfacingBridgeProviderInterface
+  -> Searching SearchResponse runtime
 ```
 
 ## Allowed consumers
@@ -27,7 +27,7 @@ Interfacing may consume only:
 ```text
 SearchBridgeProviderInterface          Interfacing-owned interface
 SearchBridge* array payloads           returned through Bridging
-SearchSurface* array payloads          serialized by Searching/Bridging
+SearchResponse* array payloads         serialized by Searching/Bridging
 /interfacing/search                    result page
 /interfacing/search/suggest            autocomplete endpoint
 /interfacing/search/config             UI config endpoint
@@ -49,7 +49,7 @@ Elasticsearch/OpenSearch implementation metadata
 ## Host application installation order
 
 1. Register the Interfacing component and import Interfacing routes/services.
-2. Register the Searching component and import `Searching/config/routes/searching.yaml` if the host needs Searching API/admin surfaces.
+2. Register the Searching component and import `Searching/config/routes/search_routes.yaml` if the host needs Searching API/admin surfaces.
 3. Register the Bridging component and import `Bridging/config/component/services_searching_interfacing.yaml` after Interfacing's fallback alias.
 4. Confirm that Bridging overrides `App\Interfacing\ServiceInterface\Interfacing\Search\SearchBridgeProviderInterface`.
 5. Confirm `/interfacing/search`, `/interfacing/search/suggest`, and `/interfacing/search/config` remain renderable even if Searching provider state is degraded.
@@ -59,10 +59,10 @@ Elasticsearch/OpenSearch implementation metadata
 Searching:
 
 ```text
-src/ServiceInterface/Bridge/InterfacingSearchBridgeProviderInterface.php
-src/Service/Bridge/InterfacingSearchBridgeProvider.php
-src/Service/Bridge/SearchBridgeSurfaceConfigSerializer.php
-src/Contract/SearchInterfacingBridgeSurfaceContract.php
+src/Contract/Bridge/SearchInterfacingBridgeProviderInterface.php
+src/Service/Bridge/SearchInterfacingBridgeProvider.php
+src/Service/Bridge/SearchBridgeConfigSerializer.php
+src/Value/Bridge/SearchInterfacingBridgeDefinition.php
 docs/interfacing-bridging-contract.md
 docs/interfacing-bridge-adapter.md
 docs/interfacing-consumption.md
@@ -72,8 +72,8 @@ Bridging:
 
 ```text
 config/component/services_searching_interfacing.yaml
-src/Service/SearchingInterfacing/SearchingInterfacingSearchBridgeProvider.php
-src/ServiceInterface/SearchingInterfacing/SearchingInterfacingSearchBridgeProviderInterface.php
+src/Service/SearchingInterfacing/SearchingSearchInterfacingBridgeProvider.php
+src/Contract/SearchingInterfacing/SearchingSearchInterfacingBridgeProviderInterface.php
 docs/searching-interfacing/bridge-contract.md
 docs/searching-interfacing/search-bridge-runtime-wiring.md
 ```
@@ -81,7 +81,7 @@ docs/searching-interfacing/search-bridge-runtime-wiring.md
 Interfacing:
 
 ```text
-src/ServiceInterface/Interfacing/Search/SearchBridgeProviderInterface.php
+src/Contract/Interfacing/Search/SearchBridgeProviderInterface.php
 src/Service/Interfacing/Search/NullSearchBridgeProvider.php
 src/Presentation/Controller/Interfacing/SearchBridgeController.php
 templates/interfacing/search/results.html.twig

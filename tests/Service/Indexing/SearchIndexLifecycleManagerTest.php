@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Indexing;
 
+use App\Searching\Builder\Provider\SearchIndexNameBuilder;
+use App\Searching\Contract\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
+use App\Searching\Contract\Provider\SearchIndexLifecycleProviderInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Service\Indexing\SearchIndexLifecycleManager;
-use App\Searching\Service\Provider\SearchIndexNameBuilder;
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
-use App\Searching\ServiceInterface\Provider\SearchIndexLifecycleProviderInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
 use App\Searching\Value\Provider\SearchIndexLifecycleResult;

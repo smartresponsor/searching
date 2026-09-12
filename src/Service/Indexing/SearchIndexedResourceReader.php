@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
+use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
+use App\Searching\Entity\SearchIndexedResourceEntity;
 use App\Searching\Repository\SearchIndexedResourceRepository;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
 
 final readonly class SearchIndexedResourceReader implements SearchIndexedResourceReaderInterface

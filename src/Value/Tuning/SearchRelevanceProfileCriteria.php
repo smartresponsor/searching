@@ -22,24 +22,35 @@ final readonly class SearchRelevanceProfileCriteria
     public static function fromArray(array $input, int $defaultLimit = 50): self
     {
         return new self(
-            name: self::stringOrNull($input['nameEntity'] ?? $input['query'] ?? null),
+            nameEntity: self::stringOrNull($input['nameEntity'] ?? $input['query'] ?? null),
             component: self::stringOrNull($input['component'] ?? null),
             resourceType: self::stringOrNull($input['resourceType'] ?? $input['resource_type'] ?? null),
             enabled: self::boolOrNull($input['enabled'] ?? null),
-            limit: max(1, min(200, (int) ($input['limit'] ?? $defaultLimit))),
-            offset: max(0, (int) ($input['offset'] ?? 0)),
+            limit: min(200, self::toInt($input['limit'] ?? null, $defaultLimit, 1)),
+            offset: self::toInt($input['offset'] ?? null, 0, 0),
         );
     }
 
     private static function stringOrNull(mixed $value): ?string
     {
-        if (null === $value) {
+        if (null === $value || !is_scalar($value)) {
             return null;
         }
 
         $value = trim((string) $value);
 
         return '' === $value ? null : $value;
+    }
+
+    private static function toInt(mixed $value, int $default, int $minimum): int
+    {
+        if (!is_int($value) && !is_string($value) && !is_float($value)) {
+            return $default;
+        }
+
+        $integer = filter_var($value, FILTER_VALIDATE_INT);
+
+        return false === $integer ? $default : max($minimum, $integer);
     }
 
     private static function boolOrNull(mixed $value): ?bool

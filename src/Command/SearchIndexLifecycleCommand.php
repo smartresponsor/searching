@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Command;
 
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleManagerInterface;
+use App\Searching\Contract\Indexing\SearchIndexLifecycleManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -31,10 +31,16 @@ final class SearchIndexLifecycleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $operation = (string) $input->getArgument('operation');
-        $component = (string) $input->getArgument('component');
-        $resource = (string) $input->getArgument('resource');
+        $operation = $input->getArgument('operation');
+        $component = $input->getArgument('component');
+        $resource = $input->getArgument('resource');
         $provider = $input->getOption('provider');
+
+        if (!is_string($operation) || !is_string($component) || !is_string($resource)) {
+            $output->writeln('<error>operation, component, and resource must be strings.</error>');
+
+            return Command::INVALID;
+        }
 
         if (!in_array($operation, ['ensure', 'delete'], true)) {
             $output->writeln('<error>Operation must be either ensure or delete.</error>');

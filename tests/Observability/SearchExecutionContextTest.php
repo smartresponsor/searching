@@ -25,7 +25,9 @@ final class SearchExecutionContextTest extends TestCase
         self::assertSame('interfacing', $context->sourceComponent);
         self::assertSame('search.query', $context->sourceOperation);
         self::assertSame('user-1', $context->actorId);
-        self::assertSame('searching_api_search', $context->toMetadata()['metadata']['route']);
+        $metadata = $context->toMetadata();
+        /** @var array{metadata: array{route: string}} $metadata */
+        self::assertSame('searching_api_search', $metadata['metadata']['route']);
     }
 
     public function testItGeneratesCorrelationIdWhenMissing(): void

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ final readonly class SearchRelevanceProfileAdminController
     ) {
     }
 
-    #[Route('/admin/search/relevance-profiles', name: 'searching_admin_relevance_profiles', methods: ['GET'])]
+    #[Route('/admin/search/relevance/profile', name: 'searching_admin_relevance_profiles', methods: ['GET'])]
     public function __invoke(Request $request): JsonResponse
     {
         $criteria = SearchRelevanceProfileCriteria::fromArray($request->query->all(), $this->defaultLimit);

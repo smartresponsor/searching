@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexWriterInterface;
+use App\Searching\Contract\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
+use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
 use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
 use App\Searching\Value\Provider\SearchIndexLifecycleResult;
 

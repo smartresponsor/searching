@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Provider;
 
-use App\Searching\Service\Provider\SearchBackendSuggestionBuilder;
+use App\Searching\Builder\Provider\SearchBackendSuggestionBuilder;
 use App\Searching\Value\Provider\SearchProviderConfiguration;
 use App\Searching\Value\Query\SearchSuggestionQuery;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +26,7 @@ final class SearchBackendSuggestionBuilderTest extends TestCase
                 userId: 'user-1',
             ),
             new SearchProviderConfiguration(
-                name: 'opensearch',
+                nameEntity: 'opensearch',
                 enabled: true,
                 dsn: null,
                 indexPrefix: 'sr',
@@ -35,7 +35,7 @@ final class SearchBackendSuggestionBuilderTest extends TestCase
         );
 
         $payload = $backendQuery->toPayload();
-
+        /** @var array{from: int, size: int, query: array{bool: array<string, mixed>}, _searching: array{suggestion: bool, components: list<string>, resource_types: list<string>, user_id: string}} $payload */
         self::assertSame(0, $payload['from']);
         self::assertSame(7, $payload['size']);
         self::assertTrue($payload['_searching']['suggestion']);

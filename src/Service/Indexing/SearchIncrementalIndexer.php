@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
-use App\Searching\ServiceInterface\Indexing\SearchDocumentIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIncrementalIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceTrackerInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
+use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Indexing\SearchDocumentChangeResult;
 
@@ -17,7 +17,7 @@ final readonly class SearchIncrementalIndexer implements SearchIncrementalIndexe
         private SearchDocumentIndexerInterface $documentIndexer,
         private SearchProviderInterface $searchProvider,
         private SearchDocumentFingerprintCalculator $fingerprintCalculator = new SearchDocumentFingerprintCalculator(),
-        private SearchIndexedResourceTrackerInterface $indexedResourceTracker = new NullSearchIndexedResourceTracker(),
+        private SearchIndexedResourceTrackerInterface $indexedResourceTracker = new SearchNullIndexedResourceTracker(),
     ) {
     }
 

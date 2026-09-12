@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace App\Searching\DependencyInjection;
 
+use App\Searching\Builder\Indexing\SearchReindexIdempotencyKeyBuilder;
+use App\Searching\Builder\Provider\SearchBackendQueryBuilder;
+use App\Searching\Builder\Provider\SearchBackendSuggestionBuilder;
+use App\Searching\Builder\Provider\SearchBulkOperationBuilder;
+use App\Searching\Builder\Provider\SearchIndexMappingBuilder;
+use App\Searching\Builder\Provider\SearchIndexNameBuilder;
+use App\Searching\Builder\SearchResultPayloadBuilder;
 use App\Searching\Command\SearchDocumentRemoveCommand;
 use App\Searching\Command\SearchHealthCommand;
 use App\Searching\Command\SearchIndexedResourceListCommand;
@@ -14,6 +21,46 @@ use App\Searching\Command\SearchProviderStatusCommand;
 use App\Searching\Command\SearchQueryLogListCommand;
 use App\Searching\Command\SearchReindexEnqueueCommand;
 use App\Searching\Command\SearchReindexJobListCommand;
+use App\Searching\Contract\Bridge\SearchInterfacingBridgeProviderInterface;
+use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
+use App\Searching\Contract\Health\SearchHealthCheckerInterface;
+use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
+use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
+use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
+use App\Searching\Contract\Indexing\SearchIndexLifecycleManagerInterface;
+use App\Searching\Contract\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
+use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
+use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
+use App\Searching\Contract\Indexing\SearchReindexDispatcherInterface;
+use App\Searching\Contract\Indexing\SearchReindexDuplicateGuardInterface;
+use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
+use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
+use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
+use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
+use App\Searching\Contract\Producer\SearchResultItemHydratorInterface;
+use App\Searching\Contract\Provider\SearchBackendClientInterface;
+use App\Searching\Contract\Provider\SearchBackendQueryBuilderInterface;
+use App\Searching\Contract\Provider\SearchBackendSuggestionBuilderInterface;
+use App\Searching\Contract\Provider\SearchBulkOperationBuilderInterface;
+use App\Searching\Contract\Provider\SearchIndexMappingBuilderInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
+use App\Searching\Contract\Query\SearchQueryExecutorInterface;
+use App\Searching\Contract\Query\SearchQueryLoggerInterface;
+use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
+use App\Searching\Contract\Query\SearchResponseProviderInterface;
+use App\Searching\Contract\Query\SearchResultHydratorInterface;
+use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
+use App\Searching\Contract\Query\SearchSuggestionResponseProviderInterface;
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
+use App\Searching\Contract\Security\SearchPermissionCheckerInterface;
+use App\Searching\Contract\Security\SearchPermissionFilterInterface;
+use App\Searching\Contract\Tuning\SearchQueryTuningResolverInterface;
+use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
+use App\Searching\Contract\Tuning\SearchRelevanceProfileWriterInterface;
+use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
+use App\Searching\Contract\Tuning\SearchSynonymWriterInterface;
 use App\Searching\Controller\Admin\SearchBridgeAdminController;
 use App\Searching\Controller\Admin\SearchHealthAdminController;
 use App\Searching\Controller\Admin\SearchIndexAdminController;
@@ -35,29 +82,33 @@ use App\Searching\Controller\Api\SearchReindexApiController;
 use App\Searching\Controller\Api\SearchReindexJobApiController;
 use App\Searching\Controller\Api\SearchRelevanceProfileApiController;
 use App\Searching\Controller\Api\SearchResourceApiController;
+use App\Searching\Controller\Api\SearchResponseApiController;
 use App\Searching\Controller\Api\SearchSuggestionApiController;
-use App\Searching\Controller\Api\SearchSurfaceApiController;
 use App\Searching\Controller\Api\SearchSynonymApiController;
+use App\Searching\Factory\SearchResultPayloadFactory;
 use App\Searching\Handler\SearchReindexMessageHandler;
+use App\Searching\Provider\Backend\SearchElasticsearchProvider;
+use App\Searching\Provider\Backend\SearchNullProvider;
+use App\Searching\Provider\Backend\SearchOpenSearchProvider;
+use App\Searching\Provider\Bridge\SearchInterfacingBridgeProvider;
+use App\Searching\Provider\Query\SearchSuggestionProvider;
+use App\Searching\Provider\SearchResponseProvider;
 use App\Searching\Repository\SearchIndexedResourceRepository;
 use App\Searching\Repository\SearchIndexRepository;
 use App\Searching\Repository\SearchQueryLogRepository;
 use App\Searching\Repository\SearchReindexJobRepository;
 use App\Searching\Repository\SearchRelevanceProfileRepository;
 use App\Searching\Repository\SearchSynonymRepository;
-use App\Searching\Service\Bridge\InterfacingSearchBridgeProvider;
-use App\Searching\Service\Bridge\SearchBridgeSurfaceConfigSerializer;
-use App\Searching\Service\Flow\NullSearchOperationLimiter;
+use App\Searching\Resolver\Observability\SearchExecutionContextResolver;
+use App\Searching\Resolver\Tuning\SearchNullQueryTuningResolver;
+use App\Searching\Resolver\Tuning\SearchQueryTuningResolver;
+use App\Searching\Service\Bridge\SearchBridgeConfigSerializer;
+use App\Searching\Service\Flow\SearchNullOperationLimiter;
 use App\Searching\Service\Flow\SearchOperationLimiter;
 use App\Searching\Service\Health\SearchHealthChecker;
-use App\Searching\Service\Indexing\DoctrineSearchIndexedResourceTracker;
-use App\Searching\Service\Indexing\DoctrineSearchIndexWriter;
-use App\Searching\Service\Indexing\DoctrineSearchReindexJobTracker;
-use App\Searching\Service\Indexing\MessengerSearchReindexDispatcher;
-use App\Searching\Service\Indexing\NullSearchIndexedResourceTracker;
-use App\Searching\Service\Indexing\NullSearchIndexLifecycleRegistrySynchronizer;
-use App\Searching\Service\Indexing\NullSearchReindexDuplicateGuard;
-use App\Searching\Service\Indexing\NullSearchReindexJobTracker;
+use App\Searching\Service\Indexing\SearchDoctrineIndexedResourceTracker;
+use App\Searching\Service\Indexing\SearchDoctrineIndexWriter;
+use App\Searching\Service\Indexing\SearchDoctrineReindexJobTracker;
 use App\Searching\Service\Indexing\SearchDocumentFingerprintCalculator;
 use App\Searching\Service\Indexing\SearchDocumentIndexer;
 use App\Searching\Service\Indexing\SearchDocumentNormalizer;
@@ -66,37 +117,28 @@ use App\Searching\Service\Indexing\SearchIndexedResourceReader;
 use App\Searching\Service\Indexing\SearchIndexLifecycleManager;
 use App\Searching\Service\Indexing\SearchIndexLifecycleRegistrySynchronizer;
 use App\Searching\Service\Indexing\SearchIndexReader;
+use App\Searching\Service\Indexing\SearchMessengerReindexDispatcher;
+use App\Searching\Service\Indexing\SearchNullIndexedResourceTracker;
+use App\Searching\Service\Indexing\SearchNullIndexLifecycleRegistrySynchronizer;
+use App\Searching\Service\Indexing\SearchNullReindexDuplicateGuard;
+use App\Searching\Service\Indexing\SearchNullReindexJobTracker;
 use App\Searching\Service\Indexing\SearchReindexCoordinator;
 use App\Searching\Service\Indexing\SearchReindexDuplicateGuard;
-use App\Searching\Service\Indexing\SearchReindexIdempotencyKeyBuilder;
 use App\Searching\Service\Indexing\SearchReindexJobReader;
-use App\Searching\Service\Indexing\SyncSearchReindexDispatcher;
-use App\Searching\Service\Observability\SearchExecutionContextResolver;
-use App\Searching\Service\Provider\ElasticsearchSearchProvider;
-use App\Searching\Service\Provider\NullSearchProvider;
-use App\Searching\Service\Provider\OpenSearchSearchProvider;
-use App\Searching\Service\Provider\SearchBackendQueryBuilder;
-use App\Searching\Service\Provider\SearchBackendSuggestionBuilder;
-use App\Searching\Service\Provider\SearchBulkOperationBuilder;
+use App\Searching\Service\Indexing\SearchSyncReindexDispatcher;
 use App\Searching\Service\Provider\SearchDocumentPayloadMapper;
-use App\Searching\Service\Provider\SearchIndexMappingBuilder;
-use App\Searching\Service\Provider\SearchIndexNameBuilder;
 use App\Searching\Service\Provider\SearchProviderStatusCollector;
 use App\Searching\Service\Provider\SearchQueryPayloadMapper;
-use App\Searching\Service\Provider\UnavailableSearchBackendClient;
-use App\Searching\Service\Query\DoctrineSearchQueryLogger;
-use App\Searching\Service\Query\NullSearchQueryLogger;
+use App\Searching\Service\Provider\SearchUnavailableBackendClient;
+use App\Searching\Service\Query\SearchDoctrineQueryLogger;
+use App\Searching\Service\Query\SearchNullQueryLogger;
 use App\Searching\Service\Query\SearchQueryExecutor;
 use App\Searching\Service\Query\SearchQueryLogReader;
 use App\Searching\Service\Query\SearchResultHydrator;
-use App\Searching\Service\Query\SearchSuggestionProvider;
 use App\Searching\Service\Registry\SearchableResourceRegistry;
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\Service\SearchingSearchSurfaceProvider;
-use App\Searching\Service\SearchResultSurfaceBuilder;
-use App\Searching\Service\SearchSurfaceContractFactory;
-use App\Searching\Service\SearchSurfaceMapper;
-use App\Searching\Service\SearchSurfaceSerializer;
+use App\Searching\Service\SearchResponseMapper;
+use App\Searching\Service\SearchResponseSerializer;
 use App\Searching\Service\Security\SearchPermissionChecker;
 use App\Searching\Service\Security\SearchPermissionFilter;
 use App\Searching\Service\Serialization\SearchHealthReportSerializer;
@@ -113,52 +155,10 @@ use App\Searching\Service\Serialization\SearchReindexResultSerializer;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
 use App\Searching\Service\Serialization\SearchResultSerializer;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
-use App\Searching\Service\Tuning\DoctrineSearchRelevanceProfileWriter;
-use App\Searching\Service\Tuning\DoctrineSearchSynonymWriter;
-use App\Searching\Service\Tuning\NullSearchQueryTuningResolver;
-use App\Searching\Service\Tuning\SearchQueryTuningResolver;
+use App\Searching\Service\Tuning\SearchDoctrineRelevanceProfileWriter;
+use App\Searching\Service\Tuning\SearchDoctrineSynonymWriter;
 use App\Searching\Service\Tuning\SearchRelevanceProfileReader;
 use App\Searching\Service\Tuning\SearchSynonymReader;
-use App\Searching\ServiceInterface\Bridge\InterfacingSearchBridgeProviderInterface;
-use App\Searching\ServiceInterface\Flow\SearchOperationLimiterInterface;
-use App\Searching\ServiceInterface\Health\SearchHealthCheckerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchDocumentIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIncrementalIndexerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceReaderInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceTrackerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleManagerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexReaderInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexWriterInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexDispatcherInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexDuplicateGuardInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobTrackerInterface;
-use App\Searching\ServiceInterface\Observability\SearchExecutionContextResolverInterface;
-use App\Searching\ServiceInterface\Producer\SearchableDocumentProviderInterface;
-use App\Searching\ServiceInterface\Producer\SearchResultItemHydratorInterface;
-use App\Searching\ServiceInterface\Provider\SearchBackendClientInterface;
-use App\Searching\ServiceInterface\Provider\SearchBackendQueryBuilderInterface;
-use App\Searching\ServiceInterface\Provider\SearchBackendSuggestionBuilderInterface;
-use App\Searching\ServiceInterface\Provider\SearchBulkOperationBuilderInterface;
-use App\Searching\ServiceInterface\Provider\SearchIndexMappingBuilderInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryExecutorInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryLoggerInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryLogReaderInterface;
-use App\Searching\ServiceInterface\Query\SearchResultHydratorInterface;
-use App\Searching\ServiceInterface\Query\SearchSuggestionProviderInterface;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
-use App\Searching\ServiceInterface\Security\SearchPermissionCheckerInterface;
-use App\Searching\ServiceInterface\Security\SearchPermissionFilterInterface;
-use App\Searching\ServiceInterface\Surface\SearchSuggestionSurfaceProviderInterface;
-use App\Searching\ServiceInterface\Surface\SearchSurfaceProviderInterface;
-use App\Searching\ServiceInterface\Tuning\SearchQueryTuningResolverInterface;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileReaderInterface;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileWriterInterface;
-use App\Searching\ServiceInterface\Tuning\SearchSynonymReaderInterface;
-use App\Searching\ServiceInterface\Tuning\SearchSynonymWriterInterface;
 use App\Searching\Subscriber\SearchDocumentChangeSubscriber;
 use App\Searching\Value\Provider\SearchProviderConfiguration;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -171,7 +171,7 @@ final class SearchingExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
+        /** @var array{enabled: bool, default_provider: string, providers: array<string, array<string, mixed>>, indexing: array{batch_size: int, track_document_hash: bool, reindex: array{dispatch_mode: string, messenger_max_attempts: int, duplicate_guard: bool}}, query: array{default_limit: int, max_limit: int, highlights: bool, facets: bool}, logging: array{enabled: bool, driver: string, flush_immediately: bool, recent_limit: int}, hydration: array{enabled: bool}, security: array{permission_filtering: bool}, flow_control: array{enabled: bool, default_mode: string, operations: array<string, array{limit: int, window_seconds: int, mode: string}>}} $config */
         $container->setParameter('searching.enabled', $config['enabled']);
         $container->setParameter('searching.default_provider', $config['default_provider']);
         $container->setParameter('searching.providers', $config['providers']);
@@ -195,7 +195,7 @@ final class SearchingExtension extends Extension
         $container->registerForAutoconfiguration(SearchResultItemHydratorInterface::class)
             ->addTag('searching.search_result_hydrator');
 
-        $container->register(NullSearchOperationLimiter::class)
+        $container->register(SearchNullOperationLimiter::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
@@ -207,7 +207,7 @@ final class SearchingExtension extends Extension
 
         $operationLimiterClass = (bool) $config['flow_control']['enabled']
             ? SearchOperationLimiter::class
-            : NullSearchOperationLimiter::class;
+            : SearchNullOperationLimiter::class;
 
         $container->setAlias(SearchOperationLimiterInterface::class, $operationLimiterClass)
             ->setPublic(false);
@@ -219,16 +219,16 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchExecutionContextResolverInterface::class, SearchExecutionContextResolver::class)
             ->setPublic(false);
 
-        $container->register(NullSearchProvider::class)
+        $container->register(SearchNullProvider::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->addTag('searching.provider', ['nameEntity' => 'null']);
 
-        $container->register(UnavailableSearchBackendClient::class)
+        $container->register(SearchUnavailableBackendClient::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->setAlias(SearchBackendClientInterface::class, UnavailableSearchBackendClient::class)
+        $container->setAlias(SearchBackendClientInterface::class, SearchUnavailableBackendClient::class)
             ->setPublic(false);
 
         $container->register(SearchIndexNameBuilder::class)
@@ -273,13 +273,13 @@ final class SearchingExtension extends Extension
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $this->registerBackendProvider($container, 'elasticsearch', ElasticsearchSearchProvider::class, $config['providers']['elasticsearch'] ?? []);
-        $this->registerBackendProvider($container, 'opensearch', OpenSearchSearchProvider::class, $config['providers']['opensearch'] ?? []);
+        $this->registerBackendProvider($container, 'elasticsearch', SearchElasticsearchProvider::class, $config['providers']['elasticsearch'] ?? []);
+        $this->registerBackendProvider($container, 'opensearch', SearchOpenSearchProvider::class, $config['providers']['opensearch'] ?? []);
 
         $defaultProviderClass = match ($config['default_provider']) {
-            'elasticsearch' => ElasticsearchSearchProvider::class,
-            'opensearch' => OpenSearchSearchProvider::class,
-            default => NullSearchProvider::class,
+            'elasticsearch' => SearchElasticsearchProvider::class,
+            'opensearch' => SearchOpenSearchProvider::class,
+            default => SearchNullProvider::class,
         };
 
         $container->setAlias(SearchProviderInterface::class, $defaultProviderClass)
@@ -293,19 +293,23 @@ final class SearchingExtension extends Extension
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(NullSearchIndexLifecycleRegistrySynchronizer::class)
+        $container->register(SearchNullIndexLifecycleRegistrySynchronizer::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
         $container->setAlias(SearchIndexLifecycleRegistrySynchronizerInterface::class, SearchIndexLifecycleRegistrySynchronizer::class)
             ->setPublic(false);
 
+        $defaultProviderConfig = $config['providers'][$config['default_provider']] ?? [];
+        $defaultIndexPrefix = $defaultProviderConfig['index_prefix'] ?? 'sr';
+        $defaultIndexPrefix = is_string($defaultIndexPrefix) && '' !== $defaultIndexPrefix ? $defaultIndexPrefix : 'sr';
+
         $container->register(SearchIndexLifecycleManager::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->setArgument('$providerRegistry', new Reference(SearchProviderRegistry::class))
             ->setArgument('$indexNameBuilder', new Reference(SearchIndexNameBuilder::class))
-            ->setArgument('$defaultIndexPrefix', (string) ($config['providers'][$config['default_provider']]['index_prefix'] ?? 'sr'))
+            ->setArgument('$defaultIndexPrefix', $defaultIndexPrefix)
             ->setArgument('$registrySynchronizer', new Reference(SearchIndexLifecycleRegistrySynchronizerInterface::class));
 
         $container->setAlias(SearchIndexLifecycleManagerInterface::class, SearchIndexLifecycleManager::class)
@@ -314,7 +318,7 @@ final class SearchingExtension extends Extension
         foreach ([
             SearchIndexRepository::class,
             SearchIndexReader::class,
-            DoctrineSearchIndexWriter::class,
+            SearchDoctrineIndexWriter::class,
             SearchIndexSerializer::class,
         ] as $serviceClass) {
             $container->register($serviceClass)
@@ -325,7 +329,7 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchIndexReaderInterface::class, SearchIndexReader::class)
             ->setPublic(false);
 
-        $container->setAlias(SearchIndexWriterInterface::class, DoctrineSearchIndexWriter::class)
+        $container->setAlias(SearchIndexWriterInterface::class, SearchDoctrineIndexWriter::class)
             ->setPublic(false);
 
         $container->register(SearchPermissionChecker::class)
@@ -343,18 +347,18 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchPermissionFilterInterface::class, SearchPermissionFilter::class)
             ->setPublic(false);
 
-        $container->register(NullSearchQueryLogger::class)
+        $container->register(SearchNullQueryLogger::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(DoctrineSearchQueryLogger::class)
+        $container->register(SearchDoctrineQueryLogger::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->setArgument('$flushImmediately', (bool) $config['logging']['flush_immediately']);
 
         $loggerClass = ((bool) $config['logging']['enabled'] && 'doctrine' === $config['logging']['driver'])
-            ? DoctrineSearchQueryLogger::class
-            : NullSearchQueryLogger::class;
+            ? SearchDoctrineQueryLogger::class
+            : SearchNullQueryLogger::class;
 
         $container->setAlias(SearchQueryLoggerInterface::class, $loggerClass)
             ->setPublic(false);
@@ -381,11 +385,11 @@ final class SearchingExtension extends Extension
             SearchSynonymRepository::class,
             SearchRelevanceProfileRepository::class,
             SearchSynonymReader::class,
-            DoctrineSearchSynonymWriter::class,
+            SearchDoctrineSynonymWriter::class,
             SearchRelevanceProfileReader::class,
-            DoctrineSearchRelevanceProfileWriter::class,
+            SearchDoctrineRelevanceProfileWriter::class,
             SearchQueryTuningResolver::class,
-            NullSearchQueryTuningResolver::class,
+            SearchNullQueryTuningResolver::class,
             SearchSynonymSerializer::class,
             SearchRelevanceProfileSerializer::class,
         ] as $serviceClass) {
@@ -397,13 +401,13 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchSynonymReaderInterface::class, SearchSynonymReader::class)
             ->setPublic(false);
 
-        $container->setAlias(SearchSynonymWriterInterface::class, DoctrineSearchSynonymWriter::class)
+        $container->setAlias(SearchSynonymWriterInterface::class, SearchDoctrineSynonymWriter::class)
             ->setPublic(false);
 
         $container->setAlias(SearchRelevanceProfileReaderInterface::class, SearchRelevanceProfileReader::class)
             ->setPublic(false);
 
-        $container->setAlias(SearchRelevanceProfileWriterInterface::class, DoctrineSearchRelevanceProfileWriter::class)
+        $container->setAlias(SearchRelevanceProfileWriterInterface::class, SearchDoctrineRelevanceProfileWriter::class)
             ->setPublic(false);
 
         $container->setAlias(SearchQueryTuningResolverInterface::class, SearchQueryTuningResolver::class)
@@ -475,30 +479,30 @@ final class SearchingExtension extends Extension
             ->setAutoconfigured(true);
 
         foreach ([
-            SearchSurfaceMapper::class,
-            SearchSurfaceSerializer::class,
-            SearchSurfaceContractFactory::class,
-            SearchingSearchSurfaceProvider::class,
-            InterfacingSearchBridgeProvider::class,
-            SearchBridgeSurfaceConfigSerializer::class,
-        ] as $surfaceServiceClass) {
-            $container->register($surfaceServiceClass)
+            SearchResponseMapper::class,
+            SearchResponseSerializer::class,
+            SearchResultPayloadFactory::class,
+            SearchResponseProvider::class,
+            SearchInterfacingBridgeProvider::class,
+            SearchBridgeConfigSerializer::class,
+        ] as $responseServiceClass) {
+            $container->register($responseServiceClass)
                 ->setAutowired(true)
                 ->setAutoconfigured(true);
         }
 
-        $container->register(SearchResultSurfaceBuilder::class)
+        $container->register(SearchResultPayloadBuilder::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->setPublic(true);
 
-        $container->setAlias(SearchSurfaceProviderInterface::class, SearchingSearchSurfaceProvider::class)
+        $container->setAlias(SearchResponseProviderInterface::class, SearchResponseProvider::class)
             ->setPublic(false);
 
-        $container->setAlias(SearchSuggestionSurfaceProviderInterface::class, SearchingSearchSurfaceProvider::class)
+        $container->setAlias(SearchSuggestionResponseProviderInterface::class, SearchResponseProvider::class)
             ->setPublic(false);
 
-        $container->setAlias(InterfacingSearchBridgeProviderInterface::class, InterfacingSearchBridgeProvider::class)
+        $container->setAlias(SearchInterfacingBridgeProviderInterface::class, SearchInterfacingBridgeProvider::class)
             ->setPublic(false);
 
         $container->register(SearchableResourceRegistry::class)
@@ -531,18 +535,18 @@ final class SearchingExtension extends Extension
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(NullSearchIndexedResourceTracker::class)
+        $container->register(SearchNullIndexedResourceTracker::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(DoctrineSearchIndexedResourceTracker::class)
+        $container->register(SearchDoctrineIndexedResourceTracker::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->setArgument('$flushImmediately', true);
 
         $indexedResourceTrackerClass = (bool) $config['indexing']['track_document_hash']
-            ? DoctrineSearchIndexedResourceTracker::class
-            : NullSearchIndexedResourceTracker::class;
+            ? SearchDoctrineIndexedResourceTracker::class
+            : SearchNullIndexedResourceTracker::class;
 
         $container->setAlias(SearchIndexedResourceTrackerInterface::class, $indexedResourceTrackerClass)
             ->setPublic(false);
@@ -577,11 +581,11 @@ final class SearchingExtension extends Extension
         foreach ([
             SearchReindexJobRepository::class,
             SearchReindexJobReader::class,
-            DoctrineSearchReindexJobTracker::class,
-            NullSearchReindexJobTracker::class,
+            SearchDoctrineReindexJobTracker::class,
+            SearchNullReindexJobTracker::class,
             SearchReindexIdempotencyKeyBuilder::class,
             SearchReindexDuplicateGuard::class,
-            NullSearchReindexDuplicateGuard::class,
+            SearchNullReindexDuplicateGuard::class,
             SearchReindexJobSerializer::class,
         ] as $serviceClass) {
             $container->register($serviceClass)
@@ -592,12 +596,12 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchReindexJobReaderInterface::class, SearchReindexJobReader::class)
             ->setPublic(false);
 
-        $container->setAlias(SearchReindexJobTrackerInterface::class, DoctrineSearchReindexJobTracker::class)
+        $container->setAlias(SearchReindexJobTrackerInterface::class, SearchDoctrineReindexJobTracker::class)
             ->setPublic(false);
 
         $duplicateGuardClass = (bool) $config['indexing']['reindex']['duplicate_guard']
             ? SearchReindexDuplicateGuard::class
-            : NullSearchReindexDuplicateGuard::class;
+            : SearchNullReindexDuplicateGuard::class;
 
         $container->setAlias(SearchReindexDuplicateGuardInterface::class, $duplicateGuardClass)
             ->setPublic(false);
@@ -612,17 +616,17 @@ final class SearchingExtension extends Extension
         $container->setAlias(SearchReindexCoordinatorInterface::class, SearchReindexCoordinator::class)
             ->setPublic(false);
 
-        $container->register(SyncSearchReindexDispatcher::class)
+        $container->register(SearchSyncReindexDispatcher::class)
             ->setAutowired(true)
             ->setAutoconfigured(true)
             ->setArgument('$coordinator', new Reference(SearchReindexCoordinatorInterface::class))
             ->setArgument('$operationLimiter', new Reference(SearchOperationLimiterInterface::class))
             ->setArgument('$idempotencyKeyBuilder', new Reference(SearchReindexIdempotencyKeyBuilder::class));
 
-        $reindexDispatcherClass = SyncSearchReindexDispatcher::class;
+        $reindexDispatcherClass = SearchSyncReindexDispatcher::class;
 
         if ('messenger' === $config['indexing']['reindex']['dispatch_mode']) {
-            $container->register(MessengerSearchReindexDispatcher::class)
+            $container->register(SearchMessengerReindexDispatcher::class)
                 ->setAutowired(true)
                 ->setAutoconfigured(true)
                 ->setArgument('$jobTracker', new Reference(SearchReindexJobTrackerInterface::class))
@@ -638,7 +642,7 @@ final class SearchingExtension extends Extension
                 ->setArgument('$jobTracker', new Reference(SearchReindexJobTrackerInterface::class))
                 ->addTag('messenger.message_handler');
 
-            $reindexDispatcherClass = MessengerSearchReindexDispatcher::class;
+            $reindexDispatcherClass = SearchMessengerReindexDispatcher::class;
         }
 
         $container->setAlias(SearchReindexDispatcherInterface::class, $reindexDispatcherClass)
@@ -689,7 +693,7 @@ final class SearchingExtension extends Extension
             SearchHealthAdminController::class,
             SearchBridgeApiController::class,
             SearchBridgeAdminController::class,
-            SearchSurfaceApiController::class,
+            SearchResponseApiController::class,
         ] as $controllerClass) {
             $container->register($controllerClass)
                 ->setAutowired(true)
@@ -750,7 +754,6 @@ final class SearchingExtension extends Extension
             ->setAutoconfigured(true)
             ->setArgument('$configuration', new Reference($configurationServiceId))
             ->setArgument('$indexNameBuilder', new Reference(SearchIndexNameBuilder::class))
-            ->setArgument('$documentPayloadMapper', new Reference(SearchDocumentPayloadMapper::class))
             ->setArgument('$queryBuilder', new Reference(SearchBackendQueryBuilderInterface::class))
             ->setArgument('$suggestionBuilder', new Reference(SearchBackendSuggestionBuilderInterface::class))
             ->setArgument('$bulkOperationBuilder', new Reference(SearchBulkOperationBuilderInterface::class))

@@ -8,8 +8,8 @@ Searching v0.27 closes the first integration contour for user-facing business se
 Producer components
   -> SearchableDocumentProviderInterface / SearchResultItemHydratorInterface
   -> Searching runtime
-  -> SearchSurfaceProviderInterface
-  -> InterfacingSearchBridgeProviderInterface
+  -> SearchResponseProviderInterface
+  -> SearchInterfacingBridgeProviderInterface
   -> Bridging
   -> Interfacing UI
 ```
@@ -21,8 +21,8 @@ Producer components
 | Business source records | Producer components | Searching | sealed |
 | Searchable document normalization | Producer components + Searching | Searching provider layer | sealed |
 | Backend provider access | Searching | none outside Searching | sealed |
-| Hydration/source-truth validation | Producer components + Searching | SearchSurface | sealed |
-| Permission filtering | Searching | SearchSurface | sealed |
+| Hydration/source-truth validation | Producer components + Searching | SearchResponse | sealed |
+| Permission filtering | Searching | SearchResponse | sealed |
 | Search UI rendering | Interfacing | User | ready |
 | Bridge metadata/config | Searching | Bridging/Interfacing | ready |
 | Admin tuning/config | Searching | Administering | ready for integration |
@@ -47,9 +47,9 @@ Remaining work is no longer core architecture expansion. Remaining work should b
 - wire Bridging adapter in the host app;
 - render top search from bridge config;
 - render autocomplete from surface suggestions;
-- render search result page from `SearchSurfaceResult`;
+- render search result page from `SearchResponse`;
 - register one producer provider and one hydrator;
-- run runtime proof with `NullSearchProvider`, then with a real backend provider.
+- run runtime proof with `SearchNullProvider`, then with a real backend provider.
 
 ## Stop condition
 

@@ -8,20 +8,20 @@ Interfacing consumes Searching only through the bridge/surface layer. It must re
 
 Interfacing may depend on these concepts only:
 
-- `SearchBridgeSurfaceConfig`
+- `SearchBridgeConfig`
 - `SearchBridgeAutocompleteConfig`
 - `SearchBridgeResultPageConfig`
 - `SearchBridgeEmptyState`
 - `SearchBridgeDegradedState`
 - `SearchBridgeRouteHint`
-- `SearchSurfaceQuery`
-- `SearchSurfaceSuggestionQuery`
-- `SearchSurfaceResult`
-- `SearchSurfaceResultItem`
-- `SearchSurfaceSuggestion`
-- `SearchSurfaceFacet`
-- `SearchSurfaceHighlight`
-- `SearchSurfaceCapability`
+- `SearchQueryRequest`
+- `SearchSuggestionRequest`
+- `SearchResponse`
+- `SearchResponseItem`
+- `SearchSuggestionResponse`
+- `SearchFacetResponse`
+- `SearchHighlightResponse`
+- `SearchCapability`
 
 Interfacing must not depend on:
 
@@ -36,23 +36,23 @@ Interfacing must not depend on:
 
 ## Top search UI
 
-Interfacing should ask Bridging for `GET /api/search/bridge/interfacing` and render the top search input from the returned `SearchBridgeSurfaceConfig`.
+Interfacing should ask Bridging for `GET /api/search/bridge/interfacing` and render the top search input from the returned `SearchBridgeConfig`.
 
-The top search control should submit to the configured surface endpoint, normally:
+The top search control should submit to the configured response endpoint, normally:
 
 ```text
-GET /api/search/surface?q=...
+GET /api/search/response?q=...
 ```
 
 Autocomplete should call:
 
 ```text
-GET /api/search/surface/suggest?q=...
+GET /api/search/response/suggest?q=...
 ```
 
 ## Result page
 
-The result page renders `SearchSurfaceResult` only. Each result item carries UI-safe fields:
+The result page renders `SearchResponse` only. Each result item carries UI-safe fields:
 
 - stable identity
 - component/resource labels
@@ -72,4 +72,4 @@ Empty state and degraded state copy must come from bridge metadata. Interfacing 
 
 ## Security and stale records
 
-Interfacing receives only hydrated and permission-filtered surface results. It must not bypass `SearchSurfaceProviderInterface` by calling provider/backend services.
+Interfacing receives only hydrated and permission-filtered surface results. It must not bypass `SearchResponseProviderInterface` by calling provider/backend services.

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
+use App\Searching\Contract\Tuning\SearchRelevanceProfileWriterInterface;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileReaderInterface;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileWriterInterface;
 use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,7 +75,11 @@ final readonly class SearchRelevanceProfileApiController
     private function payload(Request $request): array
     {
         $decoded = json_decode($request->getContent() ?: '{}', true);
+        if (!is_array($decoded)) {
+            return [];
+        }
 
-        return is_array($decoded) ? $decoded : [];
+        /** @var array<string, mixed> $decoded */
+        return $decoded;
     }
 }

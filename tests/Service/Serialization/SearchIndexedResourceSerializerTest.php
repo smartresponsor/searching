@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Serialization;
 
+use App\Searching\Entity\SearchIndexedResourceEntity;
 use App\Searching\Service\Serialization\SearchIndexedResourceSerializer;
 use PHPUnit\Framework\TestCase;
 

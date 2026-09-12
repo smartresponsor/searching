@@ -1,10 +1,10 @@
-# Searching v0.25 — Interfacing / Bridging Surface Contract
+# Searching v0.25 — Interfacing / Bridging Response Boundary
 
 ## Purpose
 
 `Searching` exposes a small UI-facing contract so `Interfacing` can render global search through `Bridging` without depending on search backend internals.
 
-The surface contract is intentionally narrower than the internal runtime. It exposes only what a UI/bridge needs:
+The response boundary is intentionally narrower than the internal runtime. It exposes only what a UI/bridge needs:
 
 - query input
 - result items
@@ -29,11 +29,11 @@ It does not expose:
 ```text
 Interfacing search UI
   -> Bridging search provider
-  -> SearchSurfaceProviderInterface
-  -> SearchingSearchSurfaceProvider
+  -> SearchResponseProviderInterface
+  -> SearchResponseProvider
   -> SearchQueryExecutorInterface
   -> SearchResult hydration + permission filtering
-  -> SearchSurfaceResult
+  -> SearchResponse
 ```
 
 Suggestions follow the same boundary:
@@ -41,57 +41,57 @@ Suggestions follow the same boundary:
 ```text
 Interfacing autocomplete
   -> Bridging suggestion provider
-  -> SearchSuggestionSurfaceProviderInterface
-  -> SearchingSearchSurfaceProvider
+  -> SearchSuggestionResponseProviderInterface
+  -> SearchResponseProvider
   -> SearchSuggestionProviderInterface
-  -> list<SearchSurfaceSuggestion>
+  -> list<SearchSuggestionResponse>
 ```
 
 ## Bridge-facing services
 
 ```php
-App\Searching\ServiceInterface\Surface\SearchSurfaceProviderInterface
-App\Searching\ServiceInterface\Surface\SearchSuggestionSurfaceProviderInterface
+App\Searching\Contract\Query\SearchResponseProviderInterface
+App\Searching\Contract\Query\SearchSuggestionResponseProviderInterface
 ```
 
 Concrete implementation inside Searching:
 
 ```php
-App\Searching\Service\SearchingSearchSurfaceProvider
+App\Searching\Provider\SearchResponseProvider
 ```
 
-## Surface values
+## Response values
 
 ```text
-SearchSurfaceQuery
-SearchSurfaceSuggestionQuery
-SearchSurfaceResult
-SearchSurfaceResultItem
-SearchSurfaceFacet
-SearchSurfaceHighlight
-SearchSurfaceSuggestion
-SearchSurfaceCapability
+SearchQueryRequest
+SearchSuggestionRequest
+SearchResponse
+SearchResponseItem
+SearchFacetResponse
+SearchHighlightResponse
+SearchSuggestionResponse
+SearchCapability
 ```
 
 These are the only values Bridging/Interfacing should consume for user-facing search.
 
 ## API endpoints
 
-The HTTP surface is optional but useful for host apps and UI smoke tests:
+The HTTP response API is optional but useful for host apps and UI smoke tests:
 
 ```text
-GET /api/search/surface
-GET /api/search/surface/suggest
-GET /api/search/surface/capability
+GET /api/search/response
+GET /api/search/response/suggest
+GET /api/search/capability
 ```
 
-The direct internal API endpoints remain available, but Interfacing should prefer the surface endpoints/contracts when building UI.
+The direct internal API endpoints remain available, but Interfacing should prefer the response endpoints/contracts when building UI.
 
 ## Canonical boundary
 
 ```text
 Searching owns search execution and safe result projection.
-Bridging adapts SearchSurface* values to Interfacing contracts.
+Bridging adapts SearchResponse* values to Interfacing-owned interfaces.
 Interfacing renders UI only.
 ```
 

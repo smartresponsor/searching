@@ -29,7 +29,7 @@ final class SearchResultSerializerTest extends TestCase
                 routeParameters: ['id' => 42],
             )],
         ));
-
+        /** @var array{query: string, total: int, items: list<array{component: string, routeName: string}>} $payload */
         self::assertSame('invoice', $payload['query']);
         self::assertSame(1, $payload['total']);
         self::assertSame('ordering', $payload['items'][0]['component']);

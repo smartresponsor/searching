@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Provider;
 
-use App\Searching\Service\Provider\SearchIndexNameBuilder;
+use App\Searching\Builder\Provider\SearchIndexNameBuilder;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;

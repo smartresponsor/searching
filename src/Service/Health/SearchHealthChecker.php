@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Health;
 
+use App\Searching\Contract\Health\SearchHealthCheckerInterface;
+use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
+use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
+use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
+use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Service\Provider\SearchProviderStatusCollector;
-use App\Searching\ServiceInterface\Health\SearchHealthCheckerInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceReaderInterface;
-use App\Searching\ServiceInterface\Indexing\SearchIndexReaderInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
-use App\Searching\ServiceInterface\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Value\Health\SearchHealthIndicator;
 use App\Searching\Value\Health\SearchHealthReport;
 use App\Searching\Value\Indexing\SearchIndexCriteria;
@@ -74,7 +74,7 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
             : sprintf('%d of %d registered search providers are available.', $available, $total);
 
         return new SearchHealthIndicator(
-            name: 'providers',
+            nameEntity: 'providers',
             status: $status,
             summary: $summary,
             metrics: ['total' => $total, 'available' => $available],
@@ -98,7 +98,7 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
         }
 
         return new SearchHealthIndicator(
-            name: 'registry',
+            nameEntity: 'registry',
             status: $status,
             summary: $summary,
             metrics: [
@@ -134,7 +134,7 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
         }
 
         return new SearchHealthIndicator(
-            name: 'lifecycle',
+            nameEntity: 'lifecycle',
             status: $status,
             summary: sprintf('%d enabled index definitions checked; %d have lifecycle errors.', count($indexes), $withError),
             metrics: [
@@ -158,7 +158,7 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
         }
 
         return new SearchHealthIndicator(
-            name: 'indexed_resources',
+            nameEntity: 'indexed_resources',
             status: $status,
             summary: sprintf('%d stale and %d failed indexed resources are recorded.', $stale, $failed),
             metrics: [
@@ -184,7 +184,7 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
         }
 
         return new SearchHealthIndicator(
-            name: 'reindex_backlog',
+            nameEntity: 'reindex_backlog',
             status: $status,
             summary: sprintf('%d active reindex jobs and %d failed jobs are recorded.', $backlog, $failed),
             metrics: [

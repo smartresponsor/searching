@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Handler;
 
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
+use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
 use App\Searching\Message\SearchReindexMessage;
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobTrackerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

@@ -6,6 +6,7 @@ namespace App\Searching\Value\Indexing;
 
 final readonly class SearchReindexDispatchResult
 {
+    /** @param array<string, mixed> $metadata */
     public function __construct(
         public string $jobId,
         public string $mode,

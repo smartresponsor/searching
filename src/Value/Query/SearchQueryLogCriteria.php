@@ -58,9 +58,13 @@ final readonly class SearchQueryLogCriteria
             return $fallback;
         }
 
-        $integer = (int) $value;
+        if (!is_int($value) && !is_string($value) && !is_float($value)) {
+            return $fallback;
+        }
 
-        return max(1, $integer);
+        $integer = filter_var($value, FILTER_VALIDATE_INT);
+
+        return false === $integer ? $fallback : max(1, $integer);
     }
 
     private static function nonNegativeInt(mixed $value): int
@@ -69,12 +73,18 @@ final readonly class SearchQueryLogCriteria
             return 0;
         }
 
-        return max(0, (int) $value);
+        if (!is_int($value) && !is_string($value) && !is_float($value)) {
+            return 0;
+        }
+
+        $integer = filter_var($value, FILTER_VALIDATE_INT);
+
+        return false === $integer ? 0 : max(0, $integer);
     }
 
     private static function nullableString(mixed $value): ?string
     {
-        if (null === $value) {
+        if (null === $value || !is_scalar($value)) {
             return null;
         }
 
@@ -98,7 +108,7 @@ final readonly class SearchQueryLogCriteria
 
     private static function nullableDate(mixed $value): ?\DateTimeImmutable
     {
-        if (null === $value || '' === $value) {
+        if (null === $value || '' === $value || !is_scalar($value)) {
             return null;
         }
 

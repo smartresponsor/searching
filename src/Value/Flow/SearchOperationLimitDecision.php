@@ -6,6 +6,7 @@ namespace App\Searching\Value\Flow;
 
 final readonly class SearchOperationLimitDecision
 {
+    /** @param array<string, mixed> $metadata */
     public function __construct(
         public bool $allowed,
         public bool $deferred = false,
@@ -15,16 +16,19 @@ final readonly class SearchOperationLimitDecision
     ) {
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function allow(array $metadata = []): self
     {
         return new self(true, false, null, null, $metadata);
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function reject(string $reason, ?int $retryAfterSeconds = null, array $metadata = []): self
     {
         return new self(false, false, $retryAfterSeconds, $reason, $metadata);
     }
 
+    /** @param array<string, mixed> $metadata */
     public static function defer(string $reason, ?int $retryAfterSeconds = null, array $metadata = []): self
     {
         return new self(false, true, $retryAfterSeconds, $reason, $metadata);

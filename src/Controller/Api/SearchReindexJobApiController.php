@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Value\Indexing\SearchReindexJobCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,10 +33,10 @@ final readonly class SearchReindexJobApiController
         ]);
     }
 
-    #[Route('/api/search/reindex/job/{jobKey}', name: 'searching_api_reindex_job_view', methods: ['GET'])]
-    public function view(string $jobKey): JsonResponse
+    #[Route('/api/search/reindex/job/{token}', name: 'searching_api_reindex_job_view', methods: ['GET'])]
+    public function view(string $token): JsonResponse
     {
-        $job = $this->reader->findOne($jobKey);
+        $job = $this->reader->findOne($token);
         if (null === $job) {
             return new JsonResponse(['error' => 'search_reindex_job_not_found'], 404);
         }

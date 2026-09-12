@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Service\Serialization\SearchIndexedResourceSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ final readonly class SearchIndexedResourceAdminController
     ) {
     }
 
-    #[Route('/admin/search/indexed-resources', name: 'searching_admin_indexed_resources', methods: ['GET'])]
+    #[Route('/admin/search/indexed/resource', name: 'searching_admin_indexed_resources', methods: ['GET'])]
     public function __invoke(Request $request): JsonResponse
     {
         $criteria = SearchIndexedResourceCriteria::fromArray($request->query->all(), $this->defaultLimit);

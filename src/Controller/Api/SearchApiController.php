@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Api;
 
+use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
+use App\Searching\Contract\Query\SearchQueryExecutorInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
 use App\Searching\Service\Serialization\SearchResultSerializer;
-use App\Searching\ServiceInterface\Observability\SearchExecutionContextResolverInterface;
-use App\Searching\ServiceInterface\Query\SearchQueryExecutorInterface;
 use App\Searching\Value\Query\SearchQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

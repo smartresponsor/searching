@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Tuning;
 
+use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
+use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use App\Searching\Entity\SearchSynonymEntity;
-use App\Searching\Service\Tuning\SearchQueryTuningResolver;
-use App\Searching\ServiceInterface\Tuning\SearchRelevanceProfileReaderInterface;
-use App\Searching\ServiceInterface\Tuning\SearchSynonymReaderInterface;
+use App\Searching\Resolver\Tuning\SearchQueryTuningResolver;
 use App\Searching\Value\Query\SearchQuery;
 use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
 use App\Searching\Value\Tuning\SearchSynonymCriteria;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Indexing;
 
+use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
+use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Service\Indexing\SearchIncrementalIndexer;
-use App\Searching\ServiceInterface\Indexing\SearchDocumentIndexerInterface;
-use App\Searching\ServiceInterface\Provider\SearchProviderInterface;
 use App\Searching\Value\Document\SearchDocument;
 use App\Searching\Value\Provider\SearchProviderResult;
 use App\Searching\Value\Provider\SearchProviderStatus;

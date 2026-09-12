@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
 use App\Searching\Service\Serialization\SearchReindexResultSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchReindexCoordinatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Controller\Admin;
 
+use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
-use App\Searching\ServiceInterface\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Value\Indexing\SearchReindexJobCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ final readonly class SearchReindexJobAdminController
     ) {
     }
 
-    #[Route('/admin/search/reindex-jobs', name: 'searching_admin_reindex_jobs', methods: ['GET'])]
+    #[Route('/admin/search/reindex/job', name: 'searching_admin_reindex_jobs', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
         $criteria = SearchReindexJobCriteria::fromArray($request->query->all(), $this->defaultLimit);

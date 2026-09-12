@@ -59,6 +59,7 @@ $config
         'ordered_traits' => false,
         'no_homoglyph_names' => false,
         'single_line_comment_style' => false,
+        'phpdoc_to_comment' => false,
     ])
     ->setFinder($finder);
 
