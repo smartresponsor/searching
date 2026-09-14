@@ -234,3 +234,35 @@ Remaining debt after wave 1:
 
 - Lines and Methods remain the dominant Canon040 debt dimensions. The next efficient targets are orchestration/service classes with low method/line coverage (`SearchDocumentIndexer`, `SearchIndexLifecycleManager`, `SearchReindexCoordinator`, selected serializers/result mappers) rather than further path-explosion chasing in already high-line-covered builders.
 - Canon042 behavioral workflow inventory remains a separate post-RC growth task and is not conflated with unit coverage.
+
+## Iteration 10 — post-RC coverage debt wave 2
+
+Wave 2 remains test-only. No production PHP, dependency, configuration, schema, route, controller, or integration contract is modified.
+
+Coverage targets were selected from the post-wave-1 report by prioritizing orchestration/service classes with material uncovered lines and methods rather than chasing combinatorial path counts in already well-covered builders.
+
+Material test work:
+
+- Extended `SearchIndexLifecycleManagerTest` with lifecycle-provider delete, non-lifecycle fallback delete/index naming, and all-provider ensure orchestration.
+- Added `SearchDocumentIndexerFailureTest` covering mixed current/changed bulk indexing, single-index failure bookkeeping/rethrow, and bulk failure bookkeeping for all pending documents.
+- Added `SearchReindexCoordinatorCoverageTest` covering explicit reindex-request job creation, provider-level failure aggregation, and successful existing-job document processing/completion.
+- Production code remained unchanged throughout the wave.
+
+Verification and measured effect:
+
+- Changed PHP lint: 3/3 files passed.
+- PHP-CS-Fixer normalized new-file line endings and reported no semantic source changes.
+- PHPStan: 299/299 files, 0 errors.
+- PHPUnit: 83/83 tests, 410 assertions passed.
+- Xdebug path-coverage run: passed.
+- Coverage after wave 2: Classes 26.63% (53/199), Methods 40.81% (291/713), Paths 3.76% (398/10579), Branches 77.82% (926/1190), Lines 37.87% (1680/4436).
+- Relative to the original RC baseline, Lines rose from 34.99% to 37.87%, Methods from 38.43% to 40.81%, and Branches from 66.30% to 77.82%.
+- `SearchIndexLifecycleManager` reached 100% Methods / 100% Branches / 100% Lines.
+- `SearchDocumentIndexer` reached 66.67% Methods / 96.43% Branches / 96.43% Lines.
+- `SearchReindexCoordinator` improved to 75% Methods / 73.68% Branches / 85.71% Lines.
+
+Wave-2 checkpoint:
+
+- The highest-value deterministic service gaps selected for this wave are now covered.
+- Remaining Canon040 debt is predominantly broad Methods/Lines distribution across serializers, null trackers, DTO/helper methods, and larger query/mapper surfaces. Further gains should be handled as a separate wave rather than expanding this focused change indefinitely.
+- Path coverage remains intentionally non-targeted where high cyclomatic/path counts would incentivize low-value combinatorial tests.
