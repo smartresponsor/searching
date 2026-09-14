@@ -190,4 +190,21 @@ RC decision before Git integration:
 
 - Runtime, package, standalone, persistence, bridge, static-analysis, unit-test, package-security, and tooling contracts are green.
 - Remaining known debt is explicit test-coverage maturity work, not a correctness/package/persistence blocker under Canon040/042 semantics.
-- Next step is coherent signed commit, push of the feature branch, PR inspection/merge when GitHub policy is green, synchronization of local `master`, and final clean-worktree/upstream verification.
+- Functional RC integration completed through signed commit `86ba77e`, GitHub PR #3, and a squash merge to `origin/master` at `729c1c547a433359f6906e4cfa9983edba5d4359`.
+- The feature branch remained clean and exactly synchronized with its pushed upstream after merge.
+- Console MCP intentionally blocks switching directly to protected local `master`; this safety boundary was not bypassed. `origin/master` was fetched and verified as the authoritative merged state.
+
+## Iteration 8 — final journal integration tail
+
+This follow-up is documentation-only and exists solely to make the orchestration journal factual after PR #3 merged. No product/runtime/package/schema/test configuration is changed by this iteration.
+
+Final integration facts before this journal-only follow-up:
+
+- GitHub repository: `smartresponsor/searching`.
+- Functional RC PR: #3 (`Harden Searching RC package and standalone contracts`).
+- PR #3 state: merged with no merge-safety blockers; inspected head SHA matched `86ba77e974531e27c86d6243005ee74e5e827d39`.
+- `origin/master` advanced from `135edadd6154344f9e620c2b28e7cb82b1cfaef0` to squash commit `729c1c547a433359f6906e4cfa9983edba5d4359`.
+- The pre-merge feature worktree was clean, ahead/behind 0 against its upstream, and all accepted RC evidence remained green.
+- Known residual debt remains the explicitly measured Canon040/042 testing-maturity work described above; no unrecorded correctness or integration blocker remains.
+
+This Iteration 8 journal-only change is the final integration tail and should be merged without reopening the completed functional RC scope.
