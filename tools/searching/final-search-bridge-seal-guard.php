@@ -5,9 +5,9 @@ declare(strict_types=1);
 $root = dirname(__DIR__, 2);
 $required = [
     'src/Contract/Bridge/SearchInterfacingBridgeProviderInterface.php',
-    'src/Service/Bridge/SearchInterfacingBridgeProvider.php',
+    'src/Provider/Bridge/SearchInterfacingBridgeProvider.php',
     'src/Service/Bridge/SearchBridgeConfigSerializer.php',
-    'src/Contract/SearchInterfacingBridgeDefinition.php',
+    'src/Value/Bridge/SearchInterfacingBridgeDefinition.php',
     'docs/interfacing-bridging-contract.md',
     'docs/interfacing-bridge-adapter.md',
     'docs/interfacing-consumption.md',
@@ -22,7 +22,7 @@ foreach ($required as $relative) {
     }
 }
 
-$provider = $root . '/src/Service/Bridge/SearchInterfacingBridgeProvider.php';
+$provider = $root . '/src/Provider/Bridge/SearchInterfacingBridgeProvider.php';
 $interface = $root . '/src/Contract/Bridge/SearchInterfacingBridgeProviderInterface.php';
 $extension = $root . '/src/DependencyInjection/SearchingExtension.php';
 

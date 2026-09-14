@@ -4,7 +4,15 @@
   "type": "symfony-bundle",
   "license": "proprietary",
   "require": {
+    "collectioning/collection": "dev-master",
+    "cruding/crud": "dev-master",
+    "easycorp/easyadmin-bundle": "^5.0",
+    "interfacing/interface": "dev-master",
+    "objecting/object": "dev-master",
+    "tabling/table": "dev-master",
+    "viewing/view": "dev-master",
     "php": "^8.4",
+    "symfony/framework-bundle": "^8.1",
     "symfony/config": "^8.1",
     "symfony/dependency-injection": "^8.1",
     "symfony/http-kernel": "^8.1",
@@ -14,13 +22,66 @@
     "symfony/messenger": "^8.1",
     "doctrine/orm": "^3.0",
     "doctrine/doctrine-bundle": "^3.0",
+    "doctrine/doctrine-migrations-bundle": "^4.0",
     "symfony/form": "^8.1",
     "doctrine/persistence": "^4.0"
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../Collectioning",
+      "options": {
+        "symlink": true,
+        "versions": { "collectioning/collection": "dev-master" }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Cruding",
+      "options": {
+        "symlink": true,
+        "versions": { "cruding/crud": "dev-master" }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Interfacing",
+      "options": {
+        "symlink": true,
+        "versions": { "interfacing/interface": "dev-master" }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Objecting",
+      "options": {
+        "symlink": true,
+        "versions": { "objecting/object": "dev-master" }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Tabling",
+      "options": {
+        "symlink": true,
+        "versions": { "tabling/table": "dev-master" }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Viewing",
+      "options": {
+        "symlink": true,
+        "versions": { "viewing/view": "dev-master" }
+      }
+    }
+  ],
   "require-dev": {
     "phpunit/phpunit": "^11.0",
 	"friendsofphp/php-cs-fixer": "3.94",
-    "phpstan/phpstan": "^2.2"
+    "phpstan/phpstan": "^2.2",
+    "symfony/panther": "^2.4",
+    "symfony/test-pack": "^1.2"
   },
   "autoload": {
     "psr-4": {
@@ -34,10 +95,24 @@
   },
   "scripts": {
     "test": "phpunit",
+    "bridge:seal": "php tools/searching/final-search-bridge-seal-guard.php",
+    "test:coverage": [
+      "@php -r \"if (!is_dir('var/coverage')) { mkdir('var/coverage', 0777, true); }\"",
+      "@php -d xdebug.mode=coverage vendor/bin/phpunit --path-coverage --coverage-text=var/coverage/summary.txt"
+    ],
     "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
     "cs:fix": "php-cs-fixer fix --verbose",
     "stan": "phpstan analyse --memory-limit=1G",
+    "standalone:check": "php bin/console about --env=test --no-interaction",
+    "schema:parity": [
+      "php bin/console doctrine:schema:validate --env=test --no-interaction",
+      "php bin/console doctrine:migrations:up-to-date --env=test --no-interaction"
+    ],
+    "validate:prod": "composer validate --strict --no-check-all composer.prod.json",
     "check:searching": [
+      "@validate:prod",
+      "@standalone:check",
+      "@bridge:seal",
       "@cs:check",
       "@stan",
       "@test"
@@ -45,7 +120,10 @@
   },
   "extra": {
     "symfony": {
-      "allow-contrib": false
+      "allow-contrib": false,
+      "bundle": "App\\Searching\\SearchingBundle"
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

@@ -1,7 +1,9 @@
 # Composer
 /vendor/
 /report/
-composer.lock
+
+# Generated framework reference
+/config/reference.php
 
 # Local environment
 .env.local
