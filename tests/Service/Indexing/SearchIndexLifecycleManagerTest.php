@@ -53,6 +53,51 @@ final class SearchIndexLifecycleManagerTest extends TestCase
         self::assertFalse($result->changed);
         self::assertSame('unavailable', $sync->result?->status);
     }
+
+    public function testItDeletesIndexThroughLifecycleProvider(): void
+    {
+        $registry = new SearchProviderRegistry();
+        $registry->add('fake', new FakeLifecycleProvider());
+
+        $sync = new RecordingLifecycleRegistrySynchronizer();
+        $manager = new SearchIndexLifecycleManager($registry, new SearchIndexNameBuilder(), 'sr', $sync);
+        $result = $manager->delete('fake', 'cataloging', 'product');
+
+        self::assertSame('fake', $result->providerName);
+        self::assertSame('delete', $result->operation);
+        self::assertSame('deleted', $result->status);
+        self::assertTrue($result->changed);
+        self::assertSame('deleted', $sync->result?->status);
+    }
+
+    public function testDeleteReportsUnavailableForPlainProviderWithFallbackIndexName(): void
+    {
+        $registry = new SearchProviderRegistry();
+        $registry->add('plain', new PlainProvider());
+
+        $manager = new SearchIndexLifecycleManager($registry, new SearchIndexNameBuilder());
+        $result = $manager->delete('plain', 'cataloging', 'product');
+
+        self::assertSame('plain', $result->providerName);
+        self::assertSame('delete', $result->operation);
+        self::assertSame('unavailable', $result->status);
+        self::assertSame('sr_cataloging_product', $result->indexName);
+        self::assertFalse($result->changed);
+    }
+
+    public function testEnsureForAllProvidersReturnsLifecycleAndUnavailableResults(): void
+    {
+        $registry = new SearchProviderRegistry();
+        $registry->add('fake', new FakeLifecycleProvider());
+        $registry->add('plain', new PlainProvider());
+
+        $manager = new SearchIndexLifecycleManager($registry, new SearchIndexNameBuilder());
+        $results = $manager->ensureForAllProviders('cataloging', 'product');
+
+        self::assertSame(['fake', 'plain'], array_keys($results));
+        self::assertSame('created', $results['fake']->status);
+        self::assertSame('unavailable', $results['plain']->status);
+    }
 }
 
 final class RecordingLifecycleRegistrySynchronizer implements SearchIndexLifecycleRegistrySynchronizerInterface
