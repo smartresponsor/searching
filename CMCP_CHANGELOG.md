@@ -208,3 +208,29 @@ Final integration facts before this journal-only follow-up:
 - Known residual debt remains the explicitly measured Canon040/042 testing-maturity work described above; no unrecorded correctness or integration blocker remains.
 
 This Iteration 8 journal-only change is the final integration tail and should be merged without reopening the completed functional RC scope.
+
+## Iteration 9 — post-RC coverage debt wave 1
+
+This post-RC growth/debt wave changes tests only. Production source, runtime behavior, package contracts, schema, routes, controllers, and integration boundaries remain unchanged.
+
+Target selection came directly from the Canon040 coverage report rather than arbitrary test expansion. The first wave focused on deterministic low-covered normalization/fallback contracts with high branch density and low test cost: `SearchProviderConfiguration`, `SearchIndexCriteria`, `SearchReindexJobCriteria`, `SearchRelevanceProfileCriteria`, `SearchSynonymCriteria`, `SearchUnavailableBackendClient`, `SearchBulkOperation`, and `SearchOperationLimitRequest`.
+
+Material test work:
+
+- Added `SearchCriteriaValueTest` covering aliases, trimming, invalid scalar/object input, boolean normalization, pagination bounds/defaults, date parsing, provider defaults, and backend configuration serialization.
+- Added `SearchRuntimeFallbackValueTest` covering unavailable-backend no-op/index/search/status behavior, generator consumption, bulk operation validation/serialization, operation-limit identities/costs/metadata, global vs targeted reindex cost, and invalid-cost rejection.
+- No production class was edited to make tests easier or to inflate coverage.
+
+Verification and measured effect:
+
+- Changed PHP lint: 2/2 test files passed.
+- PHPUnit: 74/74 tests, 346 assertions passed (baseline 66 tests / 264 assertions before coverage work).
+- Coverage script passed with Xdebug path coverage.
+- Canon040 summary moved from Classes 25.13%, Methods 38.43%, Paths 3.33%, Branches 66.30%, Lines 34.99% to Classes 26.13%, Methods 40.25%, Paths 3.70%, Branches 75.29%, Lines 36.83%.
+- Branch coverage therefore crossed the 70% maturity target without exclusions or denominator manipulation.
+- `SearchProviderConfiguration` and `SearchUnavailableBackendClient` reached 100% Methods/Branches/Lines; `SearchOperationLimitRequest` reached 100% Lines and 90% Branches.
+
+Remaining debt after wave 1:
+
+- Lines and Methods remain the dominant Canon040 debt dimensions. The next efficient targets are orchestration/service classes with low method/line coverage (`SearchDocumentIndexer`, `SearchIndexLifecycleManager`, `SearchReindexCoordinator`, selected serializers/result mappers) rather than further path-explosion chasing in already high-line-covered builders.
+- Canon042 behavioral workflow inventory remains a separate post-RC growth task and is not conflated with unit coverage.
