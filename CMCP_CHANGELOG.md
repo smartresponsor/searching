@@ -89,3 +89,105 @@ Git integration is the remaining Iteration 4 step: create the coherent RC commit
 ## Iteration 5 — Final acceptance and handoff
 
 Pending post-integration Git acceptance: final HEAD/upstream/PR/merge/worktree state and deferred-growth handoff.
+
+## Iteration 6 — 2026-09-14 package-contract RC hardening
+
+Current-tree reconnaissance revalidated `Searching` from clean `master` at `135edadd6154344f9e620c2b28e7cb82b1cfaef0` before mutation. The local quality baseline passed: PHP-CS-Fixer found 0 fixable files, PHPStan analyzed 294/294 files with 0 errors, and PHPUnit passed 66 tests / 264 assertions.
+
+Read-and-comply contour for this run:
+
+- `Searching`: `AGENTS.md`, `README.md`, Composer/test/quality configuration, all repository Markdown documentation, source/API/integration references, tests/gates, and the local `.gating/` rule runtime.
+- `Objecting`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`.
+- `Cruding`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; its local runtime closure includes Collectioning and Tabling.
+- `Viewing`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; its local runtime closure includes Interfacing.
+- `Interfacing`: `AGENTS.md`, `README.md`, `composer.json`; no `MANIFEST.json` exists in the current tree.
+- `Collectioning` and `Tabling`: current README/Composer contracts were read to resolve the local first-party repository closure.
+- `Gating`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`, plus the materialized local rule registry/mirrors.
+- `Canonization`: root contract plus normative `Canon006`, `Canon008`, `Canon018`, `Canon019`, `Canon024`, `Canon029`, `Canon033`, `Canon034`, `Canon038`, `Canon043`, and `Canon045` textual rule documents.
+
+Target-to-canon mapping and decisions:
+
+- Canon006/018/019/029/034/038 remain satisfied by the existing role-first source topology, `searching/search` → `App\\Searching\\` / `Search*` identity, quality tooling, ignore baseline, and `search_*` component YAML names.
+- Canon008 is preserved: no new foreign PHP imports were introduced merely to justify package dependencies.
+- The orchestration-required application contour is now explicit in Composer: `objecting/object`, `cruding/crud`, `viewing/view`, and `interfacing/interface` are direct runtime dependencies.
+- Canon043 is materialized for local development: first-party path-linked packages use exact `dev-master`, `symlink: true`, and pinned `options.versions`, with `minimum-stability: dev` / `prefer-stable: true`.
+- Canon045 is materialized without inventing direct coupling: Collectioning and Tabling are exposed as root path repositories because they are reachable runtime dependencies of Cruding/Tabling, but they are not added as direct Searching requirements solely for repository discovery.
+- Canon024/033 are materialized through a new path-independent `composer.prod.json` with package/type/PSR-4/PHP/Symfony identity parity and no local `path` repository declarations.
+- `App\\Searching\\SearchingBundle` is explicitly published in Composer bundle metadata.
+
+Selected RC-critical workstream:
+
+- Make the application dependency graph, local path-repository closure, production package manifest, bundle entrypoint metadata, and lock/install state reproducible and self-validating.
+- Add production-manifest validation to `check:searching` so packaging drift becomes a normal repository gate.
+
+Separate post-RC growth workstream:
+
+- Search quality/SLO telemetry, query analytics, relevance experiments/A-B testing, feedback-driven tuning, personalization, and hybrid/vector retrieval remain growth work. They do not expand this RC because the existing integration seal intentionally keeps Searching focused on search runtime/contracts while host adaptation/rendering stay outside this repository.
+
+Material risks and safeguards:
+
+- Adding the mandated application dependencies expands the installed dependency closure; Composer update therefore re-resolved compatible Symfony/Doctrine packages. The resulting lock graph must pass all existing Searching static/runtime tests before integration.
+- Collectioning/Tabling are repository-visibility dependencies, not newly invented Searching runtime responsibilities.
+- No Searching source, controllers, routes, Entity behavior, UI rendering, generic CRUD ownership, or navigation ownership is changed by this package-contract wave.
+
+Verification completed so far:
+
+- `composer update objecting/object cruding/crud viewing/view interfacing/interface collectioning/collection tabling/table --with-all-dependencies`: passed; local first-party packages are junctioned from sibling repositories and the lock file was refreshed.
+- `composer validate --strict --check-lock`: passed.
+- `composer validate --strict --no-check-all composer.prod.json`: passed.
+- `composer check:searching`: passed; production-manifest validation, PHP-CS-Fixer, PHPStan 294/294, and PHPUnit 66/66 (264 assertions) are green.
+- `composer audit`: passed with no known security vulnerability advisories.
+
+Remaining acceptance: inspect the final diff/dependency graph, complete any available canonical gate evidence, commit the coherent package-contract change on the feature branch, push, and integrate through the protected-branch workflow when available.
+
+## Iteration 7 — dual-runtime, persistence, test-tooling, and final RC acceptance
+
+The package-contract pass exposed additional canonical runtime obligations once `Searching` was evaluated as a Symfony component rather than only a reusable package. Canon022/025/032/037/039/041 and the Doctrine persistence rules were therefore read and applied directly from Canonization before extending the patch.
+
+Material implementation and fixes:
+
+- Added minimal standalone Symfony runtime surfaces: `bin/console`, `App\\Searching\\Kernel`, and `config/bundles.php`, registering the existing `SearchingBundle` without introducing Host/UI ownership.
+- Completed the standalone platform dependency baseline with direct Collectioning, Tabling, and EasyAdmin dependencies and an explicit FrameworkBundle dependency.
+- Repaired a latent PSR-4 defect by renaming `src/Contract/Bridge/InterfacingSearchBridgeProviderInterface.php` to the file matching its declared `SearchInterfacingBridgeProviderInterface` FQCN.
+- Added local standalone Framework/Doctrine configuration and ignored generated `config/reference.php` per Canon037; PHP-CS-Fixer no longer treats that disposable generated artifact as authored source.
+- Added Doctrine Migrations runtime/configuration and generated the initial migration from current Doctrine metadata using `doctrine:migrations:diff --from-empty-schema`.
+- Migration generation exposed a real schema defect: `idx_search_reindex_job_created_at` referenced `created_at` while the Entity metadata did not explicitly map that column name. `SearchReindexJobEntity` now maps `created_at` / `updated_at` explicitly.
+- Added repository-owned `schema:parity` execution contract (`doctrine:schema:validate` plus `doctrine:migrations:up-to-date`).
+- Added Canon039/041 tooling: explicit `src/` PHPUnit coverage population, persistent path/branch coverage summary script, Symfony Test Pack, Panther, repository-local Playwright dependency/configuration, lockfile, and executable Playwright runner smoke.
+- Corrected the PHPUnit 11 coverage CLI contract from unsupported `--branch-coverage` to supported `--path-coverage`.
+- Updated the final bridge integration seal and executable guard from stale `Service/Bridge` / legacy Contract paths to the actual `Provider/Bridge` and `Value/Bridge` topology, exposed it as `bridge:seal`, and included it in the aggregate Searching gate.
+- `composer.lock` is now repository material for reproducible dependency state; Canon037 generated reference output remains ignored.
+
+Persistence acceptance:
+
+- Guarded Doctrine migration dry-run: 1 migration / 19 SQL queries, then the matching fingerprint was explicitly confirmed and applied to the `test` SQLite database.
+- Post-apply migration plan: already at `App\\Searching\\Migration\\Version20260914091219`.
+- `doctrine:schema:validate --env=test`: mapping correct and database schema in sync.
+- `doctrine:migrations:up-to-date --env=test`: no migrations to execute.
+- `composer schema:parity`: passed end-to-end.
+
+Final quality/security evidence:
+
+- `composer validate --strict --check-lock`: passed.
+- `composer validate --strict --no-check-all composer.prod.json`: passed.
+- `composer bridge:seal`: passed.
+- PHP syntax lint: 7/7 changed/untracked PHP files passed.
+- PHP-CS-Fixer: 296 files, 0 fixable files.
+- PHPStan: 295/295 files, 0 errors.
+- PHPUnit: 66/66 tests, 264 assertions passed on PHPUnit 11.5.56.
+- Standalone Symfony boot: passed on Symfony 8.1.6 / PHP 8.4.13.
+- `npm ci`: passed from the frozen lockfile; Playwright smoke: 1/1 passed.
+- Composer audit: no known security advisories; npm audit: 0 vulnerabilities.
+- The aggregate `check:searching` reached and passed production-manifest validation, standalone boot, bridge seal, CS, and PHPStan; the console wrapper terminated at its external ~33-second limit as PHPUnit started. PHPUnit was then run independently and passed, so this is recorded as an orchestration timeout rather than a product gate failure.
+
+Coverage evidence / non-blocking debt:
+
+- Canon040 evidence is valid and intentionally not manipulated: Lines 34.99% (1552/4436), Methods 38.43% (274/713), Branches 66.30% (789/1190), Paths 3.33% (352/10579).
+- Lines and Methods classify as `HIGH_TEST_DEBT`; Branches are below the 70% target but above the high-debt threshold. Canon040 defines this as remediation/debt evidence rather than a hard execution failure. No source exclusions, baselines, or weakened thresholds were introduced to manufacture a pass.
+- Canon042 behavioral/UI coverage evidence is not fabricated: Playwright tooling is operational, but no opaque percentage or fake workflow denominator is introduced. Behavioral inventory/evidence remains a post-RC measurable test-growth workstream.
+
+RC decision before Git integration:
+
+- Runtime, package, standalone, persistence, bridge, static-analysis, unit-test, package-security, and tooling contracts are green.
+- Remaining known debt is explicit test-coverage maturity work, not a correctness/package/persistence blocker under Canon040/042 semantics.
+- Next step is coherent signed commit, push of the feature branch, PR inspection/merge when GitHub policy is green, synchronization of local `master`, and final clean-worktree/upstream verification.

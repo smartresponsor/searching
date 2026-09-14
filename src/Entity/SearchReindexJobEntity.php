@@ -93,10 +93,10 @@ class SearchReindexJobEntity
     #[ORM\Column(name: 'error_message', type: 'text', nullable: true)]
     private ?string $errorMessage = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(name: 'created_at', type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(name: 'updated_at', type: 'datetime_immutable')]
     private \DateTimeImmutable $updatedAt;
 
     public function __construct(string $jobKey, ?string $component = null, ?string $resourceType = null, ?string $requestedBy = null, ?\DateTimeImmutable $changedSince = null, ?string $idempotencyKey = null, ?string $dispatchMode = null, ?SearchExecutionContext $executionContext = null)

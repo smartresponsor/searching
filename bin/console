@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use App\Searching\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+require dirname(__DIR__).'/vendor/autoload.php';
+
+$input = new ArgvInput();
+$environment = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'dev');
+$debug = !\in_array($input->getParameterOption(['--no-debug'], null), ['', '1', 'true'], true);
+
+$kernel = new Kernel((string) $environment, $debug);
+$application = new Application($kernel);
+$application->run($input);

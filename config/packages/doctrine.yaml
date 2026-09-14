@@ -1,0 +1,12 @@
+doctrine:
+  dbal:
+    url: 'sqlite:///%kernel.project_dir%/var/searching.db'
+  orm:
+    auto_mapping: false
+    mappings:
+      Searching:
+        type: attribute
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'App\Searching\Entity'
+        alias: Searching
+        is_bundle: false

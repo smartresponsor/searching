@@ -60,7 +60,7 @@ Searching:
 
 ```text
 src/Contract/Bridge/SearchInterfacingBridgeProviderInterface.php
-src/Service/Bridge/SearchInterfacingBridgeProvider.php
+src/Provider/Bridge/SearchInterfacingBridgeProvider.php
 src/Service/Bridge/SearchBridgeConfigSerializer.php
 src/Value/Bridge/SearchInterfacingBridgeDefinition.php
 docs/interfacing-bridging-contract.md
