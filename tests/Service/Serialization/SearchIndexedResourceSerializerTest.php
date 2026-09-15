@@ -34,4 +34,27 @@ final class SearchIndexedResourceSerializerTest extends TestCase
         self::assertSame('pending', $payload['status']);
         self::assertTrue($payload['stale']);
     }
+
+    public function testItSerializesListAndRemovedResourceIsNotStale(): void
+    {
+        $removed = new SearchIndexedResourceEntity('ordering', 'order', '7');
+        $removed->markRemoved();
+
+        $payload = (new SearchIndexedResourceSerializer())->serializeList([$removed]);
+
+        self::assertCount(1, $payload);
+        self::assertSame('removed', $payload[0]['status']);
+        self::assertFalse($payload[0]['stale']);
+    }
+
+    public function testItMarksResourceStaleWhenSourceIsNewerThanIndexedProjection(): void
+    {
+        $resource = new SearchIndexedResourceEntity('ordering', 'order', '8');
+        $resource->markIndexed('hash-8', new \DateTimeImmutable('2099-09-15T11:00:00+00:00'));
+
+        $payload = (new SearchIndexedResourceSerializer())->serialize($resource);
+
+        self::assertTrue($payload['stale']);
+        self::assertSame('indexed', $payload['status']);
+    }
 }

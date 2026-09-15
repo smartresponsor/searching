@@ -321,3 +321,28 @@ Wave-3 verification result:
 - Xdebug/php-code-coverage: Classes 32.16% (64/199), Methods 43.76% (312/713), Paths 3.99% (422/10579), Branches 81.01% (964/1190), Lines 39.16% (1737/4436).
 - Delta from wave 2: +11 covered classes, +21 covered methods, +38 covered branches, +57 covered lines. Branch coverage remains above Canon040 target; Methods/Lines materially improve but remain `HIGH_TEST_DEBT`, so this bounded wave does not claim Canon040 completion.
 - Targeted results now at 100% methods/branches/lines: `SearchNullIndexedResourceTracker`, `SearchNullReindexJobTracker`, `SearchIndexSerializer`, `SearchReindexJobSerializer`, `SearchRelevanceProfileSerializer`, `SearchResultSerializer`, `SearchSynonymSerializer`, `SearchHealthIndicator`, `SearchDocumentFingerprint`, `SearchIndexLifecycleRegistrySyncResult`, and `SearchIndexedResourceState`.
+
+## Iteration 12 — 2026-09-15 post-RC coverage debt wave 4 baseline
+
+Wave 4 starts from merged `master` `4fcd1ae096616521427c62b0cacf6377a430301c` on `cmcp/searching-coverage-wave4-20260915`. The prior engine/browser handoff attempt was blocked by `INPUT_DRAFT_CONTENT_CHANGED`; this is an orchestration UI-state blocker only and does not affect the authoritative local repository or Console MCP mutation path.
+
+Selected bounded test-debt targets:
+
+- `SearchIndexedResourceSerializer`: cover list serialization plus removed/fresh/stale ledger branches.
+- `SearchResponseSerializer`: cover item/facet/highlight/suggestion/capability helpers directly.
+- `SearchResponseMapper`: cover suggestion route metadata normalization and raw provider/backend metadata stripping.
+- Criteria value objects: extend edge-input coverage only where it exercises currently uncovered helper branches; no production normalization semantics are changed.
+
+Boundary and canon posture remain unchanged from Iteration 11: this is tests/journal only, Canon040 evidence remains the measurable target, Canon042 remains separate, and no Objecting/Cruding/Viewing/Interfacing ownership moves into Searching.
+
+Wave-4 verification result:
+
+- PHPUnit: 95 tests, 487 assertions, green.
+- PHP-CS-Fixer: 302 files, clean after formatter-owned line-ending normalization; line-ending-only touched files have no semantic Git diff.
+- PHPStan: 301 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 33.17% (66/199), Methods 44.88% (320/713), Paths 4.21% (445/10580), Branches 83.38% (993/1191), Lines 40.10% (1779/4436).
+- Delta from wave 3: +2 covered classes, +8 covered methods, +29 covered branches, +42 covered lines. Canon040 remains `HIGH_TEST_DEBT` because Methods and Lines are still below 50%; branch coverage remains comfortably above its 70% target.
+- `SearchResponseMapper`, `SearchResponseSerializer`, and `SearchIndexedResourceSerializer` now report 100% methods and lines; the indexed-resource serializer also reports 100% branches. Criteria helper branch coverage improved materially without changing normalization behavior.
+- Repository Code Memory scope discovery reports no declared `memory:scope:resolve` Composer script; the available graph plan resolves the active Searching project as the only implementation target and the workspace graph as navigation-only, so no fabricated graph mutation is claimed.

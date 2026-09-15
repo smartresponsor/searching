@@ -168,4 +168,63 @@ final class SearchCriteriaValueTest extends TestCase
         self::assertSame(29, $invalid->limit);
         self::assertSame(0, $invalid->offset);
     }
+
+    public function testCriteriaHelpersCoverEmptyNullAndNonIntegerFallbackBranches(): void
+    {
+        $index = SearchIndexCriteria::fromArray([
+            'provider' => ' ',
+            'component' => null,
+            'resourceType' => 123,
+            'enabled' => '',
+            'limit' => 'not-an-int',
+            'offset' => new \stdClass(),
+        ], 17);
+        self::assertNull($index->provider);
+        self::assertNull($index->component);
+        self::assertSame('123', $index->resourceType);
+        self::assertNull($index->enabled);
+        self::assertSame(17, $index->limit);
+        self::assertSame(0, $index->offset);
+
+        $jobs = SearchReindexJobCriteria::fromArray([
+            'jobKey' => ' ',
+            'component' => 321,
+            'createdFrom' => '',
+            'createdTo' => 'definitely-not-a-date',
+            'limit' => new \stdClass(),
+            'offset' => 'not-an-int',
+        ], 19);
+        self::assertNull($jobs->jobKey);
+        self::assertSame('321', $jobs->component);
+        self::assertNull($jobs->createdFrom);
+        self::assertNull($jobs->createdTo);
+        self::assertSame(19, $jobs->limit);
+        self::assertSame(0, $jobs->offset);
+
+        $relevance = SearchRelevanceProfileCriteria::fromArray([
+            'nameEntity' => ' ',
+            'component' => new \stdClass(),
+            'enabled' => '',
+            'limit' => 'not-an-int',
+            'offset' => 2.5,
+        ], 23);
+        self::assertNull($relevance->nameEntity);
+        self::assertNull($relevance->component);
+        self::assertNull($relevance->enabled);
+        self::assertSame(23, $relevance->limit);
+        self::assertSame(0, $relevance->offset);
+
+        $synonym = SearchSynonymCriteria::fromArray([
+            'locale' => ' ',
+            'source_term' => 456,
+            'enabled' => '',
+            'limit' => 'bad',
+            'offset' => -5,
+        ], 31);
+        self::assertNull($synonym->locale);
+        self::assertSame('456', $synonym->sourceTerm);
+        self::assertNull($synonym->enabled);
+        self::assertSame(31, $synonym->limit);
+        self::assertSame(0, $synonym->offset);
+    }
 }
