@@ -346,3 +346,29 @@ Wave-4 verification result:
 - Delta from wave 3: +2 covered classes, +8 covered methods, +29 covered branches, +42 covered lines. Canon040 remains `HIGH_TEST_DEBT` because Methods and Lines are still below 50%; branch coverage remains comfortably above its 70% target.
 - `SearchResponseMapper`, `SearchResponseSerializer`, and `SearchIndexedResourceSerializer` now report 100% methods and lines; the indexed-resource serializer also reports 100% branches. Criteria helper branch coverage improved materially without changing normalization behavior.
 - Repository Code Memory scope discovery reports no declared `memory:scope:resolve` Composer script; the available graph plan resolves the active Searching project as the only implementation target and the workspace graph as navigation-only, so no fabricated graph mutation is claimed.
+
+## Iteration 13 — 2026-09-15 post-RC coverage debt wave 5 baseline
+
+Wave 5 starts from merged `master` `16b5f5196e2ec930cfc0d85ad34f3669a4cecfd4` on `cmcp/searching-coverage-wave5-20260915`.
+
+Selected high-yield test-debt targets:
+
+- `SearchResultPayloadFactory`: null/error and scalar-fallback branches around slot/stats payload construction.
+- `SearchDocumentNormalizer` and `SearchDocumentFingerprintCalculator`: normalization semantics, duplicate collapse, nested associative stability, and nullable text branches.
+- `SearchNullProvider`: complete no-op provider contract rather than search-only coverage.
+- `SearchPermissionChecker`: allowed-user, legacy metadata aliases, missing permission, private fallback, and unrestricted branches.
+
+No production behavior, routes, schema, dependency manifests, or cross-component boundaries are planned to change in this wave.
+
+Wave-5 verification result:
+
+- PHPUnit: 101 tests, 521 assertions, green.
+- PHP-CS-Fixer: 302 files, clean after formatter-owned line-ending normalization.
+- PHPStan: 301 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 34.67% (69/199), Methods 45.86% (327/713), Paths 4.32% (457/10580), Branches 85.64% (1020/1191), Lines 40.73% (1807/4436).
+- Delta from wave 4: +3 covered classes, +7 covered methods, +27 covered branches, +28 covered lines.
+- `SearchNullProvider`, `SearchDocumentFingerprintCalculator`, and `SearchResultPayload` now report 100% methods/branches/lines; `SearchResultPayloadFactory` reaches 100% lines and 88.24% branches; `SearchPermissionChecker` reaches 100% lines and 96.36% branches.
+- `SearchDocumentNormalizer` now exercises both nullable and non-null normalization branches and reaches 75% branch coverage / 100% lines, while php-code-coverage still reports its single method as uncovered because full path coverage is not achieved; no test-count proxy is used to override that tool-owned method metric.
+- Canon040 remains `HIGH_TEST_DEBT`: Methods 45.86% and Lines 40.73% are still below the 50% high-debt boundary even though Branches 85.64% exceeds the canonical 70% target.
