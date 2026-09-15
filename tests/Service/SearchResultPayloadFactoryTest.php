@@ -44,4 +44,24 @@ final class SearchResultPayloadFactoryTest extends TestCase
         self::assertArrayHasKey('main.body', $payload->toTemplateContext()['slots']);
         self::assertArrayHasKey('right.panel', $payload->toTemplateContext()['slots']);
     }
+
+    public function testCreateWithoutResultBuildsSafeFallbackPayload(): void
+    {
+        $factory = new SearchResultPayloadFactory(new \App\Searching\Service\SearchResponseSerializer());
+        $payload = $factory->create('missing', null, ['message' => 'Search unavailable']);
+
+        self::assertNull($payload->result);
+        self::assertSame(['message' => 'Search unavailable'], $payload->error);
+        /** @var array{'left.panel': array{facets: array<mixed>, suggestions: array<mixed>}, 'right.panel': array{stats: list<array{label: string, value: string}>}} $slots */
+        $slots = $payload->slots;
+        self::assertSame([], $slots['left.panel']['facets']);
+        self::assertSame([], $slots['left.panel']['suggestions']);
+        self::assertSame([
+            ['label' => 'Hits', 'value' => '0'],
+            ['label' => 'Page', 'value' => '1'],
+            ['label' => 'Limit', 'value' => '0'],
+        ], $slots['right.panel']['stats']);
+        self::assertSame('missing', $payload->toFallbackData()['query']);
+        self::assertSame(['message' => 'Search unavailable'], $payload->toFallbackData()['error']);
+    }
 }

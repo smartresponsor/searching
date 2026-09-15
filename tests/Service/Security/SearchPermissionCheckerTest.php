@@ -53,6 +53,46 @@ final class SearchPermissionCheckerTest extends TestCase
         self::assertTrue($checker->decide($item, new SearchQuery('demo', userPermissions: ['order.view']))->allowed);
     }
 
+    public function testItHandlesAllowedUsersAliasesAndPrivateFallbacks(): void
+    {
+        $checker = new SearchPermissionChecker();
+
+        self::assertSame('allowed_user_match', $checker->decide(
+            $this->item(['allowed_user_ids' => ['user-2', '', 7]]),
+            new SearchQuery('demo', userId: 'user-2'),
+        )->reason);
+        self::assertSame('user_not_in_allowed_list', $checker->decide(
+            $this->item(['allowedUserIds' => ['user-2']]),
+            new SearchQuery('demo', userId: 'user-3'),
+        )->reason);
+        self::assertSame('private_without_positive_match', $checker->decide(
+            $this->item(['visibility' => 'private']),
+            new SearchQuery('demo', userId: 'user-3'),
+        )->reason);
+        self::assertSame('not_restricted', $checker->decide(
+            $this->item(['tenant_id' => 'tenant-a', 'visibility' => 5]),
+            new SearchQuery('demo', tenantId: 'tenant-a'),
+        )->reason);
+    }
+
+    public function testItDeniesOneMissingPermissionAndAcceptsLegacyPermissionAlias(): void
+    {
+        $checker = new SearchPermissionChecker();
+        $missing = $checker->decide(
+            $this->item(['required_permissions' => ['order.view', 'order.export']]),
+            new SearchQuery('demo', userPermissions: ['order.view']),
+        );
+        self::assertFalse($missing->allowed);
+        self::assertSame('missing_required_permission', $missing->reason);
+
+        $allowed = $checker->decide(
+            $this->item(['permissions' => ['order.view', '', 99]]),
+            new SearchQuery('demo', userPermissions: ['order.view']),
+        );
+        self::assertTrue($allowed->allowed);
+        self::assertSame('required_permissions_match', $allowed->reason);
+    }
+
     /**
      * @param array<string, mixed> $metadata
      */
