@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Serialization;
 
 use App\Searching\Service\Serialization\SearchResultSerializer;
+use App\Searching\Value\Result\SearchFacet;
+use App\Searching\Value\Result\SearchHighlight;
 use App\Searching\Value\Result\SearchResult;
 use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\Value\Result\SearchSuggestion;
 use PHPUnit\Framework\TestCase;
 
 final class SearchResultSerializerTest extends TestCase
@@ -34,5 +37,43 @@ final class SearchResultSerializerTest extends TestCase
         self::assertSame(1, $payload['total']);
         self::assertSame('ordering', $payload['items'][0]['component']);
         self::assertSame('order_show', $payload['items'][0]['routeName']);
+    }
+
+    public function testItSerializesHelperValuesAndFiltersEmptySuggestionFields(): void
+    {
+        $serializer = new SearchResultSerializer();
+
+        self::assertSame(
+            ['nameEntity' => 'status', 'buckets' => ['open' => 3]],
+            $serializer->serializeFacet(new SearchFacet('status', ['open' => 3])),
+        );
+        self::assertSame(
+            ['field' => 'title', 'fragments' => ['<em>Invoice</em> 42']],
+            $serializer->serializeHighlight(new SearchHighlight('title', ['<em>Invoice</em> 42'])),
+        );
+
+        self::assertSame([
+            'text' => 'invoice',
+            'score' => 1.5,
+            'component' => 'ordering',
+        ], $serializer->serializeSuggestion(new SearchSuggestion(
+            text: 'invoice',
+            score: 1.5,
+            component: 'ordering',
+            metadata: [],
+        )));
+
+        $item = $serializer->serializeItem(new SearchResultItem(
+            component: 'ordering',
+            resourceType: 'order',
+            resourceId: '42',
+            title: 'Invoice 42',
+            summary: null,
+            routeName: 'order_show',
+            routeParameters: ['id' => 42],
+            highlights: [new SearchHighlight('title', ['Invoice 42'])],
+        ));
+        /** @var array{highlights: list<array{field: string}>} $item */
+        self::assertSame('title', $item['highlights'][0]['field']);
     }
 }

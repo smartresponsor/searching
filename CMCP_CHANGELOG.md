@@ -266,3 +266,58 @@ Wave-2 checkpoint:
 - The highest-value deterministic service gaps selected for this wave are now covered.
 - Remaining Canon040 debt is predominantly broad Methods/Lines distribution across serializers, null trackers, DTO/helper methods, and larger query/mapper surfaces. Further gains should be handled as a separate wave rather than expanding this focused change indefinitely.
 - Path coverage remains intentionally non-targeted where high cyclomatic/path counts would incentivize low-value combinatorial tests.
+
+## Iteration 11 — 2026-09-15 post-RC coverage debt wave 3 baseline
+
+Reconnaissance started from the merged wave-2 state. GitHub PR #6 (`Raise Searching service coverage`) is merged; local `master` was safely realigned to `origin/master` at `84225890118a12b8ae2f146414b16883620de36e`, and this wave runs on the dedicated branch `cmcp/searching-coverage-wave3-20260915`.
+
+Read-and-comply contour for this wave:
+
+- `Searching`: root instructions/manifests/quality configuration, repository Markdown documentation, architecture/integration contracts, current coverage evidence, relevant source/test implementations, and package/runtime boundaries.
+- `Objecting`, `Cruding`, `Viewing`, and `Interfacing`: current `AGENTS.md`, `README.md`, Composer manifests, and available repository manifests; no sibling repository is modified.
+- `Canonization`: normative Canon006 plus Canon040 and Canon042 textual rules, and the current guard matrix.
+- `Gating`: owner contract plus executable Canon040/Canon042 rule implementations, confirming that executable PHP coverage and behavioral/UI inventory evidence are separate warning/debt dimensions.
+
+Target-to-canon mapping:
+
+- Canon040 applies to `src/`. Current persistent evidence is Classes 26.63% (53/199), Methods 40.81% (291/713), Branches 77.82% (926/1190), Lines 37.87% (1680/4436). Branches exceed the 70% canonical target; Methods and Lines remain below both the 80% target and the 50% `HIGH_TEST_DEBT` threshold.
+- Canon042 remains a separate growth/test-evidence track. No opaque denominator, route-count proxy, or fabricated percentage will be introduced in this PHP coverage wave.
+- Canon006 and the component ownership seals are preserved because this wave changes tests/journal only; no production type/tree/runtime boundary is altered.
+- Objecting/Cruding/Viewing/Interfacing responsibilities remain unchanged: no system-field clone, generic CRUD ownership, rendering responsibility, or Interfacing shell behavior is introduced into Searching.
+
+RC-critical/test-debt work selected:
+
+- Cover deterministic serializer helper/list methods that are currently executable but unexercised.
+- Cover null tracker state transitions and compact indexing/health value semantics with stable assertions.
+- Prefer direct behavioral assertions over path-combination chasing; production code will not be edited to manufacture coverage.
+
+Separate growth workstream:
+
+- Real backend relevance evaluation, hybrid/vector retrieval, query/click analytics, experimentation/A-B testing, personalization, and a reproducible Canon042 behavioral/UI inventory remain post-RC growth. These capabilities must not expand this bounded coverage-remediation wave.
+
+Material risks and safeguards:
+
+- Null reindex job keys are intentionally random; tests may assert shape/uniqueness properties, never a fixed key.
+- Runtime timestamps are asserted semantically (presence/status/serialized format), not against wall-clock literals unless the source timestamp is explicitly supplied.
+- Coverage gains are accepted only from real PHPUnit/php-code-coverage counters; test counts and path coverage are not used as substitute success metrics.
+
+Planned gates:
+
+- changed PHP syntax lint;
+- PHP-CS-Fixer;
+- PHPStan;
+- PHPUnit;
+- Xdebug persistent coverage (`composer test:coverage`);
+- canonical/Gating evidence review plus aggregate repository checks;
+- final Git diff/status, signed commit, push, PR integration, and post-merge state verification when green.
+
+Wave-3 verification result:
+
+- PHPUnit: 89 tests, 445 assertions, green.
+- PHP-CS-Fixer: 301 files, clean after normalizing the new test file line ending.
+- PHPStan: 300 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 32.16% (64/199), Methods 43.76% (312/713), Paths 3.99% (422/10579), Branches 81.01% (964/1190), Lines 39.16% (1737/4436).
+- Delta from wave 2: +11 covered classes, +21 covered methods, +38 covered branches, +57 covered lines. Branch coverage remains above Canon040 target; Methods/Lines materially improve but remain `HIGH_TEST_DEBT`, so this bounded wave does not claim Canon040 completion.
+- Targeted results now at 100% methods/branches/lines: `SearchNullIndexedResourceTracker`, `SearchNullReindexJobTracker`, `SearchIndexSerializer`, `SearchReindexJobSerializer`, `SearchRelevanceProfileSerializer`, `SearchResultSerializer`, `SearchSynonymSerializer`, `SearchHealthIndicator`, `SearchDocumentFingerprint`, `SearchIndexLifecycleRegistrySyncResult`, and `SearchIndexedResourceState`.
