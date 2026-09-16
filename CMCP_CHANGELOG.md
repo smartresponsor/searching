@@ -673,6 +673,10 @@ Wave-9 verification result:
 - Aggregate `check:searching`: GREEN — production Composer manifest valid; Symfony 8.1.6 / PHP 8.4.13 standalone test kernel boots; final search bridge seal passes; PHP-CS-Fixer clean; PHPStan clean; PHPUnit 139 tests / 834 assertions.
 - `schema:parity`: GREEN — Doctrine mapping correct, test database schema in sync, migrations up to date.
 - Persistent Xdebug/php-code-coverage: Classes 47.74% (95/199), Methods 63.25% (451/713), Paths 5.07% (682/13458), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436).
+
+### Iteration 17 consolidated acceptance note
+
+The repeated `Iteration 17` baseline sections above are concurrent orchestration records from parallel wave-9 workers. They are retained as raw execution evidence rather than rewritten destructively. This note is the canonical closure for wave 9: the merged implementation is test-only, production behavior and component boundaries remain unchanged, `check:searching` and `schema:parity` are green, PHPUnit passes 139 tests / 834 assertions, and the authoritative Canon040 evidence is Classes 47.74% (95/199), Methods 63.25% (451/713), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436). Canon040 HIGH_TEST_DEBT remains cleared; Methods and Lines remain below the independent 80% maturity targets and continue as post-RC debt, while Canon042 remains a separate behavioral/UI evidence track.
 - Delta from wave-8 baseline: +7 covered classes, +23 covered methods, +110 covered branches, +161 covered lines. Canon040 branch threshold remains satisfied; method/line coverage improved materially but remain below the independent 80% targets, so residual post-RC test debt remains factual and visible.
 - No production PHP, routes, schema, migrations, Composer dependencies, navigation, templates, or user-observable UI were changed by this wave.
 
