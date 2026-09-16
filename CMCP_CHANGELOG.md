@@ -733,6 +733,12 @@ Material risks: Symfony Console invalid-input paths may be rejected by InputDefi
 
 Planned gates: targeted PHPUnit, full `composer test`, persistent `composer test:coverage`, `composer cs:check`, `composer stan`, `composer check:searching`, `composer schema:parity`, final diff/status, signed commit, push/PR integration, and final origin/master cleanliness verification.
 
+Wave-10 acceptance result: Canon040 is compliant on all independent thresholds — Methods 80.08% (571/713), Branches 89.49% (2000/2235), Lines 93.82% (4162/4436); Classes 69.35% (138/199), Paths 4.66% (880/18867). Compared with the wave-9 baseline, this is +120 covered methods and +1505 covered lines while preserving the existing production architecture and semantics.
+
+Verification is GREEN on the reconciled concurrent state: `composer test` 175 tests / 1124 assertions with zero warnings at the final clean warning check; `composer test:coverage` 175 tests with persistent path coverage; `composer cs:check` 0/316 fixable; `composer stan` 315/315 with no errors; `composer check:searching` GREEN including composer-prod validation, Symfony test boot, final search bridge seal guard, CS, PHPStan, and PHPUnit; `composer schema:parity` GREEN with correct Doctrine mapping, in-sync schema, and no pending migrations.
+
+The wave remained test-only plus orchestration journal updates. No production PHP, routes, schema, migrations, dependencies, rendering, navigation, or cross-component ownership changed. Concurrent coverage work committed as `1cbe2f2` was preserved and reconciled rather than reset. Visual evidence remains NOT_VERIFIED because no UI/user-flow source changed; Canon042 remains a separate track and no evidence was fabricated.
+
 ## Iteration 19 — 2026-09-16 Canon040 completion and RC acceptance
 
 Task: `engine-20260916152704-searching-1744e4`.
