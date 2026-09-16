@@ -26,6 +26,19 @@ final class SearchPermissionFilterTest extends TestCase
         self::assertSame('2', $result->deniedItems[0]['resourceId']);
     }
 
+    public function testConvenienceFilterReturnsOnlyAllowedItemsForUser(): void
+    {
+        $filter = new SearchPermissionFilter(new SearchPermissionChecker());
+        $public = $this->item('public', ['visibility' => 'public']);
+        $owned = $this->item('owned', ['visibility' => 'private', 'ownerId' => 'user-1']);
+        $foreign = $this->item('foreign', ['visibility' => 'private', 'ownerId' => 'user-2']);
+
+        self::assertSame(
+            [$public, $owned],
+            $filter->filter([$public, $owned, $foreign], 'user-1'),
+        );
+    }
+
     /**
      * @param array<string, mixed> $metadata
      */

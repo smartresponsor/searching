@@ -29,4 +29,18 @@ final class SearchReindexIdempotencyKeyBuilderTest extends TestCase
             $builder->build('cataloging', 'product', new \DateTimeImmutable('2026-05-28T10:00:00+00:00')),
         );
     }
+
+    public function testNullAndBlankScopeValuesNormalizeToTheSameKey(): void
+    {
+        $builder = new SearchReindexIdempotencyKeyBuilder();
+
+        self::assertSame(
+            $builder->build(),
+            $builder->build('   ', ''),
+        );
+        self::assertNotSame(
+            $builder->build(),
+            $builder->build('cataloging'),
+        );
+    }
 }

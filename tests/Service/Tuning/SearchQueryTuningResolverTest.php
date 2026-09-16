@@ -71,4 +71,110 @@ final class SearchQueryTuningResolverTest extends TestCase
         self::assertContains('catalog-product', $tuning->relevanceProfiles);
         self::assertNotContains('message-only', $tuning->relevanceProfiles);
     }
+
+    public function testItSkipsEmptyAndNonMatchingSynonymsAndDeduplicatesTargets(): void
+    {
+        $synonymReader = new class implements SearchSynonymReaderInterface {
+            public int $findCalls = 0;
+
+            public function find(SearchSynonymCriteria $criteria): array
+            {
+                ++$this->findCalls;
+
+                return [
+                    SearchSynonymEntity::create('', ['ignored']),
+                    SearchSynonymEntity::create('tablet', ['slate']),
+                    SearchSynonymEntity::create('phone', []),
+                    SearchSynonymEntity::create('phone', [' smartphone ', 'smartphone', 'mobile']),
+                ];
+            }
+
+            public function count(SearchSynonymCriteria $criteria): int
+            {
+                return 4;
+            }
+
+            public function findOne(int $id): ?SearchSynonymEntity
+            {
+                return null;
+            }
+        };
+        $profileReader = new class implements SearchRelevanceProfileReaderInterface {
+            public function find(SearchRelevanceProfileCriteria $criteria): array
+            {
+                return [];
+            }
+
+            public function count(SearchRelevanceProfileCriteria $criteria): int
+            {
+                return 0;
+            }
+
+            public function findOne(int $id): ?SearchRelevanceProfileEntity
+            {
+                return null;
+            }
+        };
+
+        $tuning = (new SearchQueryTuningResolver($synonymReader, $profileReader))->resolve(new SearchQuery('PHONE case'));
+
+        self::assertSame(1, $synonymReader->findCalls);
+        self::assertSame(['smartphone', 'mobile'], $tuning->expandedTerms);
+        self::assertSame(['phone' => ['smartphone', 'mobile']], $tuning->matchedSynonyms);
+    }
+
+    public function testEmptyQuerySkipsSynonymLookupAndScopedProfilesNeedMatchingQueryScope(): void
+    {
+        $synonymReader = new class implements SearchSynonymReaderInterface {
+            public int $findCalls = 0;
+
+            public function find(SearchSynonymCriteria $criteria): array
+            {
+                ++$this->findCalls;
+
+                return [];
+            }
+
+            public function count(SearchSynonymCriteria $criteria): int
+            {
+                return 0;
+            }
+
+            public function findOne(int $id): ?SearchSynonymEntity
+            {
+                return null;
+            }
+        };
+
+        $profileReader = new class implements SearchRelevanceProfileReaderInterface {
+            public function find(SearchRelevanceProfileCriteria $criteria): array
+            {
+                return [
+                    SearchRelevanceProfileEntity::create('component-scoped', ['title' => 4], 'cataloging'),
+                    SearchRelevanceProfileEntity::create('resource-scoped', ['summary' => 3], null, 'product'),
+                    SearchRelevanceProfileEntity::create('global', ['body' => 2]),
+                ];
+            }
+
+            public function count(SearchRelevanceProfileCriteria $criteria): int
+            {
+                return 3;
+            }
+
+            public function findOne(int $id): ?SearchRelevanceProfileEntity
+            {
+                return null;
+            }
+        };
+
+        $resolver = new SearchQueryTuningResolver($synonymReader, $profileReader);
+        $unscoped = $resolver->resolve(new SearchQuery('   '));
+        $mismatched = $resolver->resolve(new SearchQuery('query', components: ['messaging'], resourceTypes: ['message']));
+
+        self::assertSame(1, $synonymReader->findCalls);
+        self::assertSame([], $unscoped->expandedTerms);
+        self::assertSame(['body' => 2.0], $unscoped->fieldWeights);
+        self::assertSame(['global'], $unscoped->relevanceProfiles);
+        self::assertSame(['global'], $mismatched->relevanceProfiles);
+    }
 }
