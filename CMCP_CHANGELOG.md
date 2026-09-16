@@ -787,3 +787,22 @@ Wave-10 implementation and verification result:
 - `schema:parity`: green; Doctrine mapping/schema/migrations are synchronized.
 - Persistent Canon040 evidence: Classes 69.35% (138/199), Methods 80.08% (571/713), Branches 89.49% (2000/2235), Lines 93.82% (4162/4436), Paths 4.66% (880/18867, informational only).
 - Canon040 is now compliant on all three independent normative thresholds: Methods >=80%, Lines >=80%, Branches >=70%. No coverage exclusions, production-semantic expansion, or path-coverage chasing were used.
+
+## Iteration 20 — 2026-09-16 post-merge line-ending acceptance repair
+
+PR #19 merged the Canon040 wave to `master`; local post-integration acceptance then exposed a Windows-checkout reproducibility defect rather than a product/runtime failure. The new PHP tests were checked out with CRLF while the repository PHP-CS-Fixer contract requires LF. Because the repository had neither `.gitattributes` nor `.editorconfig`, a one-worktree formatter pass did not prevent recurrence after checkout.
+
+Root-cause repair:
+
+- Added `.gitattributes` with `*.php text eol=lf` so PHP source/test line endings are deterministic across Windows and non-Windows checkouts.
+- No production PHP, route, schema, migration, dependency, template, navigation, or runtime behavior changed.
+- No mass renormalization or destructive reset was performed; the repair establishes the repository contract.
+
+Repair-branch acceptance:
+
+- `composer check:searching`: GREEN — production manifest valid, Symfony standalone test kernel boots, final search bridge seal PASS, PHP-CS-Fixer 0/316 fixable, PHPStan 315/315 with 0 errors, PHPUnit 175 tests / 1143 assertions.
+- `composer test:coverage`: GREEN — Classes 69.35% (138/199), Methods 80.08% (571/713), Branches 89.49% (2000/2235), Lines 93.82% (4162/4436); Canon040 remains compliant on every normative threshold.
+- `composer schema:parity`: GREEN — Doctrine mapping correct, test schema synchronized, no pending migrations.
+- Canon042/visual evidence remains not applicable because no UI, navigation, form, interaction, or user-flow source changed.
+
+Remaining acceptance tail: integrate the deterministic line-ending contract and run a fresh post-checkout `check:searching` on synchronized `master` to prove the original regression no longer reproduces.
