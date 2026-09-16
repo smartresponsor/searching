@@ -732,3 +732,13 @@ Target-to-canon mapping: Canon040 receives only php-code-coverage-owned executab
 Material risks: Symfony Console invalid-input paths may be rejected by InputDefinition before command execution, so tests must assert public CLI behavior rather than force impossible private paths. Date parsing and option normalization will be tested deterministically. Concurrent changes will be re-read before broad mutation; no destructive reset is permitted.
 
 Planned gates: targeted PHPUnit, full `composer test`, persistent `composer test:coverage`, `composer cs:check`, `composer stan`, `composer check:searching`, `composer schema:parity`, final diff/status, signed commit, push/PR integration, and final origin/master cleanliness verification.
+
+Wave-10 implementation and verification result:
+
+- Added behaviorally meaningful coverage across Console commands, admin/API boundaries, DI/compiler wiring, bridge/provider contracts, persistence writers/dispatchers, runtime fallback/value contracts, and result payload construction; production source remained unchanged.
+- PHPUnit: 175 tests / 1143 assertions, green with no warnings.
+- PHPStan: 315 files, 0 errors. PHP-CS-Fixer: 316 files, 0 fixable files.
+- `check:searching`: green; standalone Symfony boot, production manifest, bridge seal, PHPStan, style, and PHPUnit all pass.
+- `schema:parity`: green; Doctrine mapping/schema/migrations are synchronized.
+- Persistent Canon040 evidence: Classes 69.35% (138/199), Methods 80.08% (571/713), Branches 89.49% (2000/2235), Lines 93.82% (4162/4436), Paths 4.66% (880/18867, informational only).
+- Canon040 is now compliant on all three independent normative thresholds: Methods >=80%, Lines >=80%, Branches >=70%. No coverage exclusions, production-semantic expansion, or path-coverage chasing were used.
