@@ -37,4 +37,25 @@ final class SearchExecutionContextTest extends TestCase
         self::assertStringStartsWith('srch_', $context->correlationId);
         self::assertSame('search.reindex', $context->sourceOperation);
     }
+
+    public function testItDropsBlankOptionalValuesAndCanReplaceSourceOperation(): void
+    {
+        $context = SearchExecutionContext::create(
+            correlationId: 'corr-2',
+            requestId: '   ',
+            sourceComponent: '',
+            sourceOperation: null,
+            actorId: ' ',
+        );
+
+        self::assertNull($context->requestId);
+        self::assertNull($context->sourceComponent);
+        self::assertNull($context->sourceOperation);
+        self::assertNull($context->actorId);
+        self::assertSame(['correlation_id' => 'corr-2'], $context->toMetadata());
+
+        $derived = $context->withSourceOperation('search.health');
+        self::assertSame('corr-2', $derived->correlationId);
+        self::assertSame('search.health', $derived->sourceOperation);
+    }
 }

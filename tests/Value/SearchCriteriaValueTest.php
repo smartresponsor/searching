@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Value;
 
 use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
 use App\Searching\Value\Indexing\SearchReindexJobCriteria;
 use App\Searching\Value\Provider\SearchProviderConfiguration;
+use App\Searching\Value\Query\SearchQueryLogCriteria;
 use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
 use App\Searching\Value\Tuning\SearchSynonymCriteria;
 use PHPUnit\Framework\TestCase;
@@ -167,6 +169,110 @@ final class SearchCriteriaValueTest extends TestCase
         self::assertNull($invalid->enabled);
         self::assertSame(29, $invalid->limit);
         self::assertSame(0, $invalid->offset);
+    }
+
+    public function testIndexedResourceCriteriaNormalizesAliasesDatesStaleAndFallbacks(): void
+    {
+        $criteria = SearchIndexedResourceCriteria::fromArray([
+            'component' => ' ordering ',
+            'resource_type' => ' order ',
+            'resource_id' => ' 42 ',
+            'status' => ' indexed ',
+            'stale' => 'true',
+            'from' => '2026-09-01T00:00:00+00:00',
+            'to' => '2026-09-15T00:00:00+00:00',
+            'limit' => 999,
+            'offset' => '5',
+        ]);
+
+        self::assertSame('ordering', $criteria->component);
+        self::assertSame('order', $criteria->resourceType);
+        self::assertSame('42', $criteria->resourceId);
+        self::assertSame('indexed', $criteria->status);
+        self::assertTrue($criteria->stale);
+        self::assertSame('2026-09-01T00:00:00+00:00', $criteria->indexedFrom?->format(DATE_ATOM));
+        self::assertSame('2026-09-15T00:00:00+00:00', $criteria->indexedTo?->format(DATE_ATOM));
+        self::assertSame(500, $criteria->limit);
+        self::assertSame(5, $criteria->offset);
+
+        $fallback = SearchIndexedResourceCriteria::fromArray([
+            'component' => [],
+            'resource' => 123,
+            'id' => ' ',
+            'stale' => 'not-a-bool',
+            'indexedFrom' => 'not-a-date',
+            'indexedTo' => new \stdClass(),
+            'limit' => 'bad',
+            'offset' => -2,
+        ], 27);
+        self::assertNull($fallback->component);
+        self::assertSame('123', $fallback->resourceType);
+        self::assertNull($fallback->resourceId);
+        self::assertNull($fallback->stale);
+        self::assertNull($fallback->indexedFrom);
+        self::assertNull($fallback->indexedTo);
+        self::assertSame(27, $fallback->limit);
+        self::assertSame(0, $fallback->offset);
+    }
+
+    public function testQueryLogCriteriaNormalizesAliasesAndInvalidInput(): void
+    {
+        $criteria = SearchQueryLogCriteria::fromArray([
+            'limit' => '25',
+            'offset' => '3',
+            'query' => ' invoice ',
+            'user_id' => ' user-1 ',
+            'tenant_id' => ' tenant-1 ',
+            'provider' => ' null ',
+            'correlation_id' => ' corr-1 ',
+            'request_id' => ' req-1 ',
+            'source_component' => ' ordering ',
+            'source_operation' => ' search ',
+            'successful' => 'false',
+            'from' => '2026-09-01T00:00:00+00:00',
+            'to' => '2026-09-15T00:00:00+00:00',
+        ]);
+
+        self::assertSame(25, $criteria->limit);
+        self::assertSame(3, $criteria->offset);
+        self::assertSame('invoice', $criteria->query);
+        self::assertSame('user-1', $criteria->userId);
+        self::assertSame('tenant-1', $criteria->tenantId);
+        self::assertSame('null', $criteria->providerName);
+        self::assertSame('corr-1', $criteria->correlationId);
+        self::assertSame('req-1', $criteria->requestId);
+        self::assertSame('ordering', $criteria->sourceComponent);
+        self::assertSame('search', $criteria->sourceOperation);
+        self::assertFalse($criteria->successful);
+        self::assertSame('2026-09-01T00:00:00+00:00', $criteria->from?->format(DATE_ATOM));
+        self::assertSame('2026-09-15T00:00:00+00:00', $criteria->to?->format(DATE_ATOM));
+
+        $fallback = SearchQueryLogCriteria::fromArray([
+            'limit' => [],
+            'offset' => 'bad',
+            'query' => new \stdClass(),
+            'successful' => 'maybe',
+            'from' => new \stdClass(),
+            'to' => 'invalid-date',
+        ], 31);
+        self::assertSame(31, $fallback->limit);
+        self::assertSame(0, $fallback->offset);
+        self::assertNull($fallback->query);
+        self::assertNull($fallback->successful);
+        self::assertNull($fallback->from);
+        self::assertNull($fallback->to);
+    }
+
+    public function testQueryLogCriteriaRejectsInvalidConstructorBounds(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new SearchQueryLogCriteria(limit: 0);
+    }
+
+    public function testQueryLogCriteriaRejectsNegativeOffset(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new SearchQueryLogCriteria(offset: -1);
     }
 
     public function testCriteriaHelpersCoverEmptyNullAndNonIntegerFallbackBranches(): void
