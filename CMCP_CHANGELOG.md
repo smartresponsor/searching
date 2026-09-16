@@ -372,3 +372,29 @@ Wave-5 verification result:
 - `SearchNullProvider`, `SearchDocumentFingerprintCalculator`, and `SearchResultPayload` now report 100% methods/branches/lines; `SearchResultPayloadFactory` reaches 100% lines and 88.24% branches; `SearchPermissionChecker` reaches 100% lines and 96.36% branches.
 - `SearchDocumentNormalizer` now exercises both nullable and non-null normalization branches and reaches 75% branch coverage / 100% lines, while php-code-coverage still reports its single method as uncovered because full path coverage is not achieved; no test-count proxy is used to override that tool-owned method metric.
 - Canon040 remains `HIGH_TEST_DEBT`: Methods 45.86% and Lines 40.73% are still below the 50% high-debt boundary even though Branches 85.64% exceeds the canonical 70% target.
+
+## Iteration 14 — 2026-09-15 post-RC coverage debt wave 6 baseline
+
+Wave 6 starts from merged `master` `c2ab78c57601138ebd43c56296a63e32bfe37150` on `cmcp/searching-coverage-wave6-20260915`.
+
+Selected high-yield integration target:
+
+- Doctrine repositories plus their thin read services for indexes, indexed resources, reindex jobs, relevance profiles, and synonyms.
+- Exercise real SQLite-backed criteria, count, identity/find-one, and get-or-create behavior inside a rollback-only test transaction.
+- Keep repository implementation unchanged; this wave validates the existing persistence boundary rather than mocking final repositories or weakening types.
+
+No production behavior, schema, routes, dependency manifests, or cross-component ownership changes are planned.
+
+Wave-6 verification result:
+
+- PHPUnit: 114 tests, 616 assertions, green.
+- PHP-CS-Fixer: 304 files, clean.
+- PHPStan: 303 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 43.22% (86/199), Methods 56.52% (403/713), Paths 4.29% (566/13208), Branches 87.21% (1268/1454), Lines 50.16% (2225/4436).
+- Delta from wave 5: +17 covered classes, +76 covered methods, +248 covered branches, +418 covered lines. The path denominator increased because real repository/query criteria paths are now exercised and counted; Canon040 does not use path coverage as a threshold.
+- The executable Canon040 high-debt classification is cleared: Lines >=50%, Methods >=50%, Branches >=40%. This does not claim the canonical coverage targets are complete; the normative targets remain Lines 80%, Methods 80%, Branches 70%.
+- Real rollback-only SQLite integration now covers `SearchIndexRepository`, `SearchIndexedResourceRepository`, `SearchQueryLogRepository`, `SearchReindexJobRepository`, `SearchRelevanceProfileRepository`, `SearchSynonymRepository` and their thin reader services. Query-log filtering exercises all public criteria dimensions used by the repository.
+- API boundary coverage now validates JSON/status semantics for provider status, health, indexed-resource listing, and query-log listing. Public observability/lifecycle value contracts were extended with deterministic coverage.
+- Production source, routes, schema, migrations, package dependencies, and cross-component ownership remain unchanged.

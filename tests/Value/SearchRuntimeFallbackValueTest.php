@@ -7,6 +7,7 @@ namespace App\Searching\Tests\Value;
 use App\Searching\Service\Provider\SearchUnavailableBackendClient;
 use App\Searching\Value\Flow\SearchOperationLimitRequest;
 use App\Searching\Value\Provider\SearchBulkOperation;
+use App\Searching\Value\Provider\SearchIndexLifecycleResult;
 use App\Searching\Value\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;
 
@@ -53,6 +54,20 @@ final class SearchRuntimeFallbackValueTest extends TestCase
         self::assertFalse($defaultStatus->metadata['enabled']);
         self::assertFalse($defaultStatus->metadata['dsnConfigured']);
         self::assertNull($defaultStatus->metadata['indexPrefix']);
+    }
+
+    public function testLifecycleUnavailableResultSerializesReason(): void
+    {
+        $result = SearchIndexLifecycleResult::unavailable('opensearch', 'orders', 'create', 'backend unavailable');
+
+        self::assertSame([
+            'provider' => 'opensearch',
+            'index' => 'orders',
+            'operation' => 'create',
+            'status' => 'unavailable',
+            'changed' => false,
+            'metadata' => ['reason' => 'backend unavailable'],
+        ], $result->toArray());
     }
 
     public function testBulkOperationValidatesOperationAndSerializes(): void
