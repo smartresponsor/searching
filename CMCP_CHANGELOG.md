@@ -790,7 +790,7 @@ Wave-10 implementation and verification result:
 
 ## Iteration 20 — 2026-09-16 post-merge line-ending acceptance repair
 
-PR #19 merged the Canon040 wave to `master`; local post-integration acceptance then exposed a Windows-checkout reproducibility defect rather than a product/runtime failure. The new PHP tests were checked out with CRLF while the repository PHP-CS-Fixer contract requires LF. Because the repository had neither `.gitattributes` nor `.editorconfig`, a one-worktree formatter pass did not prevent recurrence after checkout.
+PR #20 merged the Canon040 wave to `master`; local post-integration acceptance then exposed a Windows-checkout reproducibility defect rather than a product/runtime failure. The new PHP tests were checked out with CRLF while the repository PHP-CS-Fixer contract requires LF. Because the repository had neither `.gitattributes` nor `.editorconfig`, a one-worktree formatter pass did not prevent recurrence after checkout.
 
 Root-cause repair:
 
@@ -805,4 +805,4 @@ Repair-branch acceptance:
 - `composer schema:parity`: GREEN — Doctrine mapping correct, test schema synchronized, no pending migrations.
 - Canon042/visual evidence remains not applicable because no UI, navigation, form, interaction, or user-flow source changed.
 
-Remaining acceptance tail: integrate the deterministic line-ending contract and run a fresh post-checkout `check:searching` on synchronized `master` to prove the original regression no longer reproduces.
+Final acceptance: PR #21 merged the deterministic line-ending contract. Synchronized `master` then passed fresh `composer check:searching`, `composer schema:parity`, and `composer test:coverage`; Canon040 remains compliant and the original Windows checkout formatter regression no longer reproduces.
