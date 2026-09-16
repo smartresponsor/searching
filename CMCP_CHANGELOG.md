@@ -398,3 +398,26 @@ Wave-6 verification result:
 - Real rollback-only SQLite integration now covers `SearchIndexRepository`, `SearchIndexedResourceRepository`, `SearchQueryLogRepository`, `SearchReindexJobRepository`, `SearchRelevanceProfileRepository`, `SearchSynonymRepository` and their thin reader services. Query-log filtering exercises all public criteria dimensions used by the repository.
 - API boundary coverage now validates JSON/status semantics for provider status, health, indexed-resource listing, and query-log listing. Public observability/lifecycle value contracts were extended with deterministic coverage.
 - Production source, routes, schema, migrations, package dependencies, and cross-component ownership remain unchanged.
+
+## Iteration 15 — 2026-09-15 post-RC coverage debt wave 7
+
+Wave 7 starts from merged `master` `1e7cdc94c73943afc661310fd1a1b3878998caae` on `cmcp/searching-coverage-wave7-20260915`.
+
+Selected high-yield runtime boundaries:
+
+- `SearchHealthChecker` readiness semantics across healthy, degraded, and unhealthy states, including provider availability, registry/index readiness, lifecycle errors/deletion, indexed-resource freshness, and reindex backlog thresholds.
+- HTTP/API boundary coverage for `SearchIndexApiController`, `SearchRelevanceProfileApiController`, and `SearchSynonymApiController`, including list/create/update/delete success and not-found/validation branches.
+- No production behavior, routes, schemas, migrations, dependency manifests, or cross-component ownership changes.
+
+Wave-7 verification result:
+
+- PHPUnit: 118 tests, 648 assertions, green.
+- PHP-CS-Fixer: 305 files, clean.
+- PHPStan: 304 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 43.22% (86/199), Methods 59.75% (426/713), Paths 4.63% (619/13380), Branches 87.79% (1380/1572), Lines 55.07% (2443/4436).
+- Delta from merged wave 6: +23 covered methods, +112 covered branches, +218 covered lines; class count unchanged because these runtime classes already existed in the report.
+- `SearchHealthChecker` now reports 87.50% methods, 98.33% branches, and 99.22% lines.
+- `SearchIndexApiController` reports 71.43% methods / 97.50% lines; relevance-profile and synonym API controllers each report 83.33% methods / 95.83% lines.
+- Canon040 remains above all HIGH_TEST_DEBT thresholds, but the normative 80% Methods / 80% Lines targets are still open; Branches remains above the 70% target.
