@@ -733,6 +733,45 @@ Material risks: Symfony Console invalid-input paths may be rejected by InputDefi
 
 Planned gates: targeted PHPUnit, full `composer test`, persistent `composer test:coverage`, `composer cs:check`, `composer stan`, `composer check:searching`, `composer schema:parity`, final diff/status, signed commit, push/PR integration, and final origin/master cleanliness verification.
 
+## Iteration 19 — 2026-09-16 Canon040 completion and RC acceptance
+
+Task: `engine-20260916152704-searching-1744e4`.
+
+Current-tree reconnaissance preserved eight pre-existing untracked coverage-test groups on `cmcp/searching-coverage-wave10-20260916` rather than overwriting or discarding them. The branch began this execution window two commits ahead of `origin/master`; no production PHP, routes, schema, migrations, dependencies, templates, navigation, or user-observable UI changes were introduced by this pass.
+
+Read-and-comply contour:
+
+- `Searching`: root instructions, README, development/production Composer manifests, PHPUnit/PHPStan/PHP-CS-Fixer/Playwright configuration, search routes/config, messenger/flow-control/Interfacing integration documentation, current source/test boundary, persistent coverage evidence, and this orchestration journal.
+- `Objecting`, `Cruding`, `Viewing`, and `Interfacing`: current `AGENTS.md`, `README.md`, Composer manifests, and available manifests. Interfacing has no current `MANIFEST.json`; its shell/rendering ownership remains external to Searching.
+- `Canonization`: normative textual `Canon006OneDominantTechnicalRoleRule`, `Canon040PhpTestCoverageRule`, `Canon042BehavioralUiCoverageRule`, and the architecture guard matrix.
+- `Gating`: owner contract and executable-canon role as enforcement companion; it is not substituted for textual Canonization rules.
+
+Target-to-canon mapping:
+
+- Canon006: this wave remains test/journal-only and therefore does not alter the dominant technical role, namespace, class/file topology, or package boundary of production code.
+- Canon040: authoritative php-code-coverage thresholds are Lines >=80%, Methods >=80%, Branches >=70%, independently. Fresh evidence after the current test set is Classes 69.35% (138/199), Methods 80.08% (571/713), Paths 4.66% (880/18867), Branches 89.49% (2000/2235), Lines 93.82% (4162/4436). All three normative Canon040 thresholds are therefore satisfied without exclusions, denominator manipulation, or test-count proxies.
+- Canon042: no browser/mobile UI, navigation, form, interaction, or user-flow source changed. Behavioral/UI inventory remains a separate growth/evidence track; screenshots are not applicable to this tests-only pass.
+- Objecting/Cruding/Viewing/Interfacing responsibilities remain unchanged: no system-field ownership, generic CRUD mechanics, final rendering, or shell ownership moved into Searching.
+
+Market / maturity split:
+
+- Current official OpenSearch material treats hybrid keyword/semantic retrieval and relevance-workbench optimization as advanced search-quality capabilities; Elasticsearch exposes ranking evaluation over judged query sets. These reinforce a post-RC growth direction around measured relevance rather than changing the current bounded test-hardening objective.
+- RC-critical work for this pass is deterministic coverage of existing query, command, controller, DI, persistence-support, bridge/provider, and runtime contracts plus static/runtime gates.
+- Separate growth remains hybrid/vector retrieval, judged relevance evaluation, click/query analytics, experimentation/A-B testing, personalization, and Canon042 behavioral/UI inventory work. None is required to close Canon040.
+
+Verification and repairs:
+
+- Initial PHPUnit with the candidate tests passed 175 tests / 1113 assertions but reported one warning; concurrent/current-tree refinements were re-read rather than overwritten.
+- PHP-CS-Fixer initially found formatting-only line-ending/EOF/import issues in the new tests; `composer cs:fix` normalized all eight test files and the follow-up check is clean.
+- PHPStan initially exposed test-only typing debt; after current-tree refinements it is GREEN with 315/315 files and zero errors.
+- Final PHPUnit: 175 tests / 1143 assertions, GREEN with no warnings.
+- Fresh persistent Xdebug coverage: Classes 69.35%, Methods 80.08%, Branches 89.49%, Lines 93.82%; Canon040 GREEN.
+- `composer check:searching`: GREEN — production manifest valid, Symfony 8.1.6 / PHP 8.4.13 standalone test kernel boots, final search bridge seal PASS, PHP-CS-Fixer clean, PHPStan clean, PHPUnit green.
+- `composer schema:parity`: GREEN — Doctrine mapping correct, test database schema in sync, migrations up to date.
+- Changed PHP syntax lint: 8/8 new test files GREEN.
+
+Remaining acceptance tail: inspect final diff/status, stage the coherent test+journal change, commit/push under repository policy, integrate through the protected-branch workflow if available, then verify final HEAD/upstream/worktree state.
+
 Wave-10 implementation and verification result:
 
 - Added behaviorally meaningful coverage across Console commands, admin/API boundaries, DI/compiler wiring, bridge/provider contracts, persistence writers/dispatchers, runtime fallback/value contracts, and result payload construction; production source remained unchanged.
