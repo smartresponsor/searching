@@ -4,20 +4,32 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Coverage;
 
+use App\Searching\Builder\Provider\SearchIndexMappingBuilder;
+use App\Searching\Builder\Provider\SearchIndexNameBuilder;
 use App\Searching\Entity\SearchIndexEntity;
+use App\Searching\Entity\SearchQueryLogEntity;
 use App\Searching\Entity\SearchReindexJobEntity;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use App\Searching\Entity\SearchSynonymEntity;
+use App\Searching\Resolver\Tuning\SearchNullQueryTuningResolver;
 use App\Searching\Service\Indexing\SearchNullIndexedResourceTracker;
 use App\Searching\Service\Indexing\SearchNullReindexJobTracker;
+use App\Searching\Service\Provider\SearchQueryPayloadMapper;
 use App\Searching\Service\Serialization\SearchIndexSerializer;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
+use App\Searching\Value\Document\SearchDocument;
+use App\Searching\Value\Flow\SearchOperationLimitRequest;
 use App\Searching\Value\Health\SearchHealthIndicator;
 use App\Searching\Value\Indexing\SearchDocumentFingerprint;
 use App\Searching\Value\Indexing\SearchIndexedResourceState;
 use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
+use App\Searching\Value\Provider\SearchBulkOperation;
+use App\Searching\Value\Provider\SearchBulkOperationSet;
+use App\Searching\Value\Provider\SearchProviderConfiguration;
+use App\Searching\Value\Query\SearchQuery;
+use App\Searching\Value\Query\SearchQueryExecutionTrace;
 use PHPUnit\Framework\TestCase;
 
 final class SearchRuntimeValueCoverageTest extends TestCase
@@ -122,9 +134,159 @@ final class SearchRuntimeValueCoverageTest extends TestCase
         self::assertSame('job-1', (new SearchReindexJobSerializer())->serializeList([$job])[0]['jobKey']);
 
         $profile = SearchRelevanceProfileEntity::create('Orders', ['title' => 2], 'ordering', 'order');
-        self::assertSame('Orders', (new SearchRelevanceProfileSerializer())->serializeProfiles([$profile])[0]['nameEntity']);
+        self::assertNull($profile->getId());
+        self::assertSame('Orders', $profile->getName());
+        self::assertSame('ordering', $profile->getComponent());
+        self::assertSame('order', $profile->getResourceType());
+        self::assertSame(['title' => 2], $profile->getFieldWeights());
+        self::assertTrue($profile->isEnabled());
+        self::assertInstanceOf(\DateTimeImmutable::class, $profile->getCreatedAt());
+        self::assertInstanceOf(\DateTimeImmutable::class, $profile->getUpdatedAt());
+        $profile->update(' Global ', [' ' => 9, ' score ' => 1.5], ' ', ' ', false);
+        self::assertSame('Global', $profile->getName());
+        self::assertSame(['score' => 1.5], $profile->getFieldWeights());
+        self::assertNull($profile->getComponent());
+        self::assertNull($profile->getResourceType());
+        self::assertFalse($profile->isEnabled());
+        self::assertSame('Global', (new SearchRelevanceProfileSerializer())->serializeProfiles([$profile])[0]['nameEntity']);
 
         $synonym = SearchSynonymEntity::create('bill', ['invoice'], 'en');
+        self::assertNull($synonym->getId());
         self::assertSame('bill', (new SearchSynonymSerializer())->serializeSynonyms([$synonym])[0]['sourceTerm']);
+    }
+
+    public function testQueryLogEntityExposesCompleteTraceProjection(): void
+    {
+        $executedAt = new \DateTimeImmutable('2026-09-16T12:30:00+00:00');
+        $log = SearchQueryLogEntity::fromTrace(new SearchQueryExecutionTrace(
+            query: 'needle',
+            userId: 'user-1',
+            tenantId: 'tenant-1',
+            providerName: 'elastic',
+            providerTotal: 5,
+            returnedTotal: 3,
+            deniedCount: 2,
+            durationMs: 4.5,
+            executedAt: $executedAt,
+            successful: false,
+            errorClass: \RuntimeException::class,
+            errorMessage: 'backend failed',
+        ));
+
+        self::assertNull($log->getId());
+        self::assertSame('needle', $log->getQueryText());
+        self::assertSame('user-1', $log->getUserId());
+        self::assertSame('tenant-1', $log->getTenantId());
+        self::assertNull($log->getCorrelationId());
+        self::assertNull($log->getRequestId());
+        self::assertNull($log->getSourceComponent());
+        self::assertNull($log->getSourceOperation());
+        self::assertSame('elastic', $log->getProviderName());
+        self::assertSame(5, $log->getProviderTotal());
+        self::assertSame(3, $log->getReturnedTotal());
+        self::assertSame(2, $log->getDeniedCount());
+        self::assertSame(4.5, $log->getDurationMs());
+        self::assertFalse($log->isSuccessful());
+        self::assertSame(\RuntimeException::class, $log->getErrorClass());
+        self::assertSame('backend failed', $log->getErrorMessage());
+        self::assertSame($executedAt, $log->getCreatedAt());
+        self::assertSame($executedAt, $log->getUpdatedAt());
+        self::assertSame([], $log->getMetadata()['executionContext']);
+    }
+
+    public function testProviderNeutralQueryPayloadAndNullTuning(): void
+    {
+        $payload = (new SearchQueryPayloadMapper())->map(new SearchQuery(
+            query: 'needle',
+            components: ['ordering'],
+            resourceTypes: ['order'],
+            filters: ['status' => 'open'],
+            sort: ['updatedAt' => 'desc'],
+            page: 3,
+            limit: 10,
+            locale: 'en_US',
+            tenantId: 'tenant-1',
+            userId: 'user-1',
+            userPermissions: ['order.view'],
+            includeHighlights: false,
+            includeFacets: true,
+        ));
+
+        self::assertSame(20, $payload['offset']);
+        self::assertSame(['order.view'], $payload['user_permissions']);
+        self::assertFalse($payload['include_highlights']);
+        self::assertTrue($payload['include_facets']);
+
+        $tuning = (new SearchNullQueryTuningResolver())->resolve(new SearchQuery('needle'));
+        self::assertSame([], $tuning->expandedTerms);
+        self::assertSame([], $tuning->fieldWeights);
+        self::assertSame([], $tuning->matchedSynonyms);
+        self::assertSame([], $tuning->relevanceProfiles);
+
+        $zeroPage = (new SearchQueryPayloadMapper())->map(new SearchQuery('needle', page: 0, limit: 10));
+        self::assertSame(0, $zeroPage['offset']);
+
+        $first = new SearchBulkOperation('index', 'orders', '1', ['title' => 'One']);
+        $second = new SearchBulkOperation('delete', 'orders', '2');
+        self::assertSame('index', $first->toArray()['operation']);
+        $set = new SearchBulkOperationSet([$first, $second]);
+        self::assertCount(2, $set);
+        self::assertCount(2, iterator_to_array($set));
+        self::assertSame([$first, $second], $set->groupedByIndex()['orders']);
+
+        $document = new SearchDocument(
+            component: 'Ordering API',
+            resourceType: 'Order Item',
+            resourceId: 'ID 42',
+            title: 'Order',
+            summary: null,
+            body: null,
+            keywords: [],
+            facets: [],
+            permissions: [],
+            locale: null,
+            tenantId: null,
+            ownerId: null,
+            routeName: 'order_show',
+            routeParameters: ['id' => 'ID 42'],
+            updatedAt: new \DateTimeImmutable('2026-09-16T12:00:00+00:00'),
+        );
+        $nameBuilder = new SearchIndexNameBuilder();
+        self::assertSame('sr_ordering_api_order_item', $nameBuilder->buildForParts('sr', 'Ordering API', 'Order Item'));
+        self::assertSame('ordering_api_order_item_id_42', $nameBuilder->buildDocumentId($document));
+
+        $mapping = (new SearchIndexMappingBuilder())->build(
+            'sr_orders',
+            'ordering',
+            'order',
+            new SearchProviderConfiguration(
+                nameEntity: 'elastic',
+                enabled: true,
+                dsn: null,
+                indexPrefix: 'sr',
+                options: ['text_analyzer' => '', 'keyword_normalizer' => 123],
+            ),
+        );
+        $titleProperty = $mapping->properties['title'];
+        $componentProperty = $mapping->properties['component'];
+        self::assertIsArray($titleProperty);
+        self::assertIsArray($componentProperty);
+        self::assertSame('standard', $titleProperty['analyzer']);
+        self::assertSame('lowercase', $componentProperty['normalizer']);
+
+        try {
+            new SearchBulkOperation('rotate', 'orders', '3');
+            self::fail('Invalid bulk operation must be rejected.');
+        } catch (\InvalidArgumentException $exception) {
+            self::assertStringContainsString('index', $exception->getMessage());
+        }
+
+        $scopedLimit = SearchOperationLimitRequest::forReindexDispatch('ordering', 'order', requestedBy: 'worker-1');
+        self::assertSame('worker-1:ordering:order', $scopedLimit->identity);
+        self::assertSame(20, $scopedLimit->cost);
+
+        $anonymousLimit = SearchOperationLimitRequest::forReindexDispatch();
+        self::assertSame('anonymous', $anonymousLimit->identity);
+        self::assertSame(100, $anonymousLimit->cost);
     }
 }
