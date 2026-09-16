@@ -421,3 +421,27 @@ Wave-7 verification result:
 - `SearchHealthChecker` now reports 87.50% methods, 98.33% branches, and 99.22% lines.
 - `SearchIndexApiController` reports 71.43% methods / 97.50% lines; relevance-profile and synonym API controllers each report 83.33% methods / 95.83% lines.
 - Canon040 remains above all HIGH_TEST_DEBT thresholds, but the normative 80% Methods / 80% Lines targets are still open; Branches remains above the 70% target.
+
+## Iteration 16 — 2026-09-15 post-RC coverage debt wave 8
+
+Wave 8 starts from merged `master` `23d001b0c9d92609849a19ff807ae3028d0f8728` on `cmcp/searching-coverage-wave8-20260915`.
+
+Selected orchestration/runtime coverage:
+
+- `SearchQueryExecutor` limiter rejection and failure trace logging.
+- Explicit no-hydration / no-permission-filter execution mode with execution-context propagation.
+- Provider exception logging and rethrow semantics.
+- `SearchReindexCoordinator::requestReindex()` job-key contract and partial provider-failure accounting without aborting subsequent providers.
+- No production source, routes, schema, migrations, dependency manifests, or cross-component ownership changes.
+
+Wave-8 verification result:
+
+- PHPUnit: 123 tests, 681 assertions, green.
+- PHP-CS-Fixer: 305 files, clean.
+- PHPStan: 304 files, zero errors.
+- `check:searching`: production Composer manifest valid; Symfony standalone boot green; final search bridge seal PASS; style/static/tests green.
+- `schema:parity`: Doctrine mapping valid, test database schema in sync, migrations up to date.
+- Xdebug/php-code-coverage: Classes 44.22% (88/199), Methods 60.03% (428/713), Paths 4.66% (623/13381), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436).
+- Delta from merged wave 7: +2 covered classes, +2 covered methods, +5 covered branches, +53 covered lines.
+- `SearchQueryExecutor` is now 100% Methods, 100% Branches, and 100% Lines (133/133); path coverage is 77.78% and is not a Canon040 threshold.
+- Canon040 HIGH_TEST_DEBT remains cleared. Normative 80% Methods / 80% Lines targets remain open; Branches remains above the 70% target.
