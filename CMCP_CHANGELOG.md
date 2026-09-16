@@ -668,6 +668,14 @@ Material risks and safeguards:
 
 Planned gates: changed PHP syntax lint, PHP-CS-Fixer, PHPStan, PHPUnit, persistent Xdebug coverage, `check:searching`, `schema:parity`, final Git diff/status, and branch/upstream integration evidence.
 
+Wave-9 verification result:
+
+- Aggregate `check:searching`: GREEN — production Composer manifest valid; Symfony 8.1.6 / PHP 8.4.13 standalone test kernel boots; final search bridge seal passes; PHP-CS-Fixer clean; PHPStan clean; PHPUnit 139 tests / 834 assertions.
+- `schema:parity`: GREEN — Doctrine mapping correct, test database schema in sync, migrations up to date.
+- Persistent Xdebug/php-code-coverage: Classes 47.74% (95/199), Methods 63.25% (451/713), Paths 5.07% (682/13458), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436).
+- Delta from wave-8 baseline: +7 covered classes, +23 covered methods, +110 covered branches, +161 covered lines. Canon040 branch threshold remains satisfied; method/line coverage improved materially but remain below the independent 80% targets, so residual post-RC test debt remains factual and visible.
+- No production PHP, routes, schema, migrations, Composer dependencies, navigation, templates, or user-observable UI were changed by this wave.
+
 ## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
 
 Wave 9 starts from a clean worktree on `cmcp/searching-coverage-wave9-20260916` with persistent Canon040 evidence from wave 8: Classes 44.22% (88/199), Methods 60.03% (428/713), Paths 4.66% (623/13381), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436).
