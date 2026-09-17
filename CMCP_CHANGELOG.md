@@ -448,231 +448,24 @@ Wave-8 verification result:
 
 ## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
 
-Wave 9 starts on clean branch `cmcp/searching-coverage-wave9-20260916` at `082923afe9ba475211ce43e38b346ad80127d396`.
+Wave 9 was a bounded test/coverage hardening pass for provider-neutral Searching infrastructure. The read-and-comply contour covered Searching plus the Objecting, Cruding, Viewing, Interfacing, Gating, and Canonization contracts relevant to the component boundary. Canon006 topology/ownership remained unchanged; Canon040 governed executable PHP coverage; Canon042 remained a separate behavioral/UI evidence contract.
 
-Reconnaissance and contracts consulted for this wave:
+Maturity split was kept explicit. RC-critical scope was deterministic correctness, lifecycle/flow-control behavior, diagnostics, hydration/permission safety, and executable coverage. Growth remained out of scope: vector/semantic/hybrid retrieval, reranking/LTR, personalization, A/B experimentation, richer relevance analytics, and feedback-loop optimization.
 
-- `Searching`: `AGENTS.md`, `README.md`, Composer production/development manifests, package/test/static-analysis configuration, route/config files, architecture and integration documentation, the current source/test boundary, and persistent coverage evidence.
-- Mandatory application contour: current Objecting, Cruding, Viewing, and Interfacing owner contracts and Composer package surfaces. Searching keeps business search execution only; generic CRUD remains Cruding-owned and final rendering remains Viewing/Interfacing-owned.
-- `Canonization`: normative Canon006, Canon040, and Canon042 textual rules plus the guard matrix. Canon040 independently requires Lines >=80%, Methods >=80%, Branches >=70%; Canon042 explicitly forbids treating test counts as behavioral/UI coverage.
-- `Gating`: owner contract and executable Canon-linked posture were inspected as enforcement companions rather than substituted for textual Canonization rules.
+Selected wave-9 work was test-only coverage around reindex/API orchestration, lifecycle/resource boundaries, query execution/tuning, hydration, permission filtering, limiter behavior, idempotency, and related entities/value contracts. No production PHP, routes, schema, migrations, Composer dependencies, navigation, templates, or user-observable UI were changed.
 
-Target-to-canon mapping:
+Final verification for wave 9 was GREEN:
 
-- Canon006 remains unchanged because this wave changes tests/journal only; no production role/tree taxonomy is altered.
-- Canon040 is the measurable debt target. Current persistent php-code-coverage evidence is Classes 44.22% (88/199), Methods 60.03% (428/713), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436). Branches already exceed target; Methods and Lines remain below the independent 80% targets.
-- Canon042 remains a separate behavioral/UI evidence track. No Playwright count, route count, opaque percentage, or invented denominator is used as a substitute.
-- Objecting/Cruding/Viewing/Interfacing ownership is preserved; no entity field, generic CRUD route/controller, view rendering, shell, or navigation responsibility moves into Searching.
+- `composer cs:check` — GREEN.
+- `composer stan` — GREEN.
+- `composer test` — GREEN, 139 tests / 834 assertions.
+- `composer test:coverage` — GREEN.
+- `composer check:searching` — GREEN; standalone Symfony test kernel boot and final search bridge seal passed.
+- `composer schema:parity` — GREEN; Doctrine mapping valid, schema synchronized, no pending migrations.
+- Coverage: Classes 47.74% (95/199), Methods 63.25% (451/713), Paths 5.07% (682/13458), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436).
+- Delta from wave 8: +7 covered classes, +23 covered methods, +110 covered branches, +161 covered lines.
 
-Selected RC-critical/test-debt workstream:
-
-- Cover currently unexecuted Search API controller boundaries with deterministic contract tests, prioritizing lifecycle, reindex-job, resource-registry, and bridge endpoints before broader query/response controller expansion.
-- Measure all gains only through PHPUnit/php-code-coverage and keep production behavior unchanged unless a test exposes a real defect.
-
-Separate growth workstream:
-
-- Hybrid/vector retrieval, relevance judgments/evaluation, reranking/LTR, personalization, and experimentation remain post-RC capability growth. They are not required to close this bounded coverage-hardening wave.
-
-Material safeguards:
-
-- No production mutation is planned merely to raise coverage.
-- No visual/UI implementation changes are in scope, so browser screenshots are not required for this test-only wave.
-- Deterministic gates: changed PHP syntax, PHP-CS-Fixer, PHPStan, PHPUnit, persistent Xdebug coverage, aggregate Searching checks, schema parity, and final Git state.
-
-## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
-
-Wave 9 starts from a clean `cmcp/searching-coverage-wave9-20260916` worktree. This bounded pass remains test/debt hardening only: production behavior, routes, schema, migrations, dependencies, provider ownership, and UI rendering are not being expanded.
-
-Reconnaissance/read-and-comply contour:
-
-- `Searching`: `AGENTS.md`, `README.md`, Composer production/development manifests, PHPUnit/Playwright configuration, repository search architecture and integration documents, current source/test implementations, and persistent php-code-coverage evidence.
-- `Objecting`, `Cruding`, `Viewing`, and `Interfacing`: current owner instructions, READMEs, Composer manifests, and available manifests/contracts. Their ownership boundaries remain external to this test-only wave.
-- `Canonization`: textual architecture canon including Canon040 executable PHP coverage and Canon042 behavioral/UI evidence; existing identity/topology/runtime rules remain unchanged by this test-only wave.
-- `Gating`: owner contract and executable-canon role were inspected as the enforcement companion; it is reference tooling, not a newly invented Searching runtime dependency.
-- Code Memory: no repository-declared scope script exists; Console MCP resolves the active Searching graph as the only implementation target and the umbrella workspace graph as navigation-only.
-
-Current Canon040 evidence:
-
-- Classes 44.22% (88/199)
-- Methods 60.03% (428/713)
-- Branches 88.05% (1385/1573)
-- Lines 56.27% (2496/4436)
-- Paths 4.66% (623/13381), informational only and not a Canon040 threshold.
-
-Target-to-canon mapping:
-
-- Canon040 is the material rule for this wave. Branch coverage already exceeds the 70% target; Methods and Lines remain below the independent 80% targets, so the wave must add real php-code-coverage evidence without test-count proxies, exclusions, or denominator manipulation.
-- Canon042 is explicitly separate. No UI/runtime surface is changed and no behavioral/UI percentage will be fabricated from Playwright counts or routes.
-- Symfony-oriented `App\\Searching\\` role topology, package identity, dual runtime, first-party dependency declarations, and the Cruding/Objecting/Viewing/Interfacing ownership boundaries are preserved because no production topology or package surface is changed.
-
-Selected RC/test-debt workstream:
-
-- Increase method/line coverage in deterministic query-tuning and backend-neutral query/suggestion shaping where the current report shows high executable line coverage but materially incomplete method coverage.
-- Prioritize behaviorally meaningful fallback/normalization/filter/tuning cases over combinatorial path chasing.
-- Keep production source unchanged unless a test exposes a factual defect.
-
-Separate growth workstream (not RC-blocking):
-
-- Hybrid/vector/semantic retrieval, relevance quality/SLO telemetry, click/query analytics, experimentation/A-B testing, personalization, and a reproducible Canon042 behavioral/UI inventory remain post-RC growth.
-
-Material safeguards:
-
-- Elasticsearch/OpenSearch remain infrastructure providers behind Searching contracts; tests must assert provider-neutral payload semantics rather than vendor client behavior.
-- Interfacing rendering, Viewing response generation, generic CRUD, and Objecting system-field ownership remain outside this wave.
-- No user-observable UI is changed, so browser screenshot evidence is not applicable to this test-only pass.
-
-Planned gates:
-
-- changed PHP syntax lint;
-- PHP-CS-Fixer;
-- PHPStan;
-- PHPUnit;
-- Xdebug persistent coverage (`composer test:coverage`);
-- standalone/package/bridge aggregate checks and schema parity;
-- final Git diff/status, commit/push/PR integration, and post-integration verification when green.
-
-## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
-
-Task: `engine-20260915231536-searching-3ced66`.
-
-Current-tree baseline:
-
-- Branch: `cmcp/searching-coverage-wave9-20260916` at `082923afe9ba475211ce43e38b346ad80127d396`.
-- Reconnaissance found one pre-existing untracked file, `tests/Controller/Api/SearchReindexApiControllerCoverageTest.php`; it was inspected before any mutation and is preserved as the active wave-9 candidate rather than overwritten or attributed to this pass.
-- Persistent Canon040 evidence before wave 9: Classes 44.22% (88/199), Methods 60.03% (428/713), Paths 4.66% (623/13381), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436).
-- Full PHPUnit with the candidate test already passes: 126 tests / 695 assertions.
-
-Read-and-comply contour for this run:
-
-- `Searching`: `AGENTS.md`, `README.md`, Composer production/development manifests, PHPUnit/PHPStan/PHP-CS-Fixer/Playwright configuration, current coverage evidence, orchestration journal, and the reindex API/controller test boundary.
-- `Objecting`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; lifecycle/system-field ownership remains outside this test-only wave.
-- `Cruding`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; generic CRUD routes/controllers remain Cruding-owned and are not introduced here.
-- `Viewing`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; final rendering remains Viewing-owned.
-- `Interfacing`: current `AGENTS.md`, `README.md`, `composer.json`; shell/template ownership remains Interfacing-owned and is not changed here.
-- `Canonization`: root contract plus normative `Canon006OneDominantTechnicalRoleRule`, `Canon040PhpTestCoverageRule`, `Canon042BehavioralUiCoverageRule`, and the architecture guard matrix.
-- `Gating`: root contract and executable `Canon040PhpTestCoverageRule.php` / `Canon042BehavioralUiCoverageRule.php` mirrors. Canon040 consumes php-code-coverage counters; Canon042 requires an explicit repository-owned behavioral/UI inventory and must not be approximated from test counts.
-
-Target-to-canon mapping:
-
-- Canon006: this wave adds/validates only a PHPUnit test under the existing controller-test tree; no production class role/name/tree is changed.
-- Canon040: wave 9 targets real php-code-coverage improvement for an uncovered HTTP orchestration boundary. The canonical targets remain Lines >=80%, Methods >=80%, Branches >=70%; the existing repository is no longer `HIGH_TEST_DEBT`, but Methods/Lines remain below target.
-- Canon042: no browser/mobile UI, form, navigation, or user-visible rendering behavior changes in this wave. Playwright/Panther capability remains intact, but no behavioral/UI percentage is fabricated from unit/controller test counts.
-- Objecting/Cruding/Viewing/Interfacing boundaries remain unchanged; no system-field, generic CRUD, rendering, or shell responsibility moves into Searching.
-
-Market / maturity split within Searching responsibility:
-
-- Baseline mature-search expectations are robust query/search execution, suggestions, synonyms/curation, relevance controls, operational health, and search analytics/zero-result visibility. The current Searching architecture already has provider-neutral query/suggestion, synonym/relevance configuration, health, query logging, reindex lifecycle, and bridge contracts.
-- RC-critical work remains correctness, deterministic HTTP/runtime semantics, lifecycle/flow-control safety, diagnostics, and measurable executable coverage.
-- Separate growth work remains relevance experimentation/A-B evaluation, richer search analytics/feedback loops, personalization, hybrid/vector retrieval, and product-level search quality optimization. Those do not expand this bounded test-debt wave.
-
-Selected RC-critical workstream:
-
-- Validate and complete the existing `SearchReindexApiControllerCoverageTest` so the sync/queued reindex API boundary, operation-limit status mapping, `Retry-After`, execution-context propagation, payload alias/normalization, and empty/non-array JSON fallback are measured by real PHPUnit coverage.
-- Keep production code unchanged unless verification exposes a factual defect.
-
-Material risks and safeguards:
-
-- The candidate test predates this pass in the current worktree; it is treated as user/repository state and is not discarded.
-- Reindex coverage assertions must validate public HTTP semantics and coordinator/dispatcher calls rather than private implementation details.
-- No runtime restart is justified by this test-only wave; existing standalone/container checks are sufficient unless a gate exposes a runtime issue.
-
-Planned acceptance gates:
-
-- PHPUnit and Xdebug/php-code-coverage (`composer test`, `composer test:coverage`);
-- PHP-CS-Fixer and PHPStan;
-- production manifest, standalone boot, bridge seal, and aggregate `check:searching`;
-- Doctrine `schema:parity` because the repository exposes persistence, even though this wave is test-only;
-- final Git diff/status/upstream inspection, coherent signed commit, push, and protected-branch integration when green.
-
-## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
-
-Wave 9 starts from clean `cmcp/searching-coverage-wave9-20260916` at `082923afe9ba475211ce43e38b346ad80127d396`.
-
-Reconnaissance/read-and-comply contour:
-
-- `Searching`: `AGENTS.md`, `README.md`, `composer.json`, `composer.prod.json`, PHPUnit/PHPStan/PHP-CS-Fixer configuration, package/Playwright configuration, search routes/config, bridge/integration/flow-control/messenger documentation, current coverage evidence, memory graph plan, and the accumulated CMCP journal.
-- `Objecting`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; system-field and Vendor identity ownership remains outside this test-only wave.
-- `Cruding`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; generic CRUD ownership remains outside Searching.
-- `Viewing`: current `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; final rendering remains Viewing-owned.
-- `Interfacing`: current `AGENTS.md`, `README.md`, `composer.json`; no current `MANIFEST.json` exists. Shell/templates remain Interfacing-owned and Searching exposes only its sealed bridge/response contracts.
-- `Canonization`: owner contract, guard matrix, and normative Canon040/Canon042 textual rules. Canon040 requires Lines >=80%, Methods >=80%, Branches >=70% independently; Canon042 is a separate explicit behavioral/UI inventory contract.
-- `Gating`: owner contract plus executable Canon040/Canon042 mirrors and rule registry.
-
-Dependency/package mapping:
-
-- Development and production manifests both declare Objecting, Cruding, Collectioning, Tabling, Viewing, and Interfacing as runtime dependencies; development path repositories use `symlink: true` and pinned `dev-master` identities.
-- `composer.prod.json` preserves `searching/search`, `App\\Searching\\`, and `App\\Searching\\SearchingBundle` without local path repositories.
-- Memory graph planning resolves Searching as the sole read-write implementation target and the shared workspace graph as navigation-only.
-
-Opening market/enterprise comparison:
-
-- Baseline mature search expectations include typo-tolerant autocomplete, synonyms, facets/filtering, relevance controls, safe result projection, observability, and index lifecycle/readiness.
-- Advanced maturity includes behavioral search analytics, relevance experiments/A-B testing, learning-to-rank/reranking, personalization, and hybrid/vector retrieval.
-- Those advanced capabilities remain growth work; the v0.27 integration seal explicitly prevents speculative Searching-internal expansion before host/Interfacing proof.
-
-Selected RC-critical workstream:
-
-- Continue Canon040 remediation with deterministic tests around currently under-covered runtime orchestration/value boundaries that have meaningful failure/fallback semantics, prioritizing coverage gains without production-source changes or combinatorial path chasing.
-- Re-run lint, CS, PHPStan, PHPUnit, persistent Xdebug coverage, package/standalone/bridge/schema gates, and Gating evidence.
-
-Separate growth workstream:
-
-- Canon042 inventory production, real-backend relevance evaluation, click/query analytics, A/B testing, LTR/reranking, personalization, and hybrid/vector retrieval remain post-RC growth and must not expand this coverage wave.
-
-Baseline evidence:
-
-- Classes 44.22% (88/199), Methods 60.03% (428/713), Paths 4.66% (623/13381), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436).
-- Branches already exceed the Canon040 target; Methods and Lines are the remaining normative debt dimensions.
-
-Material risks/safeguards:
-
-- No production behavior, route, schema, migration, dependency, navigation, UI/rendering, or cross-component ownership change is justified by this wave.
-- Tests must assert observable runtime contracts, not implementation-only counters, and coverage improvement must come from php-code-coverage evidence only.
-- Browser/visual evidence is not applicable unless this wave unexpectedly changes user-observable UI, which is not planned.
-
-
-## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
-
-Wave 9 runs on `cmcp/searching-coverage-wave9-20260916` from a clean worktree. The persistent php-code-coverage baseline currently reports Classes 44.22% (88/199), Methods 60.31% (430/713), Paths 4.75% (637/13421), Branches 87.96% (1424/1619), and Lines 57.37% (2545/4436).
-
-Reconnaissance and read-and-comply contour for this wave:
-
-- `Searching`: authoritative engine specification, `AGENTS.md`, `README.md`, development/production Composer manifests, PHPUnit/Playwright contracts, current coverage evidence, orchestration journal, and the current bridge/reindex/flow-control integration documentation.
-- `Objecting`, `Cruding`, `Viewing`, and `Interfacing`: current `AGENTS.md`, `README.md`, Composer manifests, and available manifests were read as read-only dependency contracts. Searching continues to declare all four as direct application dependencies with local path/symlink wiring; Collectioning and Tabling remain explicit first-party dependencies in the complete local repository closure.
-- `Gating`: owner contract plus executable `Canon040PhpTestCoverageRule` and `Canon042BehavioralUiCoverageRule` mirrors.
-- `Canonization`: owner contract, guard matrix, and normative textual `Canon006OneDominantTechnicalRoleRule`, `Canon040PhpTestCoverageRule`, and `Canon042BehavioralUiCoverageRule`.
-
-Target-to-canon mapping:
-
-- Canon006 remains unchanged because this wave is test/journal-only and does not alter production class names, role roots, or source topology.
-- Canon040 is the measurable debt target. Branches already exceed the canonical 70% target; Methods 60.31% and Lines 57.37% remain below their independent 80% targets. The wave must increase tool-owned executable counters rather than use test counts or path coverage as substitutes.
-- Canon042 remains a separate application-surface evidence track. Searching has Playwright tooling, but no opaque route-count or test-count proxy will be invented for functional/behavioral/UI coverage.
-- Objecting/Cruding/Viewing/Interfacing boundaries remain fixed: no system-field clone, generic CRUD ownership, final rendering responsibility, shell ownership, or backend-provider internals are moved across component boundaries.
-
-Market and maturity contour:
-
-- Mature search platforms treat search analytics/no-result/conversion instrumentation as a normal search-quality feedback capability, while modern engines also expose semantic/vector and hybrid retrieval. OpenSearch documents hybrid keyword/semantic ranking through search pipelines; Typesense documents native search analytics plus vector/hybrid search.
-- Searching already covers the RC baseline around provider-neutral query/index contracts, autocomplete, synonyms/relevance tuning, permission filtering, source hydration, health/diagnostics, backpressure, and lifecycle/job observability.
-- Growth remains separate: hybrid/vector retrieval, click/conversion analytics, experimentation/A-B testing, personalization, and richer relevance feedback are post-RC capabilities and must not block the current correctness/test-debt wave.
-
-Selected RC-critical test-debt workstream:
-
-- Prioritize runtime classes where php-code-coverage still reports materially low method coverage despite meaningful user/operational behavior, especially reindex HTTP dispatch semantics, in-memory flow-control decisions, and tuning/query-builder branches where a bounded test can execute currently uncounted methods without production changes.
-- Preserve production source, routes, schema, migrations, package manifests, and cross-component responsibility boundaries unless a test exposes a real defect requiring an in-scope correction.
-
-Material risks and safeguards:
-
-- Do not chase combinatorial path coverage in query builders merely to inflate a non-canonical metric.
-- Time-based limiter assertions must avoid fragile wall-clock equality; validate semantic decisions and retry bounds instead.
-- UI/browser evidence is not required for a tests-only wave because no user-observable UI, navigation, form, or interaction source is changed.
-
-Planned gates: changed PHP syntax lint, PHP-CS-Fixer, PHPStan, PHPUnit, persistent Xdebug coverage, `check:searching`, `schema:parity`, final Git diff/status, and branch/upstream integration evidence.
-
-Wave-9 verification result:
-
-- Aggregate `check:searching`: GREEN — production Composer manifest valid; Symfony 8.1.6 / PHP 8.4.13 standalone test kernel boots; final search bridge seal passes; PHP-CS-Fixer clean; PHPStan clean; PHPUnit 139 tests / 834 assertions.
-- `schema:parity`: GREEN — Doctrine mapping correct, test database schema in sync, migrations up to date.
-- Persistent Xdebug/php-code-coverage: Classes 47.74% (95/199), Methods 63.25% (451/713), Paths 5.07% (682/13458), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436).
+Canon040 thresholds are independent: Branches already satisfied the >=70% target in wave 9, while Methods and Lines remained below their >=80% targets and therefore remained explicit coverage debt at that point. Canon042 was not inferred from PHPUnit or coverage percentages. No UI changed, so visual evidence for this wave was not applicable.
 
 ## Iteration 18 — 2026-09-16 post-RC coverage debt wave 10 baseline
 
@@ -681,43 +474,6 @@ Wave 10 starts from clean merged master `f0751df38b7b31cf3588a181525bd2a92c7c9a0
 Selected work remains test-only and behaviorally bounded: target concrete Searching runtime boundaries absent from the persistent coverage report, prioritizing provider/request mapping, execution-context resolution, and null/fallback tuning semantics before any path-heavy builder expansion. Production behavior, routes, schema, migrations, dependencies, rendering, navigation, and cross-component ownership remain unchanged unless a factual defect is exposed.
 
 Planned gates: changed PHP lint, PHP-CS-Fixer, PHPStan, PHPUnit, persistent Xdebug coverage, `check:searching`, `schema:parity`, and final Git/PR integration.
-
-### Iteration 17 consolidated acceptance note
-
-The repeated `Iteration 17` baseline sections above are concurrent orchestration records from parallel wave-9 workers. They are retained as raw execution evidence rather than rewritten destructively. This note is the canonical closure for wave 9: the merged implementation is test-only, production behavior and component boundaries remain unchanged, `check:searching` and `schema:parity` are green, PHPUnit passes 139 tests / 834 assertions, and the authoritative Canon040 evidence is Classes 47.74% (95/199), Methods 63.25% (451/713), Branches 89.79% (1495/1665), Lines 59.90% (2657/4436). Canon040 HIGH_TEST_DEBT remains cleared; Methods and Lines remain below the independent 80% maturity targets and continue as post-RC debt, while Canon042 remains a separate behavioral/UI evidence track.
-- Delta from wave-8 baseline: +7 covered classes, +23 covered methods, +110 covered branches, +161 covered lines. Canon040 branch threshold remains satisfied; method/line coverage improved materially but remain below the independent 80% targets, so residual post-RC test debt remains factual and visible.
-- No production PHP, routes, schema, migrations, Composer dependencies, navigation, templates, or user-observable UI were changed by this wave.
-
-## Iteration 17 — 2026-09-16 post-RC coverage debt wave 9 baseline
-
-Wave 9 starts from a clean worktree on `cmcp/searching-coverage-wave9-20260916` with persistent Canon040 evidence from wave 8: Classes 44.22% (88/199), Methods 60.03% (428/713), Paths 4.66% (623/13381), Branches 88.05% (1385/1573), Lines 56.27% (2496/4436).
-
-Reconnaissance and contract contour consulted for this run:
-
-- `Searching`: `AGENTS.md`, `README.md`, `composer.json`, current orchestration journal, persistent coverage evidence, and the source/tests around the selected coverage targets.
-- `Objecting`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; system-field and lifecycle ownership remains outside this test-only wave.
-- `Cruding`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; generic CRUD ownership remains Cruding-owned.
-- `Viewing`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; rendering remains Viewing-owned.
-- `Interfacing`: `AGENTS.md`, `README.md`, `composer.json`; shell/template ownership remains Interfacing-owned.
-- `Gating`: `AGENTS.md`, `README.md`, `composer.json`, `MANIFEST.json`; executable canon enforcement remains external to the Searching runtime package.
-- `Canonization`: root contract, guard matrix, normative `Canon040PhpTestCoverageRule` and `Canon042BehavioralUiCoverageRule` textual rules.
-
-Target-to-canon mapping:
-
-- Canon040 applies directly to `src/`. Branches already exceed the 70% target; Methods and Lines remain below the independent 80% targets. This wave uses only PHPUnit/php-code-coverage-owned counters and does not substitute test counts or path coverage.
-- Canon042 remains a separate behavioral/UI evidence track. No UI/runtime surface is changed in this wave, and no behavioral denominator or synthetic percentage is introduced.
-- Existing Symfony-oriented `App\\Searching\\` topology and Objecting/Cruding/Viewing/Interfacing responsibility boundaries are unchanged because the selected work is tests plus orchestration journal only.
-
-Selected RC-critical/test-debt workstream:
-
-- Cover Searching-owned HTTP orchestration boundaries that remained absent from the Canon040 report: index lifecycle validation/provider modes, searchable-resource projection, reindex-job list/view/not-found behavior, and synchronous/queued/rate-limited reindex dispatch.
-- Keep the wave test-only so existing API semantics are verified rather than changed for coverage.
-
-Market/maturity check for the same responsibility boundary confirms the separation: mature search platforms expose observable search APIs, relevance diagnostics/evaluation, tuning/experimentation, indexing/retry lifecycle, and analytics; OpenSearch documents search Explain/relevance-workbench flows, Elasticsearch exposes ranking evaluation, and Algolia separates indexing, relevance configuration, UI, analytics, and experimentation. The RC-critical implication for this wave is reliable boundary behavior and lifecycle evidence, not importing those vendors' UI, infrastructure, or experimentation ownership into Searching.
-
-Separate post-RC growth workstream remains unchanged: relevance experiments, hybrid/vector retrieval, click/query analytics, personalization, and reproducible Canon042 workflow/UI inventory evidence.
-
-Material risk is intentionally low: no production PHP, routes, schema, migrations, dependencies, navigation, UI, or cross-component contract will be changed. Planned gates are changed-PHP lint, PHP-CS-Fixer, PHPStan, PHPUnit, persistent Xdebug coverage, aggregate `check:searching`, schema parity, and final Git/upstream integration inspection.
 
 ## Iteration 18 — 2026-09-16 Canon040 coverage debt wave 10
 
