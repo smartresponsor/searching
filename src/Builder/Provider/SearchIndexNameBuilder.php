@@ -48,7 +48,12 @@ final class SearchIndexNameBuilder
 
     public function buildDocumentId(SearchDocument $document): string
     {
-        return $this->normalize($document->component).'_'.$this->normalize($document->resourceType).'_'.$this->normalize($document->resourceId);
+        return $this->buildDocumentIdForParts($document->component, $document->resourceType, $document->resourceId);
+    }
+
+    public function buildDocumentIdForParts(string $component, string $resourceType, string $resourceId): string
+    {
+        return $this->normalize($component).'_'.$this->normalize($resourceType).'_'.$this->normalize($resourceId);
     }
 
     private function join(string ...$parts): string

@@ -198,24 +198,6 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
 
     protected function buildDocumentId(string $component, string $resourceType, string $resourceId): string
     {
-        $document = new SearchDocument(
-            component: $component,
-            resourceType: $resourceType,
-            resourceId: $resourceId,
-            title: '__placeholder__',
-            summary: null,
-            body: null,
-            keywords: [],
-            facets: [],
-            permissions: [],
-            locale: null,
-            tenantId: null,
-            ownerId: null,
-            routeName: '__placeholder__',
-            routeParameters: [],
-            updatedAt: new \DateTimeImmutable('@0'),
-        );
-
-        return $this->indexNameBuilder->buildDocumentId($document);
+        return $this->indexNameBuilder->buildDocumentIdForParts($component, $resourceType, $resourceId);
     }
 }

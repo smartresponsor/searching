@@ -562,3 +562,64 @@ Repair-branch acceptance:
 - Canon042/visual evidence remains not applicable because no UI, navigation, form, interaction, or user-flow source changed.
 
 Final acceptance: PR #21 merged the deterministic line-ending contract. Synchronized `master` then passed fresh `composer check:searching`, `composer schema:parity`, and `composer test:coverage`; Canon040 remains compliant and the original Windows checkout formatter regression no longer reproduces.
+
+## Iteration 21 — 2026-09-20 provider identity hardening baseline
+
+Current-tree baseline: clean `master` at `461a0dfeb23a3ccf77bf983bcbb4d1253efb133b`, synchronized with `origin/master`; implementation branch `cmcp/searching-rc-hardening-20260920` was created from that exact remote state.
+
+Reconnaissance/read-and-comply contour:
+
+- `Searching`: `AGENTS.md`, `README.md`, development/production Composer manifests, PHPUnit/PHPStan/PHP-CS-Fixer/Playwright configuration, search routes/configuration, current docs, source/test inventory, migration surface, Git state, RC diagnostic, and Code Memory graph plan.
+- `Objecting`, `Cruding`, `Viewing`, and `Interfacing`: repository instructions, README/package contracts and available manifests relevant to identity/system-field, CRUD, rendering, and shell boundaries.
+- `Gating`: executable-canon ownership and current repository enforcement contour.
+- `Canonization`: textual Canon006, Canon008, Canon011, Canon012, Canon013, Canon014, Canon017, Canon019, Canon021, Canon022, Canon024, Canon030, Canon040, Canon042, and the architecture guard matrix.
+
+Market / maturity split:
+
+- Baseline mature-search expectations relevant to RC are deterministic document identity, safe degraded/backend-unavailable behavior, permission-aware result projection, index lifecycle observability, and reproducible quality gates.
+- Post-RC growth remains measured relevance evaluation, hybrid lexical/vector retrieval, reranking, relevance experimentation, query/click analytics, personalization, and explicit Canon042 behavioral/UI inventory evidence. These do not expand the RC correctness boundary.
+
+Selected RC-critical workstream:
+
+- Remove the synthetic `SearchDocument` currently constructed only to derive a backend document identifier in `SearchAbstractBackendProvider::buildDocumentId()`. The fake object fills required business fields with `__placeholder__` values and an epoch timestamp even though delete identity requires only component/resource/resource-id parts.
+- Move that identity operation into the existing `SearchIndexNameBuilder` as a parts-based deterministic builder and keep the existing document-based API delegating to it. This preserves the public behavior while eliminating impossible placeholder business state from a production provider path.
+- Add regression coverage for document-ID parity between full-document and identity-parts construction.
+
+Target-to-canon mapping:
+
+- Canon006: the change stays inside the existing first-class Builder/Provider roles; no new generic Service bucket or competing taxonomy is introduced.
+- Canon011/013: delete-path identity derivation no longer depends on fabricated success-like document state or placeholder field values; backend failures remain observable through the existing client contract.
+- Canon012: identity parts remain explicit scalar inputs at the provider/builder boundary; no stable mixed/unshaped internal contract is introduced.
+- Canon017: documentation is changed only if the runtime/provider wording proves stale after implementation; historical iteration records remain untouched.
+- Canon019/021: no alternate architecture root or generic CRUD capability is introduced.
+- Canon040: existing compliant coverage is preserved; the new behavior receives direct regression coverage.
+- Canon042: no UI/user-flow source changes are planned; behavioral/UI evidence remains independent.
+
+Material risks and safeguards:
+
+- Document-ID normalization is externally significant for deletes, so the new parts-based path must produce byte-for-byte identical IDs to the existing document-based path for representative normalized and non-normalized input.
+- The repository also contains broader `tenantId` and local audit-field vocabulary. Objecting requires semantic classification before migration; this pass will not mechanically reinterpret tenant/business identity or rewrite persisted schema without proof.
+- No routes, provider protocol, index naming, schema, dependency graph, navigation, or rendering ownership will be changed by this bounded RC fix.
+
+Planned gates: targeted PHPUnit, changed-PHP lint, `composer cs:check`, `composer stan`, `composer test`, `composer check:searching`, `composer schema:parity`, persistent coverage, RC validation, final diff/status, signed commit, push/PR integration, and final upstream/worktree inspection.
+
+Implementation and acceptance:
+
+- Added `SearchIndexNameBuilder::buildDocumentIdForParts()`; `buildDocumentId(SearchDocument)` delegates to the same normalization path.
+- `SearchAbstractBackendProvider::buildDocumentId()` now derives delete identity directly from component/resource/resource-id and no longer fabricates title, route, timestamp, tenant, or other unrelated `SearchDocument` state.
+- Added builder parity coverage and a provider-level mock assertion proving delete still calls the backend with `sr_ordering_order` / `ordering_order_42` for the representative contract case.
+- Production `__placeholder__` search is now empty; the only remaining occurrence is this historical orchestration journal entry describing the removed state.
+- Changed-PHP syntax lint: 3/3 GREEN before the final test-only assertion; the final assertion adds no production PHP syntax surface.
+- `composer cs:check`: GREEN, 0/316 fixable files.
+- `composer stan`: GREEN, 315/315 files, 0 errors.
+- `composer test`: GREEN, 175 tests / 1147 assertions after the final provider delete expectation.
+- `composer check:searching`: GREEN after the final expectation; production Composer manifest valid, Symfony 8.1.6 / PHP 8.4.13 standalone test kernel boots, final bridge seal PASS, CS/PHPStan/PHPUnit all green.
+- `composer schema:parity`: GREEN; Doctrine mapping correct, test schema synchronized, migrations up to date.
+- Fresh persistent Canon040 evidence after the production change: Classes 69.35% (138/199), Methods 80.11% (572/714), Branches 89.49% (2001/2236), Lines 93.80% (4146/4420). All normative thresholds remain satisfied; Paths 4.67% (881/18868) remains informational.
+- `release.rc.validate` was attempted twice and hit the Console/Code Mode orchestration timeout rather than returning a product validation failure. Its constituent repository-owned quality, schema, runtime, and coverage gates were executed independently and passed.
+
+Residual decisions / growth:
+
+- The broader `tenantId` vocabulary cannot be renamed mechanically: Objecting explicitly requires semantic classification of tenant-like fields before migration. Searching currently uses it in query isolation/filtering, permissions, logging, indexing payloads, and persisted query logs. That is a separate identity-model migration requiring proof of Vendor-vs-business semantics, not a safe incidental RC rewrite.
+- Local audit timestamps in Searching entities are likewise an Objecting adoption/migration concern, not part of the provider identity fix; any adoption must preserve schema parity through an explicit forward migration and Objecting pack contract.
+- Market-parity growth remains judged relevance evaluation, hybrid lexical/vector retrieval, reranking/search pipelines, click/query analytics, experimentation, personalization, and Canon042 application/UI evidence. RC does not depend on those capabilities.
