@@ -63,6 +63,9 @@ final class SearchRuntimeSupportCoverageTest extends TestCase
         );
         $client->method('getStatus')->willReturn(new SearchProviderStatus('elasticsearch', true, 'available'));
         $client->method('indexExists')->willReturnOnConsecutiveCalls(true, false, true);
+        $client->expects(self::once())
+            ->method('delete')
+            ->with('sr_ordering_order', 'ordering_order_42');
 
         $provider = new SearchElasticsearchProvider(
             new SearchProviderConfiguration('elasticsearch', true, 'http://localhost:9200', 'sr'),

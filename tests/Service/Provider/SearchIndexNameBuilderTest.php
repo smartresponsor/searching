@@ -34,6 +34,10 @@ final class SearchIndexNameBuilderTest extends TestCase
 
         self::assertSame('sr_cataloging_product_item', $builder->buildForDocument($document, 'sr'));
         self::assertSame('cataloging_product_item_abc_123', $builder->buildDocumentId($document));
+        self::assertSame(
+            $builder->buildDocumentId($document),
+            $builder->buildDocumentIdForParts(' Cataloging ', 'Product Item', 'ABC-123'),
+        );
     }
 
     public function testItBuildsQueryIndexNames(): void
