@@ -31,7 +31,7 @@ final class SearchQueryLogListCommand extends Command
             ->addOption('query', null, InputOption::VALUE_REQUIRED, 'Filter by query text.')
             ->addOption('provider', null, InputOption::VALUE_REQUIRED, 'Filter by provider nameEntity.')
             ->addOption('user-id', null, InputOption::VALUE_REQUIRED, 'Filter by user id.')
-            ->addOption('tenant-id', null, InputOption::VALUE_REQUIRED, 'Filter by tenant id.')
+            ->addOption('vendor-id', null, InputOption::VALUE_REQUIRED, 'Filter by vendor id.')
             ->addOption('successful', null, InputOption::VALUE_REQUIRED, 'Filter by success flag: true or false.');
     }
 
@@ -43,7 +43,7 @@ final class SearchQueryLogListCommand extends Command
             'query' => $input->getOption('query'),
             'provider' => $input->getOption('provider'),
             'user_id' => $input->getOption('user-id'),
-            'tenant_id' => $input->getOption('tenant-id'),
+            'vendor_id' => $input->getOption('vendor-id'),
             'successful' => $input->getOption('successful'),
         ], 25);
 

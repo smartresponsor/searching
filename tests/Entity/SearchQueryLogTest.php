@@ -15,7 +15,7 @@ final class SearchQueryLogTest extends TestCase
         $log = SearchQueryLogEntity::fromTrace(new SearchQueryExecutionTrace(
             query: 'order',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             providerName: 'opensearch',
             providerTotal: 10,
             returnedTotal: 7,

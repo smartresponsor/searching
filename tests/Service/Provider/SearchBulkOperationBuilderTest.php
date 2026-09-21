@@ -42,7 +42,7 @@ final class SearchBulkOperationBuilderTest extends TestCase
             facets: [],
             permissions: [],
             locale: null,
-            tenantId: null,
+            vendorId: null,
             ownerId: null,
             routeName: 'demo_show',
             routeParameters: ['id' => $resourceId],

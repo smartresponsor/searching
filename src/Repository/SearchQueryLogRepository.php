@@ -59,10 +59,10 @@ final class SearchQueryLogRepository extends ServiceEntityRepository
                 ->setParameter('userId', $criteria->userId);
         }
 
-        if (null !== $criteria->tenantId) {
+        if (null !== $criteria->vendorId) {
             $queryBuilder
-                ->andWhere('queryLog.tenantId = :tenantId')
-                ->setParameter('tenantId', $criteria->tenantId);
+                ->andWhere('queryLog.vendorId = :vendorId')
+                ->setParameter('vendorId', $criteria->vendorId);
         }
 
         if (null !== $criteria->providerName) {

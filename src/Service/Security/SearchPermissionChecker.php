@@ -25,11 +25,11 @@ final class SearchPermissionChecker implements SearchPermissionCheckerInterface
             return SearchPermissionDecision::allow('public_visibility');
         }
 
-        $itemTenantId = $this->stringMetadata($item, 'tenantId') ?? $this->stringMetadata($item, 'tenant_id');
-        if (null !== $query->tenantId && null !== $itemTenantId && $itemTenantId !== $query->tenantId) {
-            return SearchPermissionDecision::deny('tenant_mismatch', [
-                'queryTenantId' => $query->tenantId,
-                'itemTenantId' => $itemTenantId,
+        $itemVendorId = $this->stringMetadata($item, 'vendorId') ?? $this->stringMetadata($item, 'vendor_id');
+        if (null !== $query->vendorId && null !== $itemVendorId && $itemVendorId !== $query->vendorId) {
+            return SearchPermissionDecision::deny('vendor_mismatch', [
+                'queryVendorId' => $query->vendorId,
+                'itemVendorId' => $itemVendorId,
             ]);
         }
 

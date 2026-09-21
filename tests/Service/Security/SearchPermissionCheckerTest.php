@@ -20,13 +20,13 @@ final class SearchPermissionCheckerTest extends TestCase
         self::assertSame('public_visibility', $decision->reason);
     }
 
-    public function testItDeniesTenantMismatch(): void
+    public function testItDeniesVendorMismatch(): void
     {
         $checker = new SearchPermissionChecker();
-        $decision = $checker->decide($this->item(['tenantId' => 'tenant-b']), new SearchQuery('demo', tenantId: 'tenant-a'));
+        $decision = $checker->decide($this->item(['vendorId' => 'vendor-b']), new SearchQuery('demo', vendorId: 'vendor-a'));
 
         self::assertFalse($decision->allowed);
-        self::assertSame('tenant_mismatch', $decision->reason);
+        self::assertSame('vendor_mismatch', $decision->reason);
     }
 
     public function testItRequiresOwnerMatchForPrivateResults(): void
@@ -70,8 +70,8 @@ final class SearchPermissionCheckerTest extends TestCase
             new SearchQuery('demo', userId: 'user-3'),
         )->reason);
         self::assertSame('not_restricted', $checker->decide(
-            $this->item(['tenant_id' => 'tenant-a', 'visibility' => 5]),
-            new SearchQuery('demo', tenantId: 'tenant-a'),
+            $this->item(['vendor_id' => 'vendor-a', 'visibility' => 5]),
+            new SearchQuery('demo', vendorId: 'vendor-a'),
         )->reason);
     }
 

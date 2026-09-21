@@ -31,8 +31,8 @@ final class SearchBackendSuggestionBuilder implements SearchBackendSuggestionBui
             $filter[] = ['term' => ['locale' => $query->locale]];
         }
 
-        if (null !== $query->tenantId) {
-            $filter[] = ['term' => ['tenant_id' => $query->tenantId]];
+        if (null !== $query->vendorId) {
+            $filter[] = ['term' => ['vendor_id' => $query->vendorId]];
         }
 
         foreach ($query->filters as $field => $value) {

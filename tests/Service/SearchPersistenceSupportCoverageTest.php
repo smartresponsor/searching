@@ -91,7 +91,7 @@ final class SearchPersistenceSupportCoverageTest extends TestCase
         $trace = new SearchQueryExecutionTrace(
             query: 'needle',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             providerName: 'null',
             providerTotal: 1,
             returnedTotal: 1,

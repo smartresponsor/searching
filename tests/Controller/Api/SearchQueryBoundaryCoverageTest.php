@@ -45,7 +45,7 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
                 && 1 === $query->page
                 && 1 === $query->limit
                 && 'en' === $query->locale
-                && 'tenant-1' === $query->tenantId
+                && 'vendor-1' === $query->vendorId
                 && 'user-1' === $query->userId
                 && false === $query->includeHighlights
                 && true === $query->includeFacets
@@ -61,7 +61,7 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
             'page' => '0',
             'limit' => '0',
             'locale' => ' en ',
-            'tenantId' => ' tenant-1 ',
+            'vendorId' => ' vendor-1 ',
             'userId' => ' user-1 ',
             'highlights' => 'false',
             'facets' => 'true',
@@ -123,7 +123,7 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
                 && ['order'] === $query->resourceTypes
                 && 50 === $query->limit
                 && 'user-4' === $query->userId
-                && 'tenant-4' === $query->tenantId
+                && 'vendor-4' === $query->vendorId
                 && false === $query->includeSynonyms
                 && $context === $query->executionContext;
         }))->willReturn([new SearchSuggestion('Needle', 1.0, 'ordering', 'order', '42')]);
@@ -134,7 +134,7 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
             'resources' => 'order',
             'limit' => '99',
             'user_id' => ' user-4 ',
-            'tenant_id' => ' tenant-4 ',
+            'vendor_id' => ' vendor-4 ',
             'synonyms' => 'false',
         ]));
 

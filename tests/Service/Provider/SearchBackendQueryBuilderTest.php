@@ -24,7 +24,7 @@ final class SearchBackendQueryBuilderTest extends TestCase
                 page: 2,
                 limit: 10,
                 locale: 'en_US',
-                tenantId: 'tenant-1',
+                vendorId: 'vendor-1',
                 userId: 'user-1',
             ),
             new SearchProviderConfiguration(

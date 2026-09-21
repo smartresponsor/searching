@@ -144,11 +144,11 @@ final class SearchRuntimeSupportCoverageTest extends TestCase
         $limitedQuery = \App\Searching\Value\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery(
             'needle',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             limit: 100,
         ));
         self::assertSame(10, $limitedQuery->cost);
-        self::assertSame('user-1:tenant-1:needle', $limitedQuery->identity);
+        self::assertSame('user-1:vendor-1:needle', $limitedQuery->identity);
         $anonymousQuery = \App\Searching\Value\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery('', limit: 0));
         self::assertSame(1, $anonymousQuery->cost);
         self::assertSame('anonymous', $anonymousQuery->identity);

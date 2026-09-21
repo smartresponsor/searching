@@ -16,7 +16,7 @@ final class SearchQueryExecutionTraceSerializer
         return [
             'query' => $trace->query,
             'userId' => $trace->userId,
-            'tenantId' => $trace->tenantId,
+            'vendorId' => $trace->vendorId,
             'providerName' => $trace->providerName,
             'providerTotal' => $trace->providerTotal,
             'returnedTotal' => $trace->returnedTotal,

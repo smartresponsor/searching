@@ -31,7 +31,7 @@ final class SearchDocumentFingerprintCalculatorTest extends TestCase
             component: ' Ordering ', resourceType: ' Order ', resourceId: ' 42 ', title: ' Invoice 42 ',
             summary: ' Paid invoice ', body: ' Full body ', keywords: ['invoice', 'invoice', '42'],
             facets: ['status' => 'paid'], permissions: ['order.view', 'order.view', 'order.export'],
-            locale: 'en', tenantId: 'tenant-1', ownerId: 'vendor-1', routeName: ' order_show ',
+            locale: 'en', vendorId: 'vendor-1', ownerId: 'vendor-1', routeName: ' order_show ',
             routeParameters: ['id' => 42], updatedAt: new \DateTimeImmutable('2026-09-15T12:00:00+00:00'),
         ));
 
@@ -48,7 +48,7 @@ final class SearchDocumentFingerprintCalculatorTest extends TestCase
         $nullable = $normalizer->normalize(new SearchDocument(
             component: 'cataloging', resourceType: 'product', resourceId: '1', title: 'Product',
             summary: null, body: null, keywords: [], facets: [], permissions: [], locale: null,
-            tenantId: null, ownerId: null, routeName: 'product_show', routeParameters: [],
+            vendorId: null, ownerId: null, routeName: 'product_show', routeParameters: [],
             updatedAt: new \DateTimeImmutable('2026-09-15T12:00:00+00:00'),
         ));
         self::assertNull($nullable->summary);
@@ -80,7 +80,7 @@ final class SearchDocumentFingerprintCalculatorTest extends TestCase
             facets: $facets,
             permissions: [],
             locale: 'en',
-            tenantId: null,
+            vendorId: null,
             ownerId: null,
             routeName: 'catalog_product_show',
             routeParameters: ['id' => 42],

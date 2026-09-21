@@ -38,7 +38,7 @@ final class SearchResultPayloadBuilderCoverageTest extends TestCase
                 && 1 === $request->page
                 && 100 === $request->limit
                 && 'en' === $request->locale
-                && 'tenant-1' === $request->tenantId
+                && 'vendor-1' === $request->vendorId
                 && 'user-1' === $request->userId
                 && false === $request->includeHighlights
                 && true === $request->includeFacets
@@ -54,7 +54,7 @@ final class SearchResultPayloadBuilderCoverageTest extends TestCase
             'page' => '0',
             'limit' => '500',
             'locale' => ' en ',
-            'tenantId' => ' tenant-1 ',
+            'vendorId' => ' vendor-1 ',
             'userId' => ' user-1 ',
             'highlights' => 'false',
             'facets' => 'true',

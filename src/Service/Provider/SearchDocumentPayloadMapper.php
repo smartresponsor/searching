@@ -24,7 +24,7 @@ final class SearchDocumentPayloadMapper
             'facets' => $document->facets,
             'permissions' => $document->permissions,
             'locale' => $document->locale,
-            'tenant_id' => $document->tenantId,
+            'vendor_id' => $document->vendorId,
             'owner_id' => $document->ownerId,
             'route_name' => $document->routeName,
             'route_parameters' => $document->routeParameters,

@@ -16,7 +16,7 @@ final class SearchQueryExecutionTraceSerializerTest extends TestCase
         $payload = $serializer->serialize(new SearchQueryExecutionTrace(
             query: 'invoice',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             providerName: 'null',
             providerTotal: 3,
             returnedTotal: 2,

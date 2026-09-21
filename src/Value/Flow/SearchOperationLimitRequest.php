@@ -24,12 +24,12 @@ final readonly class SearchOperationLimitRequest
     {
         return new self(
             operation: 'search.query',
-            identity: self::identity($query->userId, $query->tenantId, $query->query),
+            identity: self::identity($query->userId, $query->vendorId, $query->query),
             cost: max(1, min(10, $query->limit)),
             metadata: [
                 'query' => $query->query,
                 'user_id' => $query->userId,
-                'tenant_id' => $query->tenantId,
+                'vendor_id' => $query->vendorId,
                 'components' => $query->components,
                 'resource_types' => $query->resourceTypes,
                 'limit' => $query->limit,

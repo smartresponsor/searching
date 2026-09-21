@@ -38,7 +38,7 @@ final class SearchIndexMappingBuilder implements SearchIndexMappingBuilderInterf
                 'facets' => ['type' => 'object', 'enabled' => true],
                 'permissions' => ['type' => 'keyword'],
                 'locale' => ['type' => 'keyword', 'normalizer' => $keywordNormalizer],
-                'tenant_id' => ['type' => 'keyword'],
+                'vendor_id' => ['type' => 'keyword'],
                 'owner_id' => ['type' => 'keyword'],
                 'route_name' => ['type' => 'keyword'],
                 'route_parameters' => ['type' => 'object', 'enabled' => true],

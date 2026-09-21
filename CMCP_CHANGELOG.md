@@ -623,3 +623,34 @@ Residual decisions / growth:
 - The broader `tenantId` vocabulary cannot be renamed mechanically: Objecting explicitly requires semantic classification of tenant-like fields before migration. Searching currently uses it in query isolation/filtering, permissions, logging, indexing payloads, and persisted query logs. That is a separate identity-model migration requiring proof of Vendor-vs-business semantics, not a safe incidental RC rewrite.
 - Local audit timestamps in Searching entities are likewise an Objecting adoption/migration concern, not part of the provider identity fix; any adoption must preserve schema parity through an explicit forward migration and Objecting pack contract.
 - Market-parity growth remains judged relevance evaluation, hybrid lexical/vector retrieval, reranking/search pipelines, click/query analytics, experimentation, personalization, and Canon042 application/UI evidence. RC does not depend on those capabilities.
+
+## Iteration 22 — Canon046 Vendor identity migration
+
+Baseline and decision:
+
+- Canon046 now defines `VendorEntity.id` as the single cross-component user/vendor identity key. Searching therefore treats active `tenantId` / `tenant_id` vocabulary as non-canonical rather than as unresolved semantic debt.
+- Historical migration `Version20260914091219` remains unchanged as migration evidence. Active runtime contracts move atomically to `vendorId` in PHP/API/DTO vocabulary and `vendor_id` in backend/persistence vocabulary.
+
+Implementation:
+
+- Migrated SearchQuery, request/suggestion DTOs, execution traces, document contracts, backend query/suggestion filters, index mapping, provider payloads, fingerprinting/normalization, flow-control metadata, permission filtering, query-log criteria/repository/entity/serialization, API inputs, and CLI filtering from tenant identity vocabulary to Vendor identity vocabulary.
+- Search permission mismatch metadata/reason is now `vendor_mismatch` with `queryVendorId` / `itemVendorId`.
+- `SearchQueryLogEntity::$vendorId` is explicitly persisted as Doctrine column `vendor_id`.
+- Added `Version20260920204000` to rename the historical `search_query_log.tenantId` column to `vendor_id`; the down migration restores the historical column name.
+- Updated README, architecture/flow-control documentation, tests, and local agent guidance to the Vendor identity contract. Remaining tenant vocabulary is intentionally limited to canonical prohibition text, historical CMCP/migration evidence, and a neutral provider `index_prefix='tenant'` test fixture unrelated to identity.
+
+Acceptance:
+
+- Guarded Doctrine dry-run plan found exactly one pending migration and the guarded migration execution applied `Version20260920204000` successfully in test environment.
+- Changed-PHP syntax lint: 54/54 GREEN.
+- `composer cs:check`: GREEN, 0/316 fixable files.
+- `composer stan`: GREEN, 315/315 files, 0 errors.
+- `composer test`: GREEN, 175 tests / 1147 assertions.
+- `composer schema:parity`: GREEN; Doctrine mapping correct, database schema synchronized, no pending migrations.
+- `composer check:searching`: GREEN; production Composer manifest valid, Symfony standalone boot healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
+- Fresh `composer test:coverage`: GREEN; Classes 69.35% (138/199), Methods 80.11% (572/714), Branches 89.49% (2001/2236), Lines 93.80% (4146/4420), Paths 4.67% informational. Canon040 normative thresholds remain satisfied.
+
+Residual:
+
+- This migration intentionally does not reinterpret `userId` / actor identity or `ownerId`; they represent separate existing contracts and were not proven aliases of Vendor identity in this change.
+- Historical migrations and journal entries are retained rather than rewritten.

@@ -161,7 +161,7 @@ final class SearchRuntimeValueCoverageTest extends TestCase
         $log = SearchQueryLogEntity::fromTrace(new SearchQueryExecutionTrace(
             query: 'needle',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             providerName: 'elastic',
             providerTotal: 5,
             returnedTotal: 3,
@@ -176,7 +176,7 @@ final class SearchRuntimeValueCoverageTest extends TestCase
         self::assertNull($log->getId());
         self::assertSame('needle', $log->getQueryText());
         self::assertSame('user-1', $log->getUserId());
-        self::assertSame('tenant-1', $log->getTenantId());
+        self::assertSame('vendor-1', $log->getVendorId());
         self::assertNull($log->getCorrelationId());
         self::assertNull($log->getRequestId());
         self::assertNull($log->getSourceComponent());
@@ -205,7 +205,7 @@ final class SearchRuntimeValueCoverageTest extends TestCase
             page: 3,
             limit: 10,
             locale: 'en_US',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             userId: 'user-1',
             userPermissions: ['order.view'],
             includeHighlights: false,
@@ -245,7 +245,7 @@ final class SearchRuntimeValueCoverageTest extends TestCase
             facets: [],
             permissions: [],
             locale: null,
-            tenantId: null,
+            vendorId: null,
             ownerId: null,
             routeName: 'order_show',
             routeParameters: ['id' => 'ID 42'],

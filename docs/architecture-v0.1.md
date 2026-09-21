@@ -119,7 +119,7 @@ Searching now has a final Symfony-side permission guard after provider search:
 - `SearchPermissionChecker` default implementation
 - `SearchPermissionFilter` final result filter
 
-Search backend filtering is treated as an optimization only. User-facing results must pass the final application-side permission filter before they are serialized for API/UI usage. The default checker uses normalized result metadata such as `visibility`, `tenantId`, `ownerId`, `allowedUserIds`, and `requiredPermissions`. Host applications may replace the checker with Symfony voter/security-aware logic later.
+Search backend filtering is treated as an optimization only. User-facing results must pass the final application-side permission filter before they are serialized for API/UI usage. The default checker uses normalized result metadata such as `visibility`, `vendorId`, `ownerId`, `allowedUserIds`, and `requiredPermissions`. Host applications may replace the checker with Symfony voter/security-aware logic later.
 
 ## v0.9 query logging and metrics
 
@@ -139,7 +139,7 @@ The trace includes:
 
 ```text
 query
-userId / tenantId
+userId / vendorId
 providerName
 providerTotal
 returnedTotal
@@ -198,7 +198,7 @@ Supported filters:
 query
 provider / providerName
 user_id / userId
-tenant_id / tenantId
+vendor_id / vendorId
 successful
 from
 to
@@ -245,9 +245,9 @@ This keeps Administering-owned configuration surfaces operational while preservi
 
 ## v0.13 Suggestion/autocomplete layer
 
-Searching now has a dedicated suggestion/autocomplete contract layer. `SearchSuggestionQuery` carries the user query, component/resource restrictions, locale, tenant boundary, and suggestion controls. `SearchSuggestionProviderInterface::suggestByQuery()` delegates to the active `SearchProviderInterface`, while backend providers use `SearchBackendSuggestionBuilderInterface` to produce backend-neutral phrase-prefix/fuzzy/synonym-aware payloads.
+Searching now has a dedicated suggestion/autocomplete contract layer. `SearchSuggestionQuery` carries the user query, component/resource restrictions, locale, Vendor boundary, and suggestion controls. `SearchSuggestionProviderInterface::suggestByQuery()` delegates to the active `SearchProviderInterface`, while backend providers use `SearchBackendSuggestionBuilderInterface` to produce backend-neutral phrase-prefix/fuzzy/synonym-aware payloads.
 
-The API surface remains stable at `GET /api/search/suggest`, now accepting optional `components`, `resourceTypes`, `locale`, `tenantId`, `userId`, `synonyms`, and `fuzzy` query parameters. Serialization exposes only normalized `SearchSuggestion` values, not backend payloads.
+The API surface remains stable at `GET /api/search/suggest`, now accepting optional `components`, `resourceTypes`, `locale`, `vendorId`, `userId`, `synonyms`, and `fuzzy` query parameters. Serialization exposes only normalized `SearchSuggestion` values, not backend payloads.
 
 ## v0.14 Result hydration and stale-result safety
 
