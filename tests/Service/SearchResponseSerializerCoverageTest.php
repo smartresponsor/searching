@@ -63,8 +63,8 @@ final class SearchResponseSerializerCoverageTest extends TestCase
         $serializer = new SearchResponseSerializer();
 
         self::assertSame(
-            ['nameEntity' => 'brand', 'buckets' => ['Acme' => 2]],
-            $serializer->serializeFacet(new SearchFacetResponse('brand', ['Acme' => 2])),
+            ['identifier' => 'brand', 'nameEntity' => 'brand', 'buckets' => ['acme' => 2]],
+            $serializer->serializeFacet(new SearchFacetResponse(' Brand ', ['Acme' => 2])),
         );
         self::assertSame(
             ['field' => 'title', 'fragments' => ['Phone']],

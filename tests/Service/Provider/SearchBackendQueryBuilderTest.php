@@ -45,4 +45,56 @@ final class SearchBackendQueryBuilderTest extends TestCase
         self::assertSame(['updated_at' => 'desc'], $payload['sort']);
         self::assertSame(['billing'], $payload['_searching']['components']);
     }
+
+    public function testItBuildsAnyAllAndRangeFacetFilters(): void
+    {
+        $payload = (new SearchBackendQueryBuilder())->build(
+            new SearchQuery(
+                query: '',
+                filters: [
+                    'facets.brand' => ['operator' => 'any', 'values' => ['acme', 'globex']],
+                    'facets.tag' => ['operator' => 'all', 'values' => ['sale', 'featured']],
+                    'price' => ['range' => ['min' => 10, 'max' => 100, 'includeMin' => true, 'includeMax' => false]],
+                ],
+            ),
+            new SearchProviderConfiguration(
+                nameEntity: 'elasticsearch',
+                enabled: true,
+                dsn: null,
+                indexPrefix: 'sr',
+            ),
+        )->toPayload();
+
+        /** @var array{query: array{bool: array{filter: list<array<string, mixed>>}}} $payload */
+        self::assertSame(
+            ['terms' => ['facets.brand' => ['acme', 'globex']]],
+            $payload['query']['bool']['filter'][0],
+        );
+        self::assertSame(
+            ['bool' => ['must' => [
+                ['term' => ['facets.tag' => 'sale']],
+                ['term' => ['facets.tag' => 'featured']],
+            ]]],
+            $payload['query']['bool']['filter'][1],
+        );
+        self::assertSame(
+            ['range' => ['price' => ['gte' => 10, 'lt' => 100]]],
+            $payload['query']['bool']['filter'][2],
+        );
+    }
+
+    public function testItRejectsUnsupportedAssociativeFilterShape(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new SearchBackendQueryBuilder())->build(
+            new SearchQuery(query: '', filters: ['facets.brand' => ['unexpected' => true]]),
+            new SearchProviderConfiguration(
+                nameEntity: 'elasticsearch',
+                enabled: true,
+                dsn: null,
+                indexPrefix: 'sr',
+            ),
+        );
+    }
 }

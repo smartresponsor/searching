@@ -1,0 +1,37 @@
+= Product Capability Audit: Searching
+:revdate: 2026-09-21
+
+== Boundary verdict
+
+Searching owns search execution, query/tuning metadata and external search contracts. Indexing owns index lifecycle; Faceting owns facet semantics; Interfacing owns rendering.
+
+== Capability matrix
+
+[cols="3,1,4",options="header"]
+|===
+|Capability |Status |Audit
+|Text query execution |PARITY |Core search runtime is explicit.
+|Search response contract |PARITY |Stable runtime/bridge contracts exist.
+|Ranking/tuning metadata |AHEAD |First-class user-facing tuning ownership is explicitly documented.
+|Filters/facets consumption |PARITY |Searching now accepts Faceting-compatible stable facet/value identifiers, deterministic counted buckets, explicit Any/All multi-select semantics and open/closed range filter shapes while keeping backend execution local.
+|Sorting |PARITY |Expected query responsibility.
+|Pagination |PARITY |Baseline search API concern.
+|Autocomplete/suggest |PARTIAL |Should compose with Tagging/Cataloging suggestions where appropriate.
+|Typo tolerance/fuzzy search |PARTIAL |Driver-dependent but user-visible policy belongs here.
+|Synonyms |PARTIAL |Search-specific synonym policy belongs here.
+|Boosting/pinning |PARTIAL |Modern merchandising/search baseline.
+|Zero-results/fallback strategy |PARTIAL |Search runtime should expose deterministic fallback behavior.
+|Health/readiness |AHEAD |Explicit operational readiness boundary exists.
+|===
+
+== Boundary risks
+
+* Do not absorb index lifecycle from Indexing.
+* Rendering remains Interfacing; bridge adaptation remains Bridging.
+
+== Milestone direction
+
+M1: formalize fuzzy/synonym/sort/filter contracts.
+M2: boosting/pinning and zero-result strategies.
+M3: facet aggregation acceptance with Faceting/Indexing is COMPLETE at the Searching contract boundary; autocomplete composition with Tagging/Cataloging remains a separate growth item.
+

@@ -49,7 +49,7 @@ final class SearchResponseMapper
 
     public function mapFacet(SearchFacet $facet): SearchFacetResponse
     {
-        return new SearchFacetResponse($facet->nameEntity, $facet->buckets);
+        return new SearchFacetResponse($facet->identifier, $facet->buckets);
     }
 
     public function mapHighlight(SearchHighlight $highlight): SearchHighlightResponse

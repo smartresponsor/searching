@@ -55,6 +55,7 @@ final class SearchResponseSerializer
     public function serializeFacet(SearchFacetResponse $facet): array
     {
         return [
+            'identifier' => $facet->identifier,
             'nameEntity' => $facet->nameEntity,
             'buckets' => $facet->buckets,
         ];

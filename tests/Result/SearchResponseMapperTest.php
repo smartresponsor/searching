@@ -44,7 +44,32 @@ final class SearchResponseMapperTest extends TestCase
         self::assertArrayNotHasKey('raw_hit', $result->items[0]->metadata);
         self::assertArrayNotHasKey('raw_response', $result->metadata);
         self::assertSame('public', $result->items[0]->metadata['visibility']);
+        self::assertSame('brand', $result->facets[0]->identifier);
         self::assertSame('brand', $result->facets[0]->nameEntity);
+        self::assertSame(['acme' => 2], $result->facets[0]->buckets);
+    }
+
+    public function testFacetBucketsAreCanonicalAndDeterministic(): void
+    {
+        $facet = new SearchFacet(' Brand ', [
+            'Zeta' => 2,
+            'Beta' => 3,
+            'Alpha' => 3,
+        ]);
+
+        self::assertSame('brand', $facet->identifier);
+        self::assertSame([
+            'alpha' => 3,
+            'beta' => 3,
+            'zeta' => 2,
+        ], $facet->buckets);
+    }
+
+    public function testInvalidFacetSemanticsAreRejected(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new SearchFacet('brand color', ['alpha' => 1]);
     }
 
     public function testItMapsSuggestionRouteMetadataAndDropsRawProviderPayload(): void

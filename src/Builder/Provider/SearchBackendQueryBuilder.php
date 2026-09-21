@@ -69,9 +69,7 @@ final class SearchBackendQueryBuilder implements SearchBackendQueryBuilderInterf
         }
 
         foreach ($query->filters as $field => $value) {
-            $filter[] = is_array($value)
-                ? ['terms' => [$field => array_values($value)]]
-                : ['term' => [$field => $value]];
+            $this->appendUserFilter($filter, (string) $field, $value);
         }
 
         $backendQuery = ['bool' => ['must' => $must]];
@@ -172,6 +170,80 @@ final class SearchBackendQueryBuilder implements SearchBackendQueryBuilderInterf
         if ([] !== $values) {
             $filter[] = ['terms' => [$field => $values]];
         }
+    }
+
+    /**
+     * Accepts Faceting-compatible consumer shapes while keeping backend execution in Searching.
+     *
+     * @param list<array<string, mixed>> $filter
+     */
+    private function appendUserFilter(array &$filter, string $field, mixed $value): void
+    {
+        if ('' === trim($field)) {
+            throw new \InvalidArgumentException('Search filter field must not be empty.');
+        }
+
+        if (!is_array($value)) {
+            $filter[] = ['term' => [$field => $value]];
+
+            return;
+        }
+
+        if (array_is_list($value)) {
+            if ([] !== $value) {
+                $filter[] = ['terms' => [$field => $value]];
+            }
+
+            return;
+        }
+
+        $operatorValue = $value['operator'] ?? null;
+        $operator = is_string($operatorValue) ? mb_strtolower(trim($operatorValue)) : '';
+        $values = $value['values'] ?? null;
+        if (in_array($operator, ['any', 'all'], true) && is_array($values)) {
+            $values = array_values($values);
+            if ([] === $values) {
+                return;
+            }
+
+            if ('any' === $operator) {
+                $filter[] = ['terms' => [$field => $values]];
+
+                return;
+            }
+
+            $filter[] = [
+                'bool' => [
+                    'must' => array_map(
+                        static fn (mixed $item): array => ['term' => [$field => $item]],
+                        $values,
+                    ),
+                ],
+            ];
+
+            return;
+        }
+
+        $range = $value['range'] ?? null;
+        if (is_array($range)) {
+            $bounds = [];
+            if (array_key_exists('min', $range) && null !== $range['min']) {
+                $bounds[false === ($range['includeMin'] ?? true) ? 'gt' : 'gte'] = $range['min'];
+            }
+            if (array_key_exists('max', $range) && null !== $range['max']) {
+                $bounds[false === ($range['includeMax'] ?? true) ? 'lt' : 'lte'] = $range['max'];
+            }
+
+            if ([] === $bounds) {
+                throw new \InvalidArgumentException('Search range filter requires at least one boundary.');
+            }
+
+            $filter[] = ['range' => [$field => $bounds]];
+
+            return;
+        }
+
+        throw new \InvalidArgumentException(sprintf('Unsupported search filter shape for "%s".', $field));
     }
 
     private function optionString(SearchProviderConfiguration $configuration, string $nameEntity, string $default): string

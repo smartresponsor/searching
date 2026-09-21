@@ -654,3 +654,16 @@ Residual:
 
 - This migration intentionally does not reinterpret `userId` / actor identity or `ownerId`; they represent separate existing contracts and were not proven aliases of Vendor identity in this change.
 - Historical migrations and journal entries are retained rather than rewritten.
+
+## 2026-09-21 — Faceting consumer acceptance
+
+Task: `engine-20260921193925-searching-4a9919`
+
+- Preserved the pre-existing dirty Composer/audit wave and implemented Faceting acceptance only in Searching-owned result/query contracts.
+- Search facet results now normalize Faceting-compatible stable facet identifiers and facet-value identifiers, reject invalid/negative buckets, and order counted buckets deterministically by count descending then identifier ascending.
+- Search response serialization now publishes the canonical `identifier` while retaining `nameEntity` as a compatibility alias.
+- Backend query shaping now accepts explicit `any` / `all` multi-select filter composition and open/closed range shapes while keeping search execution entirely in Searching.
+- Verification: `composer test` GREEN at 179 tests / 1156 assertions; `composer stan` GREEN with 0 errors; `composer cs:check` GREEN; `composer check:searching` GREEN.
+- Scoped `gating/gate` lock metadata refresh restored executable Gating in this workspace. The resulting Gating run exposed broader pre-existing Searching canon debt unrelated to this Faceting slice; that debt remains a separate RC-hardening workstream and is not hidden by the Faceting acceptance commit.
+- `PRODUCT_CAPABILITY_AUDIT.adoc` now records Filters/facets consumption as PARITY and marks Faceting/Indexing aggregation acceptance complete at the Searching contract boundary; autocomplete composition remains separate growth work.
+
