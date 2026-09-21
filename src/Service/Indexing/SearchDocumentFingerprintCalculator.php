@@ -22,7 +22,7 @@ final class SearchDocumentFingerprintCalculator
             'facets' => $this->normalizeArray($document->facets),
             'permissions' => $this->normalizeArray($document->permissions),
             'locale' => $document->locale,
-            'tenantId' => $document->tenantId,
+            'vendorId' => $document->vendorId,
             'ownerId' => $document->ownerId,
             'routeName' => $document->routeName,
             'routeParameters' => $this->normalizeArray($document->routeParameters),

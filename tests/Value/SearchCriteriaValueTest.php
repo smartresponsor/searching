@@ -222,7 +222,7 @@ final class SearchCriteriaValueTest extends TestCase
             'offset' => '3',
             'query' => ' invoice ',
             'user_id' => ' user-1 ',
-            'tenant_id' => ' tenant-1 ',
+            'vendor_id' => ' vendor-1 ',
             'provider' => ' null ',
             'correlation_id' => ' corr-1 ',
             'request_id' => ' req-1 ',
@@ -237,7 +237,7 @@ final class SearchCriteriaValueTest extends TestCase
         self::assertSame(3, $criteria->offset);
         self::assertSame('invoice', $criteria->query);
         self::assertSame('user-1', $criteria->userId);
-        self::assertSame('tenant-1', $criteria->tenantId);
+        self::assertSame('vendor-1', $criteria->vendorId);
         self::assertSame('null', $criteria->providerName);
         self::assertSame('corr-1', $criteria->correlationId);
         self::assertSame('req-1', $criteria->requestId);

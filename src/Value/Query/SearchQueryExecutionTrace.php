@@ -15,7 +15,7 @@ final readonly class SearchQueryExecutionTrace
     public function __construct(
         public string $query,
         public ?string $userId,
-        public ?string $tenantId,
+        public ?string $vendorId,
         public string $providerName,
         public int $providerTotal,
         public int $returnedTotal,

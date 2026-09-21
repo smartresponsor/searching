@@ -23,7 +23,7 @@ final class SearchQueryPayloadMapper
             'limit' => $query->limit,
             'offset' => max(0, ($query->page - 1) * $query->limit),
             'locale' => $query->locale,
-            'tenant_id' => $query->tenantId,
+            'vendor_id' => $query->vendorId,
             'user_id' => $query->userId,
             'user_permissions' => $query->userPermissions,
             'include_highlights' => $query->includeHighlights,

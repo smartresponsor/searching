@@ -40,7 +40,7 @@ final readonly class FakeSearchableDocumentProvider implements SearchableDocumen
             facets: [],
             permissions: [],
             locale: 'en',
-            tenantId: null,
+            vendorId: null,
             ownerId: null,
             routeName: 'example_show',
             routeParameters: ['id' => 1],

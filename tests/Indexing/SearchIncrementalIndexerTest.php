@@ -59,7 +59,7 @@ final class SearchIncrementalIndexerTest extends TestCase
             facets: [],
             permissions: [],
             locale: 'en',
-            tenantId: null,
+            vendorId: null,
             ownerId: null,
             routeName: 'catalog_product_show',
             routeParameters: ['id' => 42],

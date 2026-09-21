@@ -35,7 +35,7 @@ final readonly class SearchSuggestionApiController
             filters: [],
             limit: $limit,
             locale: $this->nullableString($request->query->get('locale')),
-            tenantId: $this->nullableString($request->query->get('tenantId', $request->query->get('tenant_id'))),
+            vendorId: $this->nullableString($request->query->get('vendorId', $request->query->get('vendor_id'))),
             userId: $actorId,
             includeSynonyms: $request->query->getBoolean('synonyms', true),
             includeFuzzy: $request->query->getBoolean('fuzzy', true),

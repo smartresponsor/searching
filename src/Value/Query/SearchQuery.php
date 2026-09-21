@@ -24,7 +24,7 @@ final readonly class SearchQuery
         public int $page = 1,
         public int $limit = 20,
         public ?string $locale = null,
-        public ?string $tenantId = null,
+        public ?string $vendorId = null,
         public ?string $userId = null,
         public bool $includeHighlights = true,
         public bool $includeFacets = true,

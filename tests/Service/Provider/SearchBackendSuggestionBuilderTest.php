@@ -22,7 +22,7 @@ final class SearchBackendSuggestionBuilderTest extends TestCase
                 filters: ['facets.status' => 'active'],
                 limit: 7,
                 locale: 'en_US',
-                tenantId: 'tenant-1',
+                vendorId: 'vendor-1',
                 userId: 'user-1',
             ),
             new SearchProviderConfiguration(

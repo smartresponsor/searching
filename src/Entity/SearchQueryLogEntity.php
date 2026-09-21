@@ -22,8 +22,8 @@ class SearchQueryLogEntity
     #[ORM\Column(type: 'string', length: 64, nullable: true)]
     private ?string $userId = null;
 
-    #[ORM\Column(type: 'string', length: 64, nullable: true)]
-    private ?string $tenantId = null;
+    #[ORM\Column(name: 'vendor_id', type: 'string', length: 64, nullable: true)]
+    private ?string $vendorId = null;
 
     #[ORM\Column(name: 'correlation_id', type: 'string', length: 64, nullable: true)]
     private ?string $correlationId = null;
@@ -83,7 +83,7 @@ class SearchQueryLogEntity
         $log = new self();
         $log->queryText = $trace->query;
         $log->userId = $trace->userId;
-        $log->tenantId = $trace->tenantId;
+        $log->vendorId = $trace->vendorId;
         $log->correlationId = $trace->executionContext?->correlationId;
         $log->requestId = $trace->executionContext?->requestId;
         $log->sourceComponent = $trace->executionContext?->sourceComponent;
@@ -122,9 +122,9 @@ class SearchQueryLogEntity
         return $this->userId;
     }
 
-    public function getTenantId(): ?string
+    public function getVendorId(): ?string
     {
-        return $this->tenantId;
+        return $this->vendorId;
     }
 
     public function getCorrelationId(): ?string

@@ -150,7 +150,7 @@ final class SearchRepositoryReaderIntegrationTest extends KernelTestCase
         $log = SearchQueryLogEntity::fromTrace(new SearchQueryExecutionTrace(
             query: 'wave6 invoice',
             userId: 'user-42',
-            tenantId: 'tenant-42',
+            vendorId: 'vendor-42',
             providerName: 'null',
             providerTotal: 3,
             returnedTotal: 2,
@@ -167,7 +167,7 @@ final class SearchRepositoryReaderIntegrationTest extends KernelTestCase
             limit: 10,
             query: 'invoice',
             userId: 'user-42',
-            tenantId: 'tenant-42',
+            vendorId: 'vendor-42',
             providerName: 'null',
             correlationId: 'wave6-correlation',
             requestId: 'wave6-request',

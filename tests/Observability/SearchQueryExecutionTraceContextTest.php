@@ -18,7 +18,7 @@ final class SearchQueryExecutionTraceContextTest extends TestCase
         $trace = new SearchQueryExecutionTrace(
             query: 'phone',
             userId: 'user-1',
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             providerName: 'opensearch',
             providerTotal: 3,
             returnedTotal: 2,

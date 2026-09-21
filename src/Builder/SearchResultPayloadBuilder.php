@@ -37,7 +37,7 @@ final readonly class SearchResultPayloadBuilder
                 page: max(1, $request->query->getInt('page', 1)),
                 limit: max(1, min(100, $request->query->getInt('limit', 20))),
                 locale: $this->nullableString($request, 'locale'),
-                tenantId: $this->nullableString($request, 'tenantId'),
+                vendorId: $this->nullableString($request, 'vendorId'),
                 userId: $this->nullableString($request, 'userId'),
                 includeHighlights: $request->query->getBoolean('highlights', true),
                 includeFacets: $request->query->getBoolean('facets', true),

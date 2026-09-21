@@ -33,7 +33,7 @@ final class SearchQueryLogSerializer
             'id' => $log->getId(),
             'query' => $log->getQueryText(),
             'userId' => $log->getUserId(),
-            'tenantId' => $log->getTenantId(),
+            'vendorId' => $log->getVendorId(),
             'correlationId' => $log->getCorrelationId(),
             'requestId' => $log->getRequestId(),
             'sourceComponent' => $log->getSourceComponent(),

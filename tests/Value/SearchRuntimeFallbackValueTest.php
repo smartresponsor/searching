@@ -101,12 +101,12 @@ final class SearchRuntimeFallbackValueTest extends TestCase
             components: ['billing'],
             resourceTypes: ['invoice'],
             limit: 50,
-            tenantId: 'tenant-1',
+            vendorId: 'vendor-1',
             userId: 'user-7',
         ));
 
         self::assertSame('search.query', $search->operation);
-        self::assertSame('user-7:tenant-1:overdue invoice', $search->identity);
+        self::assertSame('user-7:vendor-1:overdue invoice', $search->identity);
         self::assertSame(10, $search->cost);
         self::assertSame(['billing'], $search->metadata['components']);
         self::assertSame(50, $search->metadata['limit']);

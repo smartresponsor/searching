@@ -123,7 +123,7 @@ final class SearchQueryExecutorTest extends TestCase
         );
 
         try {
-            $executor->execute(new SearchQuery('invoice', userId: 'user-1', tenantId: 'tenant-1'));
+            $executor->execute(new SearchQuery('invoice', userId: 'user-1', vendorId: 'vendor-1'));
             self::fail('Expected query limit exception.');
         } catch (SearchOperationLimitedException $exception) {
             self::assertSame('quota exceeded', $exception->getMessage());

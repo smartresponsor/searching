@@ -23,7 +23,7 @@ final readonly class SearchDocument
         public array $facets,
         public array $permissions,
         public ?string $locale,
-        public ?string $tenantId,
+        public ?string $vendorId,
         public ?string $ownerId,
         public string $routeName,
         public array $routeParameters,

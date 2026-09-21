@@ -27,7 +27,7 @@ final class SearchNullProviderTest extends TestCase
         $document = new SearchDocument(
             component: 'ordering', resourceType: 'order', resourceId: '42', title: 'Order 42',
             summary: null, body: null, keywords: [], facets: [], permissions: [], locale: null,
-            tenantId: null, ownerId: null, routeName: 'order_show', routeParameters: ['id' => 42],
+            vendorId: null, ownerId: null, routeName: 'order_show', routeParameters: ['id' => 42],
             updatedAt: new \DateTimeImmutable('2026-09-15T12:00:00+00:00'),
         );
 

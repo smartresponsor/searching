@@ -21,7 +21,7 @@ final class SearchDocumentNormalizer
             facets: $document->facets,
             permissions: array_values(array_unique(array_map('strval', $document->permissions))),
             locale: $document->locale,
-            tenantId: $document->tenantId,
+            vendorId: $document->vendorId,
             ownerId: $document->ownerId,
             routeName: trim($document->routeName),
             routeParameters: $document->routeParameters,

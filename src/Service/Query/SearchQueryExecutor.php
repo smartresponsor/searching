@@ -40,7 +40,7 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
             $this->queryLogger->log(new SearchQueryExecutionTrace(
                 query: $query->query,
                 userId: $query->userId,
-                tenantId: $query->tenantId,
+                vendorId: $query->vendorId,
                 providerName: $providerName,
                 providerTotal: 0,
                 returnedTotal: 0,
@@ -103,7 +103,7 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
             $trace = new SearchQueryExecutionTrace(
                 query: $query->query,
                 userId: $query->userId,
-                tenantId: $query->tenantId,
+                vendorId: $query->vendorId,
                 providerName: $providerName,
                 providerTotal: $providerResult->total,
                 returnedTotal: count($items),
@@ -152,7 +152,7 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
             $this->queryLogger->log(new SearchQueryExecutionTrace(
                 query: $query->query,
                 userId: $query->userId,
-                tenantId: $query->tenantId,
+                vendorId: $query->vendorId,
                 providerName: $providerName,
                 providerTotal: 0,
                 returnedTotal: 0,
