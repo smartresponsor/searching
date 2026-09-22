@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84b7a07f98cd1762769f339fb1e1019a",
+    "content-hash": "27b3bbfe84821929c148312e4cfeb4dc",
     "packages": [
         {
             "name": "collectioning/collection",
@@ -1509,6 +1509,155 @@
                 }
             ],
             "time": "2026-09-17T19:03:00+00:00"
+        },
+        {
+            "name": "faceting/facet",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../Faceting",
+                "reference": "b689fbc0ae6894851686b5f89f163bc01dac9b7c"
+            },
+            "require": {
+                "collectioning/collection": "dev-master",
+                "cruding/crud": "dev-master",
+                "doctrine/dbal": "^4.0",
+                "doctrine/doctrine-bundle": "^3.2",
+                "doctrine/doctrine-migrations-bundle": "^4.0",
+                "doctrine/orm": "^3.3",
+                "easycorp/easyadmin-bundle": "^5.5",
+                "ext-ctype": "*",
+                "ext-iconv": "*",
+                "interfacing/interface": "dev-master",
+                "objecting/object": "dev-master",
+                "php": "^8.4",
+                "symfony/console": "^8.1",
+                "symfony/dotenv": "^8.1",
+                "symfony/error-handler": "^8.1",
+                "symfony/form": "^8.1",
+                "symfony/framework-bundle": "^8.1",
+                "symfony/runtime": "^8.1",
+                "symfony/security-bundle": "^8.1",
+                "symfony/serializer": "^8.1",
+                "symfony/twig-bundle": "^8.1",
+                "symfony/validator": "^8.1",
+                "symfony/yaml": "^8.1",
+                "tabling/table": "dev-master",
+                "viewing/view": "dev-master"
+            },
+            "require-dev": {
+                "doctrine/doctrine-fixtures-bundle": "^4.3",
+                "fakerphp/faker": "^1.24",
+                "friendsofphp/php-cs-fixer": "^3.95.4",
+                "gating/gate": "dev-master",
+                "phpstan/phpstan": "^2.2",
+                "phpunit/phpunit": "^12.0",
+                "symfony/browser-kit": "^8.1",
+                "symfony/css-selector": "^8.1",
+                "symfony/dom-crawler": "^8.1",
+                "symfony/panther": "^2.2",
+                "symfony/phpunit-bridge": "^8.1",
+                "symfony/test-pack": "^1.2"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "App\\Faceting\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "App\\Faceting\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "lint:php": [
+                    "php -l src/Kernel.php",
+                    "php -l bin/console",
+                    "php -l public/index.php"
+                ],
+                "lint:yaml": [
+                    "php bin/console lint:yaml config --parse-tags"
+                ],
+                "lint:twig": [
+                    "php bin/console lint:twig templates"
+                ],
+                "lint:container": [
+                    "php bin/console lint:container"
+                ],
+                "cs:check": [
+                    "php-cs-fixer fix --dry-run --diff --verbose"
+                ],
+                "cs:fix": [
+                    "php-cs-fixer fix --verbose"
+                ],
+                "phpstan": [
+                    "phpstan analyse src tests --level=8 --memory-limit=1G"
+                ],
+                "gating": [
+                    "gating check --target=. --profile=config/facet_gating_profile.yaml --policy-root=vendor/gating/gate/.gating --severity-config=vendor/gating/gate/config/gate_severity.yaml"
+                ],
+                "validate:prod": [
+                    "php -r \"json_decode(file_get_contents('composer.prod.json'), true, 512, JSON_THROW_ON_ERROR);\""
+                ],
+                "doctrine:schema:validate": [
+                    "php bin/console doctrine:schema:validate --skip-sync"
+                ],
+                "doctrine:migrations:currentness": [
+                    "php bin/console doctrine:migrations:up-to-date --no-interaction"
+                ],
+                "test:unit": [
+                    "phpunit --testsuite unit"
+                ],
+                "test:integration": [
+                    "phpunit --testsuite integration"
+                ],
+                "test:functional": [
+                    "phpunit --testsuite functional"
+                ],
+                "test:ui": [
+                    "npm run test:ui"
+                ],
+                "test:behavioral-coverage": [
+                    "@test:integration",
+                    "@test:functional",
+                    "@test:ui",
+                    "php tools/coverage/facet-behavioral-ui-coverage.php"
+                ],
+                "test:coverage": [
+                    "php -r \"is_dir('var/coverage') || mkdir('var/coverage', 0777, true);\"",
+                    "php -d xdebug.mode=coverage vendor/bin/phpunit --path-coverage --coverage-text=var/coverage/summary.txt"
+                ],
+                "test": [
+                    "@test:unit",
+                    "@test:integration",
+                    "@test:functional"
+                ],
+                "pipeline:local:full": [
+                    "@lint:php",
+                    "@lint:yaml",
+                    "@lint:twig",
+                    "@lint:container",
+                    "@test"
+                ],
+                "gate": [
+                    "@php vendor/bin/gating check --target=. --profile=config/facet_gating_profile.yaml --policy-root=vendor/gating/gate/.gating --severity-config=vendor/gating/gate/config/gate_severity.yaml"
+                ],
+                "quality": [
+                    "@cs:check",
+                    "@phpstan",
+                    "@test",
+                    "@gate"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "description": "Faceting component for facet definitions, filtering, aggregation, and management workflows.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "interfacing/interface",
@@ -5586,6 +5735,90 @@
                 }
             ],
             "time": "2026-08-17T13:18:34+00:00"
+        },
+        {
+            "name": "symfony/runtime",
+            "version": "v8.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/runtime.git",
+                "reference": "b7ea1abe04561e814b3134db0f56c287cedb35cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/runtime/zipball/b7ea1abe04561e814b3134db0f56c287cedb35cc",
+                "reference": "b7ea1abe04561e814b3134db0f56c287cedb35cc",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": ">=8.4.1"
+            },
+            "conflict": {
+                "symfony/error-handler": "<7.4"
+            },
+            "require-dev": {
+                "composer/composer": "^2.6",
+                "symfony/console": "^7.4|^8.0",
+                "symfony/dependency-injection": "^7.4|^8.0",
+                "symfony/dotenv": "^7.4|^8.0",
+                "symfony/http-foundation": "^7.4|^8.0",
+                "symfony/http-kernel": "^7.4|^8.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Symfony\\Component\\Runtime\\Internal\\ComposerPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Runtime\\": "",
+                    "Symfony\\Runtime\\Symfony\\Component\\": "Internal/"
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Enables decoupling PHP applications from global state",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "runtime"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/runtime/tree/v8.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-05-29T05:06:50+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -11199,6 +11432,7 @@
     "stability-flags": {
         "collectioning/collection": 20,
         "cruding/crud": 20,
+        "faceting/facet": 20,
         "gating/gate": 20,
         "interfacing/interface": 20,
         "objecting/object": 20,
