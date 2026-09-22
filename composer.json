@@ -32,7 +32,9 @@
       "url": "../Collectioning",
       "options": {
         "symlink": true,
-        "versions": { "collectioning/collection": "dev-master" }
+        "versions": {
+          "collectioning/collection": "dev-master"
+        }
       }
     },
     {
@@ -40,7 +42,9 @@
       "url": "../Cruding",
       "options": {
         "symlink": true,
-        "versions": { "cruding/crud": "dev-master" }
+        "versions": {
+          "cruding/crud": "dev-master"
+        }
       }
     },
     {
@@ -48,7 +52,9 @@
       "url": "../Interfacing",
       "options": {
         "symlink": true,
-        "versions": { "interfacing/interface": "dev-master" }
+        "versions": {
+          "interfacing/interface": "dev-master"
+        }
       }
     },
     {
@@ -56,7 +62,9 @@
       "url": "../Objecting",
       "options": {
         "symlink": true,
-        "versions": { "objecting/object": "dev-master" }
+        "versions": {
+          "objecting/object": "dev-master"
+        }
       }
     },
     {
@@ -64,7 +72,9 @@
       "url": "../Tabling",
       "options": {
         "symlink": true,
-        "versions": { "tabling/table": "dev-master" }
+        "versions": {
+          "tabling/table": "dev-master"
+        }
       }
     },
     {
@@ -72,16 +82,29 @@
       "url": "../Viewing",
       "options": {
         "symlink": true,
-        "versions": { "viewing/view": "dev-master" }
+        "versions": {
+          "viewing/view": "dev-master"
+        }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Gating",
+      "options": {
+        "symlink": true,
+        "versions": {
+          "gating/gate": "dev-master"
+        }
       }
     }
   ],
   "require-dev": {
     "phpunit/phpunit": "^11.0",
-	"friendsofphp/php-cs-fixer": "3.94",
+    "friendsofphp/php-cs-fixer": "3.94",
     "phpstan/phpstan": "^2.2",
     "symfony/panther": "^2.4",
-    "symfony/test-pack": "^1.2"
+    "symfony/test-pack": "^1.2",
+    "gating/gate": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -116,6 +139,13 @@
       "@cs:check",
       "@stan",
       "@test"
+    ],
+    "gate": "@php vendor/bin/gating check --target=.",
+    "quality": [
+      "@cs:check",
+      "@stan",
+      "@test",
+      "@gate"
     ]
   },
   "extra": {
