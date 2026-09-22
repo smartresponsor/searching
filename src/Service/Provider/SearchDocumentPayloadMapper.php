@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Provider;
 
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocument;
 
 final class SearchDocumentPayloadMapper
 {

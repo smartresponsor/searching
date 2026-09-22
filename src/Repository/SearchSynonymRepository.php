@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Repository;
 
 use App\Searching\Entity\SearchSynonymEntity;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

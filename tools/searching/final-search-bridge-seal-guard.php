@@ -7,7 +7,7 @@ $required = [
     'src/Contract/Bridge/SearchInterfacingBridgeProviderInterface.php',
     'src/Provider/Bridge/SearchInterfacingBridgeProvider.php',
     'src/Service/Bridge/SearchBridgeConfigSerializer.php',
-    'src/Value/Bridge/SearchInterfacingBridgeDefinition.php',
+    'src/ValueObject/Bridge/SearchInterfacingBridgeDefinition.php',
     'docs/interfacing-bridging-contract.md',
     'docs/interfacing-bridge-adapter.md',
     'docs/interfacing-consumption.md',

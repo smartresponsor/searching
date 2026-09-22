@@ -6,7 +6,7 @@ namespace App\Searching\Tests\Service\Query;
 
 use App\Searching\Contract\Producer\SearchResultItemHydratorInterface;
 use App\Searching\Service\Query\SearchResultHydrator;
-use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchResultItem;
 use PHPUnit\Framework\TestCase;
 
 final class SearchResultHydratorTest extends TestCase

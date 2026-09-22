@@ -7,7 +7,7 @@ namespace App\Searching\Service\Query;
 use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
 use App\Searching\Entity\SearchQueryLogEntity;
 use App\Searching\Repository\SearchQueryLogRepository;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
 
 final readonly class SearchQueryLogReader implements SearchQueryLogReaderInterface
 {

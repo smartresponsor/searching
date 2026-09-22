@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Service\Query;
 
 use App\Searching\Contract\Query\SearchQueryLoggerInterface;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 
 final class SearchNullQueryLogger implements SearchQueryLoggerInterface
 {

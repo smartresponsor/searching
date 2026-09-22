@@ -1,2 +1,1 @@
-framework:
-  secret: 'searching-standalone-local-runtime'
+framework: {}

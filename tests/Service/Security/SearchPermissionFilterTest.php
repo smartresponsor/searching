@@ -6,8 +6,8 @@ namespace App\Searching\Tests\Service\Security;
 
 use App\Searching\Service\Security\SearchPermissionChecker;
 use App\Searching\Service\Security\SearchPermissionFilter;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Result\SearchResultItem;
 use PHPUnit\Framework\TestCase;
 
 final class SearchPermissionFilterTest extends TestCase

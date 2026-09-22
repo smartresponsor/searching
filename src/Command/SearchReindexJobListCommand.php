@@ -6,7 +6,7 @@ namespace App\Searching\Command;
 
 use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

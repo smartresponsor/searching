@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Indexing;
 
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
 interface SearchReindexDispatcherInterface
 {

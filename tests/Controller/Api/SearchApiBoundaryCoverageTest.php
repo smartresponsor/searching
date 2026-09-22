@@ -35,12 +35,12 @@ use App\Searching\Service\Serialization\SearchProviderStatusSerializer;
 use App\Searching\Service\Serialization\SearchQueryLogSerializer;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
-use App\Searching\Value\Health\SearchHealthIndicator;
-use App\Searching\Value\Health\SearchHealthReport;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
-use App\Searching\Value\Observability\SearchExecutionContext;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Health\SearchHealthIndicator;
+use App\Searching\ValueObject\Health\SearchHealthReport;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

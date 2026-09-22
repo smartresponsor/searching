@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Indexing;
 
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchDocumentChangeResult;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchDocumentChangeResult;
 
 interface SearchIncrementalIndexerInterface
 {

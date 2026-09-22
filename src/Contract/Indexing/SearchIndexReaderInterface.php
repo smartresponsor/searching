@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Contract\Indexing;
 
 use App\Searching\Entity\SearchIndexEntity;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 
 interface SearchIndexReaderInterface
 {

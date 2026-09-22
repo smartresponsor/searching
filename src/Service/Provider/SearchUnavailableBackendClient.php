@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Service\Provider;
 
 use App\Searching\Contract\Provider\SearchBackendClientInterface;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
 
 final class SearchUnavailableBackendClient implements SearchBackendClientInterface
 {

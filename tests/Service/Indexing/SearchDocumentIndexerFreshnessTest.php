@@ -6,16 +6,16 @@ namespace App\Searching\Tests\Service\Indexing;
 
 use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
+use App\Searching\Normalizer\SearchDocumentNormalizer;
 use App\Searching\Service\Indexing\SearchDocumentFingerprintCalculator;
 use App\Searching\Service\Indexing\SearchDocumentIndexer;
-use App\Searching\Service\Indexing\SearchDocumentNormalizer;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
-use App\Searching\Value\Indexing\SearchIndexedResourceState;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceState;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchDocumentIndexerFreshnessTest extends TestCase

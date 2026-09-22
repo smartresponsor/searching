@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Bridge;
 
-use App\Searching\Value\Bridge\SearchBridgeConfig;
-use App\Searching\Value\Query\SearchQueryRequest;
-use App\Searching\Value\Query\SearchSuggestionRequest;
-use App\Searching\Value\Result\SearchResponse;
-use App\Searching\Value\Result\SearchSuggestionResponse;
+use App\Searching\ValueObject\Bridge\SearchBridgeConfig;
+use App\Searching\ValueObject\Query\SearchQueryRequest;
+use App\Searching\ValueObject\Query\SearchSuggestionRequest;
+use App\Searching\ValueObject\Result\SearchResponse;
+use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
 interface SearchInterfacingBridgeProviderInterface
 {

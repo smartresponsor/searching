@@ -7,7 +7,7 @@ namespace App\Searching\Service\Indexing;
 use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
 use App\Searching\Entity\SearchIndexEntity;
 use App\Searching\Repository\SearchIndexRepository;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 
 final readonly class SearchIndexReader implements SearchIndexReaderInterface
 {

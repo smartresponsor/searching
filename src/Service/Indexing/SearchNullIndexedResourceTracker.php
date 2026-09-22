@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Service\Indexing;
 
 use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
-use App\Searching\Value\Indexing\SearchIndexedResourceState;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceState;
 
 final class SearchNullIndexedResourceTracker implements SearchIndexedResourceTrackerInterface
 {

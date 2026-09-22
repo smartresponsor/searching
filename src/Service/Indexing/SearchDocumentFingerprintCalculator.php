@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Indexing;
 
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
 
 final class SearchDocumentFingerprintCalculator
 {

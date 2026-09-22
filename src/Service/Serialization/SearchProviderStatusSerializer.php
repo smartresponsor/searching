@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Serialization;
 
-use App\Searching\Value\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
 
 final class SearchProviderStatusSerializer
 {

@@ -7,7 +7,7 @@ namespace App\Searching\Tests\Entity;
 use App\Searching\Entity\SearchIndexedResourceEntity;
 use App\Searching\Entity\SearchIndexEntity;
 use App\Searching\Entity\SearchReindexJobEntity;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use PHPUnit\Framework\TestCase;
 
 final class SearchLifecycleEntityTest extends TestCase

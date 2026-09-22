@@ -9,7 +9,7 @@ use App\Searching\Contract\Indexing\SearchIndexLifecycleManagerInterface;
 use App\Searching\Contract\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
 use App\Searching\Contract\Provider\SearchIndexLifecycleProviderInterface;
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
 final readonly class SearchIndexLifecycleManager implements SearchIndexLifecycleManagerInterface
 {

@@ -40,11 +40,11 @@ use App\Searching\Service\Serialization\SearchReindexJobSerializer;
 use App\Searching\Service\Serialization\SearchReindexResultSerializer;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
-use App\Searching\Value\Health\SearchHealthReport;
-use App\Searching\Value\Indexing\SearchReindexResult;
-use App\Searching\Value\Provider\SearchCapability;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Health\SearchHealthReport;
+use App\Searching\ValueObject\Indexing\SearchReindexResult;
+use App\Searching\ValueObject\Provider\SearchCapability;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -8,8 +8,8 @@ use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface
 use App\Searching\Contract\Query\SearchResponseProviderInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
 use App\Searching\Factory\SearchResultPayloadFactory;
-use App\Searching\Value\Query\SearchQueryRequest;
-use App\Searching\Value\Result\SearchResultPayload;
+use App\Searching\ValueObject\Query\SearchQueryRequest;
+use App\Searching\ValueObject\Result\SearchResultPayload;
 use Symfony\Component\HttpFoundation\Request;
 
 final readonly class SearchResultPayloadBuilder

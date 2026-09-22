@@ -10,9 +10,9 @@ use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface
 use App\Searching\Controller\Api\SearchReindexApiController;
 use App\Searching\Service\Serialization\SearchReindexDispatchResultSerializer;
 use App\Searching\Service\Serialization\SearchReindexResultSerializer;
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Indexing\SearchReindexResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Indexing\SearchReindexResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

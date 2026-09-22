@@ -7,7 +7,7 @@ namespace App\Searching\Tests\Service\Provider;
 use App\Searching\Builder\Provider\SearchBulkOperationBuilder;
 use App\Searching\Builder\Provider\SearchIndexNameBuilder;
 use App\Searching\Service\Provider\SearchDocumentPayloadMapper;
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocument;
 use PHPUnit\Framework\TestCase;
 
 final class SearchBulkOperationBuilderTest extends TestCase

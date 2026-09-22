@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Serialization;
 
 use App\Searching\Service\Serialization\SearchQueryExecutionTraceSerializer;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryExecutionTraceSerializerTest extends TestCase

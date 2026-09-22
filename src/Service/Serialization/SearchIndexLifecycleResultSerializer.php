@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Serialization;
 
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
 final class SearchIndexLifecycleResultSerializer
 {

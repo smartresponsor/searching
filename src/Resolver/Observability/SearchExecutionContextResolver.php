@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Resolver\Observability;
 
 use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 

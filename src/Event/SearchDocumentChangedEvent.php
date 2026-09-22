@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Event;
 
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocument;
 
 final readonly class SearchDocumentChangedEvent
 {

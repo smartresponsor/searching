@@ -18,15 +18,15 @@ use App\Searching\Service\Query\SearchQueryExecutor;
 use App\Searching\Service\Query\SearchResultHydrator;
 use App\Searching\Service\Security\SearchPermissionChecker;
 use App\Searching\Service\Security\SearchPermissionFilter;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Flow\SearchOperationLimitDecision;
-use App\Searching\Value\Observability\SearchExecutionContext;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
-use App\Searching\Value\Query\SearchSuggestionQuery;
-use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Flow\SearchOperationLimitDecision;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Result\SearchResultItem;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryExecutorTest extends TestCase

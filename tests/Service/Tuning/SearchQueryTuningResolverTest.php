@@ -9,9 +9,9 @@ use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use App\Searching\Entity\SearchSynonymEntity;
 use App\Searching\Resolver\Tuning\SearchQueryTuningResolver;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryTuningResolverTest extends TestCase

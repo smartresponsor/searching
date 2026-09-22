@@ -6,8 +6,8 @@ namespace App\Searching\Service\Indexing;
 
 use App\Searching\Contract\Indexing\SearchIndexLifecycleRegistrySynchronizerInterface;
 use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
-use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Indexing\SearchIndexLifecycleRegistrySyncResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
 final readonly class SearchIndexLifecycleRegistrySynchronizer implements SearchIndexLifecycleRegistrySynchronizerInterface
 {

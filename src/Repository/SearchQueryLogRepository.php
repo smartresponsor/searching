@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Repository;
 
 use App\Searching\Entity\SearchQueryLogEntity;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

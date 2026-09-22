@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Builder\Provider;
 
 use App\Searching\Contract\Provider\SearchIndexMappingBuilderInterface;
-use App\Searching\Value\Provider\SearchIndexMapping;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Provider\SearchIndexMapping;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
 
 final class SearchIndexMappingBuilder implements SearchIndexMappingBuilderInterface
 {

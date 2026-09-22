@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Value\Indexing;
 
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 use PHPUnit\Framework\TestCase;
 
 final class SearchReindexJobCriteriaTest extends TestCase

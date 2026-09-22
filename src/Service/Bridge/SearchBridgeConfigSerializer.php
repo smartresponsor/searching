@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Searching\Service\Bridge;
 
 use App\Searching\Service\SearchResponseSerializer;
-use App\Searching\Value\Bridge\SearchBridgeAutocompleteConfig;
-use App\Searching\Value\Bridge\SearchBridgeConfig;
-use App\Searching\Value\Bridge\SearchBridgeDegradedState;
-use App\Searching\Value\Bridge\SearchBridgeEmptyState;
-use App\Searching\Value\Bridge\SearchBridgeResultPageConfig;
-use App\Searching\Value\Bridge\SearchBridgeRouteHint;
+use App\Searching\ValueObject\Bridge\SearchBridgeAutocompleteConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeDegradedState;
+use App\Searching\ValueObject\Bridge\SearchBridgeEmptyState;
+use App\Searching\ValueObject\Bridge\SearchBridgeResultPageConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeRouteHint;
 
 final readonly class SearchBridgeConfigSerializer
 {

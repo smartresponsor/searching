@@ -10,13 +10,13 @@ use App\Searching\Contract\Provider\SearchIndexLifecycleProviderInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Service\Indexing\SearchIndexLifecycleManager;
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchIndexLifecycleRegistrySyncResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchIndexLifecycleManagerTest extends TestCase

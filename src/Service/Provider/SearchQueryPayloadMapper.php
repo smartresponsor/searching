@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Provider;
 
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchQuery;
 
 final class SearchQueryPayloadMapper
 {

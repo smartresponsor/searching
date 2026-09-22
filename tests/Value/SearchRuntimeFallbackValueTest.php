@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Value;
 
 use App\Searching\Service\Provider\SearchUnavailableBackendClient;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Provider\SearchBulkOperation;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Provider\SearchBulkOperation;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchRuntimeFallbackValueTest extends TestCase

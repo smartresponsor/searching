@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Serialization;
 
 use App\Searching\Service\Serialization\SearchResultSerializer;
-use App\Searching\Value\Result\SearchFacet;
-use App\Searching\Value\Result\SearchHighlight;
-use App\Searching\Value\Result\SearchResult;
-use App\Searching\Value\Result\SearchResultItem;
-use App\Searching\Value\Result\SearchSuggestion;
+use App\Searching\ValueObject\Result\SearchFacet;
+use App\Searching\ValueObject\Result\SearchHighlight;
+use App\Searching\ValueObject\Result\SearchResult;
+use App\Searching\ValueObject\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchSuggestion;
 use PHPUnit\Framework\TestCase;
 
 final class SearchResultSerializerTest extends TestCase

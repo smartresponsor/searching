@@ -10,7 +10,7 @@ use App\Searching\Service\Provider\SearchProviderStatusCollector;
 use App\Searching\Service\Serialization\SearchIndexSerializer;
 use App\Searching\Service\Serialization\SearchProviderStatusSerializer;
 use App\Searching\Service\Serialization\SearchRegistrySerializer;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

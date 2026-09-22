@@ -10,11 +10,11 @@ use App\Searching\Contract\Query\SearchResponseProviderInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
 use App\Searching\Factory\SearchResultPayloadFactory;
 use App\Searching\Service\SearchResponseSerializer;
-use App\Searching\Value\Flow\SearchOperationLimitDecision;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Observability\SearchExecutionContext;
-use App\Searching\Value\Query\SearchQueryRequest;
-use App\Searching\Value\Result\SearchResponse;
+use App\Searching\ValueObject\Flow\SearchOperationLimitDecision;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Query\SearchQueryRequest;
+use App\Searching\ValueObject\Result\SearchResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

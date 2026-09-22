@@ -8,10 +8,10 @@ use App\Searching\Contract\Tuning\SearchQueryTuningResolverInterface;
 use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Tuning\SearchQueryTuning;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Tuning\SearchQueryTuning;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 
 final readonly class SearchQueryTuningResolver implements SearchQueryTuningResolverInterface
 {

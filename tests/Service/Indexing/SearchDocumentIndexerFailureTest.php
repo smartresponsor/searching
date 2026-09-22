@@ -6,12 +6,12 @@ namespace App\Searching\Tests\Service\Indexing;
 
 use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
+use App\Searching\Normalizer\SearchDocumentNormalizer;
 use App\Searching\Service\Indexing\SearchDocumentFingerprintCalculator;
 use App\Searching\Service\Indexing\SearchDocumentIndexer;
-use App\Searching\Service\Indexing\SearchDocumentNormalizer;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
-use App\Searching\Value\Indexing\SearchIndexedResourceState;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceState;
 use PHPUnit\Framework\TestCase;
 
 final class SearchDocumentIndexerFailureTest extends TestCase

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Searching\Service;
 
-use App\Searching\Value\Result\SearchFacet;
-use App\Searching\Value\Result\SearchFacetResponse;
-use App\Searching\Value\Result\SearchHighlight;
-use App\Searching\Value\Result\SearchHighlightResponse;
-use App\Searching\Value\Result\SearchResponse;
-use App\Searching\Value\Result\SearchResponseItem;
-use App\Searching\Value\Result\SearchResult;
-use App\Searching\Value\Result\SearchResultItem;
-use App\Searching\Value\Result\SearchSuggestion;
-use App\Searching\Value\Result\SearchSuggestionResponse;
+use App\Searching\ValueObject\Result\SearchFacet;
+use App\Searching\ValueObject\Result\SearchFacetResponse;
+use App\Searching\ValueObject\Result\SearchHighlight;
+use App\Searching\ValueObject\Result\SearchHighlightResponse;
+use App\Searching\ValueObject\Result\SearchResponse;
+use App\Searching\ValueObject\Result\SearchResponseItem;
+use App\Searching\ValueObject\Result\SearchResult;
+use App\Searching\ValueObject\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchSuggestion;
+use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
 final class SearchResponseMapper
 {

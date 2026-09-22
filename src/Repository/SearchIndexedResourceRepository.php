@@ -53,7 +53,7 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
     /**
      * @return list<SearchIndexedResourceEntity>
      */
-    public function findByCriteria(\App\Searching\Value\Indexing\SearchIndexedResourceCriteria $criteria): array
+    public function findByCriteria(\App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria $criteria): array
     {
         $qb = $this->createQueryBuilder('resource');
         $this->applyCriteria($qb, $criteria);
@@ -70,7 +70,7 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
         return $resources;
     }
 
-    public function countByCriteria(\App\Searching\Value\Indexing\SearchIndexedResourceCriteria $criteria): int
+    public function countByCriteria(\App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria $criteria): int
     {
         $qb = $this->createQueryBuilder('resource')
             ->select('COUNT(resource.id)');
@@ -79,7 +79,7 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    private function applyCriteria(\Doctrine\ORM\QueryBuilder $qb, \App\Searching\Value\Indexing\SearchIndexedResourceCriteria $criteria): void
+    private function applyCriteria(\Doctrine\ORM\QueryBuilder $qb, \App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria $criteria): void
     {
         if (null !== $criteria->component) {
             $qb->andWhere('resource.component = :component')

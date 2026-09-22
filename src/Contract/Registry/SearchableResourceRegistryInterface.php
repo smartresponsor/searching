@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Contract\Registry;
 
 use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 
 interface SearchableResourceRegistryInterface
 {

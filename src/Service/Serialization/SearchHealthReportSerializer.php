@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Serialization;
 
-use App\Searching\Value\Health\SearchHealthIndicator;
-use App\Searching\Value\Health\SearchHealthReport;
+use App\Searching\ValueObject\Health\SearchHealthIndicator;
+use App\Searching\ValueObject\Health\SearchHealthReport;
 
 final class SearchHealthReportSerializer
 {

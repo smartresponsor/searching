@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Observability;
 
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use PHPUnit\Framework\TestCase;
 
 final class SearchExecutionContextTest extends TestCase

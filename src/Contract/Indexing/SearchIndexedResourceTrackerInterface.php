@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Indexing;
 
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
-use App\Searching\Value\Indexing\SearchIndexedResourceState;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceState;
 
 interface SearchIndexedResourceTrackerInterface
 {

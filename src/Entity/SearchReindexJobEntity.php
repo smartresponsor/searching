@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Entity;
 
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

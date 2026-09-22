@@ -6,7 +6,7 @@ namespace App\Searching\Controller\Admin;
 
 use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

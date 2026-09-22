@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Service\Provider;
 
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\Value\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
 
 final readonly class SearchProviderStatusCollector
 {

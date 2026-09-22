@@ -7,7 +7,7 @@ namespace App\Searching\Controller\Api;
 use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface;
 use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
 use App\Searching\Service\Serialization\SearchResultSerializer;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

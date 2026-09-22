@@ -7,16 +7,16 @@ namespace App\Searching\Provider\Bridge;
 use App\Searching\Contract\Bridge\SearchInterfacingBridgeProviderInterface;
 use App\Searching\Contract\Query\SearchResponseProviderInterface;
 use App\Searching\Contract\Query\SearchSuggestionResponseProviderInterface;
-use App\Searching\Value\Bridge\SearchBridgeAutocompleteConfig;
-use App\Searching\Value\Bridge\SearchBridgeConfig;
-use App\Searching\Value\Bridge\SearchBridgeDegradedState;
-use App\Searching\Value\Bridge\SearchBridgeEmptyState;
-use App\Searching\Value\Bridge\SearchBridgeResultPageConfig;
-use App\Searching\Value\Bridge\SearchBridgeRouteHint;
-use App\Searching\Value\Bridge\SearchInterfacingBridgeDefinition;
-use App\Searching\Value\Query\SearchQueryRequest;
-use App\Searching\Value\Query\SearchSuggestionRequest;
-use App\Searching\Value\Result\SearchResponse;
+use App\Searching\ValueObject\Bridge\SearchBridgeAutocompleteConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeDegradedState;
+use App\Searching\ValueObject\Bridge\SearchBridgeEmptyState;
+use App\Searching\ValueObject\Bridge\SearchBridgeResultPageConfig;
+use App\Searching\ValueObject\Bridge\SearchBridgeRouteHint;
+use App\Searching\ValueObject\Bridge\SearchInterfacingBridgeDefinition;
+use App\Searching\ValueObject\Query\SearchQueryRequest;
+use App\Searching\ValueObject\Query\SearchSuggestionRequest;
+use App\Searching\ValueObject\Result\SearchResponse;
 
 final readonly class SearchInterfacingBridgeProvider implements SearchInterfacingBridgeProviderInterface
 {

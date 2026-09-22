@@ -6,7 +6,7 @@ namespace App\Searching\Command;
 
 use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Service\Serialization\SearchIndexedResourceSerializer;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

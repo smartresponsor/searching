@@ -6,9 +6,9 @@ namespace App\Searching\Builder\Provider;
 
 use App\Searching\Contract\Provider\SearchBackendQueryBuilderInterface;
 use App\Searching\Contract\Tuning\SearchQueryTuningResolverInterface;
-use App\Searching\Value\Provider\SearchBackendQuery;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Provider\SearchBackendQuery;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Query\SearchQuery;
 
 final class SearchBackendQueryBuilder implements SearchBackendQueryBuilderInterface
 {

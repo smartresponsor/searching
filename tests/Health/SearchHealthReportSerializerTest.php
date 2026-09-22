@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Health;
 
 use App\Searching\Service\Serialization\SearchHealthReportSerializer;
-use App\Searching\Value\Health\SearchHealthIndicator;
-use App\Searching\Value\Health\SearchHealthReport;
+use App\Searching\ValueObject\Health\SearchHealthIndicator;
+use App\Searching\ValueObject\Health\SearchHealthReport;
 use PHPUnit\Framework\TestCase;
 
 final class SearchHealthReportSerializerTest extends TestCase

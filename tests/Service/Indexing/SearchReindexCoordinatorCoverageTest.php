@@ -10,7 +10,7 @@ use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
 use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Entity\SearchReindexJobEntity;
 use App\Searching\Service\Indexing\SearchReindexCoordinator;
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocument;
 use PHPUnit\Framework\TestCase;
 
 final class SearchReindexCoordinatorCoverageTest extends TestCase

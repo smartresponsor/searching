@@ -7,7 +7,7 @@ namespace App\Searching\Service\Indexing;
 use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Entity\SearchReindexJobEntity;
 use App\Searching\Repository\SearchReindexJobRepository;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 
 final readonly class SearchReindexJobReader implements SearchReindexJobReaderInterface
 {

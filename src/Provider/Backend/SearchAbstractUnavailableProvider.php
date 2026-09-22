@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Searching\Provider\Backend;
 
 use App\Searching\Contract\Provider\SearchProviderInterface;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 
 abstract class SearchAbstractUnavailableProvider implements SearchProviderInterface
 {

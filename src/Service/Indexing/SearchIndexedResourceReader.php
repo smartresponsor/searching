@@ -7,7 +7,7 @@ namespace App\Searching\Service\Indexing;
 use App\Searching\Contract\Indexing\SearchIndexedResourceReaderInterface;
 use App\Searching\Entity\SearchIndexedResourceEntity;
 use App\Searching\Repository\SearchIndexedResourceRepository;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
 
 final readonly class SearchIndexedResourceReader implements SearchIndexedResourceReaderInterface
 {

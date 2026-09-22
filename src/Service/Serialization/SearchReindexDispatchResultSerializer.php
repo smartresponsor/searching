@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Serialization;
 
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
 
 final readonly class SearchReindexDispatchResultSerializer
 {

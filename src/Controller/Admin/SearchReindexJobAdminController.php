@@ -6,7 +6,7 @@ namespace App\Searching\Controller\Admin;
 
 use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

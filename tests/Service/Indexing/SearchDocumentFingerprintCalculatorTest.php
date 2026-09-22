@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Service\Indexing;
 
+use App\Searching\Normalizer\SearchDocumentNormalizer;
 use App\Searching\Service\Indexing\SearchDocumentFingerprintCalculator;
-use App\Searching\Service\Indexing\SearchDocumentNormalizer;
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocument;
 use PHPUnit\Framework\TestCase;
 
 final class SearchDocumentFingerprintCalculatorTest extends TestCase

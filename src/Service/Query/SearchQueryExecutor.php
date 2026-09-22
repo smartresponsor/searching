@@ -11,10 +11,10 @@ use App\Searching\Contract\Query\SearchQueryLoggerInterface;
 use App\Searching\Contract\Query\SearchResultHydratorInterface;
 use App\Searching\Contract\Security\SearchPermissionFilterInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
-use App\Searching\Value\Result\SearchResult;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Result\SearchResult;
 
 final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
 {

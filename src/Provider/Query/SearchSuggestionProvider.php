@@ -6,7 +6,7 @@ namespace App\Searching\Provider\Query;
 
 use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 
 final readonly class SearchSuggestionProvider implements SearchSuggestionProviderInterface
 {

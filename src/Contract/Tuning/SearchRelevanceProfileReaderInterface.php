@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Contract\Tuning;
 
 use App\Searching\Entity\SearchRelevanceProfileEntity;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
 
 interface SearchRelevanceProfileReaderInterface
 {

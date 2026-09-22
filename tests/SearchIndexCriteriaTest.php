@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests;
 
-use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 use PHPUnit\Framework\TestCase;
 
 final class SearchIndexCriteriaTest extends TestCase

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Provider;
 
 use App\Searching\Builder\Provider\SearchBackendQueryBuilder;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchBackendQueryBuilderTest extends TestCase

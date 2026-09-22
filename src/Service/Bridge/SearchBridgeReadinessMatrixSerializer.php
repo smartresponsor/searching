@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Bridge;
 
-use App\Searching\Value\Bridge\SearchBridgeReadinessItem;
-use App\Searching\Value\Bridge\SearchBridgeReadinessMatrix;
+use App\Searching\ValueObject\Bridge\SearchBridgeReadinessItem;
+use App\Searching\ValueObject\Bridge\SearchBridgeReadinessMatrix;
 
 final class SearchBridgeReadinessMatrixSerializer
 {

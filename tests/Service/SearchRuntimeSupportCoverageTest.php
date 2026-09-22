@@ -22,23 +22,23 @@ use App\Searching\Resolver\Tuning\SearchNullQueryTuningResolver;
 use App\Searching\Service\Indexing\SearchNullIndexLifecycleRegistrySynchronizer;
 use App\Searching\Service\Indexing\SearchNullReindexDuplicateGuard;
 use App\Searching\Service\Provider\SearchQueryPayloadMapper;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Document\SearchDocumentField;
-use App\Searching\Value\Document\SearchDocumentIdentity;
-use App\Searching\Value\Provider\SearchBackendQuery;
-use App\Searching\Value\Provider\SearchBulkOperation;
-use App\Searching\Value\Provider\SearchBulkOperationSet;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
-use App\Searching\Value\Provider\SearchIndexMapping;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchFilter;
-use App\Searching\Value\Query\SearchPagination;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSort;
-use App\Searching\Value\Query\SearchSuggestionQuery;
-use App\Searching\Value\Result\SearchSuggestion;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Document\SearchDocumentField;
+use App\Searching\ValueObject\Document\SearchDocumentIdentity;
+use App\Searching\ValueObject\Provider\SearchBackendQuery;
+use App\Searching\ValueObject\Provider\SearchBulkOperation;
+use App\Searching\ValueObject\Provider\SearchBulkOperationSet;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchIndexMapping;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchFilter;
+use App\Searching\ValueObject\Query\SearchPagination;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSort;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Result\SearchSuggestion;
 use PHPUnit\Framework\TestCase;
 
 final class SearchRuntimeSupportCoverageTest extends TestCase
@@ -125,23 +125,23 @@ final class SearchRuntimeSupportCoverageTest extends TestCase
         self::assertCount(3, iterator_to_array($set));
         self::assertCount(2, $set->groupedByIndex()['idx-a']);
 
-        $emptyTuning = new \App\Searching\Value\Tuning\SearchQueryTuning();
+        $emptyTuning = new \App\Searching\ValueObject\Tuning\SearchQueryTuning();
         self::assertFalse($emptyTuning->hasExpandedTerms());
         self::assertFalse($emptyTuning->hasFieldWeights());
-        $tuning = new \App\Searching\Value\Tuning\SearchQueryTuning(['phone'], ['title' => 2], ['mobile' => ['phone']], ['default']);
+        $tuning = new \App\Searching\ValueObject\Tuning\SearchQueryTuning(['phone'], ['title' => 2], ['mobile' => ['phone']], ['default']);
         self::assertTrue($tuning->hasExpandedTerms());
         self::assertTrue($tuning->hasFieldWeights());
         self::assertSame(['phone'], $tuning->toMetadata()['expanded_terms']);
 
-        $context = \App\Searching\Value\Observability\SearchExecutionContext::create(' corr ', ' req ', ' bridging ', ' search ', ' user ', ['key' => 'value']);
+        $context = \App\Searching\ValueObject\Observability\SearchExecutionContext::create(' corr ', ' req ', ' bridging ', ' search ', ' user ', ['key' => 'value']);
         self::assertSame('corr', $context->correlationId);
         self::assertSame('search.next', $context->withSourceOperation('search.next')->sourceOperation);
         $contextMetadata = $context->toMetadata()['metadata'];
         self::assertIsArray($contextMetadata);
         self::assertSame('value', $contextMetadata['key']);
-        self::assertStringStartsWith('srch_', \App\Searching\Value\Observability\SearchExecutionContext::create(' ')->correlationId);
+        self::assertStringStartsWith('srch_', \App\Searching\ValueObject\Observability\SearchExecutionContext::create(' ')->correlationId);
 
-        $limitedQuery = \App\Searching\Value\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery(
+        $limitedQuery = \App\Searching\ValueObject\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery(
             'needle',
             userId: 'user-1',
             vendorId: 'vendor-1',
@@ -149,12 +149,12 @@ final class SearchRuntimeSupportCoverageTest extends TestCase
         ));
         self::assertSame(10, $limitedQuery->cost);
         self::assertSame('user-1:vendor-1:needle', $limitedQuery->identity);
-        $anonymousQuery = \App\Searching\Value\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery('', limit: 0));
+        $anonymousQuery = \App\Searching\ValueObject\Flow\SearchOperationLimitRequest::forSearchQuery(new SearchQuery('', limit: 0));
         self::assertSame(1, $anonymousQuery->cost);
         self::assertSame('anonymous', $anonymousQuery->identity);
 
         try {
-            new \App\Searching\Value\Flow\SearchOperationLimitRequest('invalid', cost: 0);
+            new \App\Searching\ValueObject\Flow\SearchOperationLimitRequest('invalid', cost: 0);
             self::fail('Expected invalid operation cost to be rejected.');
         } catch (\InvalidArgumentException $exception) {
             self::assertStringContainsString('greater than zero', $exception->getMessage());
@@ -181,7 +181,7 @@ final class SearchRuntimeSupportCoverageTest extends TestCase
             'order',
             self::isInstanceOf(\DateTimeImmutable::class),
             null,
-        )->willReturn(new \App\Searching\Value\Indexing\SearchReindexResult('job-1', 1, 1));
+        )->willReturn(new \App\Searching\ValueObject\Indexing\SearchReindexResult('job-1', 1, 1));
         $handler($message);
         self::assertSame('2026-09-15', $message->getChangedSinceDate()?->format('Y-m-d'));
         self::assertNotSame('', $message->getDeduplicationKey());

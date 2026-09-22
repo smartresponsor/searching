@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Factory;
 
 use App\Searching\Service\SearchResponseSerializer;
-use App\Searching\Value\Result\SearchResponse;
-use App\Searching\Value\Result\SearchResultPayload;
+use App\Searching\ValueObject\Result\SearchResponse;
+use App\Searching\ValueObject\Result\SearchResultPayload;
 
 final readonly class SearchResultPayloadFactory
 {

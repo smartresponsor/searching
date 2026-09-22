@@ -7,7 +7,7 @@ namespace App\Searching\Service\Tuning;
 use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use App\Searching\Repository\SearchRelevanceProfileRepository;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
 
 final readonly class SearchRelevanceProfileReader implements SearchRelevanceProfileReaderInterface
 {

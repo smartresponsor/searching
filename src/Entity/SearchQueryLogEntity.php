@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Entity;
 
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

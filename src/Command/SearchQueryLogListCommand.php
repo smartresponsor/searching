@@ -6,7 +6,7 @@ namespace App\Searching\Command;
 
 use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
 use App\Searching\Service\Serialization\SearchQueryLogSerializer;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

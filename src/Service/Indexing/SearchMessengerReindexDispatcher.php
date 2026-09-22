@@ -10,9 +10,9 @@ use App\Searching\Contract\Indexing\SearchReindexDispatcherInterface;
 use App\Searching\Contract\Indexing\SearchReindexDuplicateGuardInterface;
 use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
 use App\Searching\Message\SearchReindexMessage;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class SearchMessengerReindexDispatcher implements SearchReindexDispatcherInterface

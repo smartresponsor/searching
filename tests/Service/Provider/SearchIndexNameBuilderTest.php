@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Provider;
 
 use App\Searching\Builder\Provider\SearchIndexNameBuilder;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Query\SearchQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchIndexNameBuilderTest extends TestCase

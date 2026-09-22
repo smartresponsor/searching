@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Repository;
 
 use App\Searching\Entity\SearchRelevanceProfileEntity;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

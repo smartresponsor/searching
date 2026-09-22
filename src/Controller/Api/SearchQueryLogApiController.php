@@ -6,7 +6,7 @@ namespace App\Searching\Controller\Api;
 
 use App\Searching\Contract\Query\SearchQueryLogReaderInterface;
 use App\Searching\Service\Serialization\SearchQueryLogSerializer;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

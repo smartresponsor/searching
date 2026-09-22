@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Serialization;
 
 use App\Searching\Service\Serialization\SearchReindexDispatchResultSerializer;
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Indexing\SearchReindexResult;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Indexing\SearchReindexResult;
 use PHPUnit\Framework\TestCase;
 
 final class SearchReindexDispatchResultSerializerTest extends TestCase

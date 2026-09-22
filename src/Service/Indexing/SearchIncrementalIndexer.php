@@ -8,8 +8,8 @@ use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
 use App\Searching\Contract\Indexing\SearchIncrementalIndexerInterface;
 use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Indexing\SearchDocumentChangeResult;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Indexing\SearchDocumentChangeResult;
 
 final readonly class SearchIncrementalIndexer implements SearchIncrementalIndexerInterface
 {

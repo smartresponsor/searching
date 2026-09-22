@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Indexing;
 
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
 interface SearchIndexLifecycleManagerInterface
 {

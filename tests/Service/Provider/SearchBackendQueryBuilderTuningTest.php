@@ -6,9 +6,9 @@ namespace App\Searching\Tests\Service\Provider;
 
 use App\Searching\Builder\Provider\SearchBackendQueryBuilder;
 use App\Searching\Contract\Tuning\SearchQueryTuningResolverInterface;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Tuning\SearchQueryTuning;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Tuning\SearchQueryTuning;
 use PHPUnit\Framework\TestCase;
 
 final class SearchBackendQueryBuilderTuningTest extends TestCase

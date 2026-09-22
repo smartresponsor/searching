@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Tests;
 
 use App\Searching\Service\Bridge\SearchBridgeReadinessMatrixSerializer;
-use App\Searching\Value\Bridge\SearchBridgeReadinessMatrix;
+use App\Searching\ValueObject\Bridge\SearchBridgeReadinessMatrix;
 use PHPUnit\Framework\TestCase;
 
 final class SearchBridgeReadinessMatrixSerializerTest extends TestCase

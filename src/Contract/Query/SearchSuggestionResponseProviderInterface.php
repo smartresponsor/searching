@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Query;
 
-use App\Searching\Value\Query\SearchSuggestionRequest;
-use App\Searching\Value\Result\SearchSuggestionResponse;
+use App\Searching\ValueObject\Query\SearchSuggestionRequest;
+use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
 interface SearchSuggestionResponseProviderInterface
 {

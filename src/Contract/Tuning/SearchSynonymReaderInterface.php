@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Contract\Tuning;
 
 use App\Searching\Entity\SearchSynonymEntity;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 
 interface SearchSynonymReaderInterface
 {

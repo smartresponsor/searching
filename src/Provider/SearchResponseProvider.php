@@ -11,10 +11,10 @@ use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
 use App\Searching\Contract\Query\SearchSuggestionResponseProviderInterface;
 use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Service\SearchResponseMapper;
-use App\Searching\Value\Provider\SearchCapability;
-use App\Searching\Value\Query\SearchQueryRequest;
-use App\Searching\Value\Query\SearchSuggestionRequest;
-use App\Searching\Value\Result\SearchResponse;
+use App\Searching\ValueObject\Provider\SearchCapability;
+use App\Searching\ValueObject\Query\SearchQueryRequest;
+use App\Searching\ValueObject\Query\SearchSuggestionRequest;
+use App\Searching\ValueObject\Result\SearchResponse;
 
 final readonly class SearchResponseProvider implements SearchResponseProviderInterface, SearchSuggestionResponseProviderInterface
 {

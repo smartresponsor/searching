@@ -8,8 +8,8 @@ use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
 use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
 use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
 use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
-use App\Searching\Value\Indexing\SearchReindexResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Indexing\SearchReindexResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
 final readonly class SearchReindexCoordinator implements SearchReindexCoordinatorInterface
 {

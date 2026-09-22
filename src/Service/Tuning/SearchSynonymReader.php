@@ -7,7 +7,7 @@ namespace App\Searching\Service\Tuning;
 use App\Searching\Contract\Tuning\SearchSynonymReaderInterface;
 use App\Searching\Entity\SearchSynonymEntity;
 use App\Searching\Repository\SearchSynonymRepository;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 
 final readonly class SearchSynonymReader implements SearchSynonymReaderInterface
 {

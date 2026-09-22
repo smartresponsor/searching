@@ -7,7 +7,7 @@ namespace App\Searching\Controller\Api;
 use App\Searching\Contract\Tuning\SearchRelevanceProfileReaderInterface;
 use App\Searching\Contract\Tuning\SearchRelevanceProfileWriterInterface;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Producer;
 
-use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchResultItem;
 
 /**
  * Producer-side contract for validating and refreshing result items returned by a search backend.

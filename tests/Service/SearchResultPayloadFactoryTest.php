@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service;
 
 use App\Searching\Factory\SearchResultPayloadFactory;
-use App\Searching\Value\Result\SearchFacetResponse;
-use App\Searching\Value\Result\SearchResponse;
-use App\Searching\Value\Result\SearchResponseItem;
+use App\Searching\ValueObject\Result\SearchFacetResponse;
+use App\Searching\ValueObject\Result\SearchResponse;
+use App\Searching\ValueObject\Result\SearchResponseItem;
 use PHPUnit\Framework\TestCase;
 
 final class SearchResultPayloadFactoryTest extends TestCase

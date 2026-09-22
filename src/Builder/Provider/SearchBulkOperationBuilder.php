@@ -6,9 +6,9 @@ namespace App\Searching\Builder\Provider;
 
 use App\Searching\Contract\Provider\SearchBulkOperationBuilderInterface;
 use App\Searching\Service\Provider\SearchDocumentPayloadMapper;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Provider\SearchBulkOperation;
-use App\Searching\Value\Provider\SearchBulkOperationSet;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Provider\SearchBulkOperation;
+use App\Searching\ValueObject\Provider\SearchBulkOperationSet;
 
 final class SearchBulkOperationBuilder implements SearchBulkOperationBuilderInterface
 {

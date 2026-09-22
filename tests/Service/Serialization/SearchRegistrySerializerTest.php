@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Serialization;
 
 use App\Searching\Service\Serialization\SearchRegistrySerializer;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class SearchRegistrySerializerTest extends TestCase

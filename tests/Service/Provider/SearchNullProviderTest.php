@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Searching\Tests\Service\Provider;
 
 use App\Searching\Provider\Backend\SearchNullProvider;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 use PHPUnit\Framework\TestCase;
 
 final class SearchNullProviderTest extends TestCase

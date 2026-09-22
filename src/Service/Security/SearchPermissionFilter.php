@@ -6,9 +6,9 @@ namespace App\Searching\Service\Security;
 
 use App\Searching\Contract\Security\SearchPermissionCheckerInterface;
 use App\Searching\Contract\Security\SearchPermissionFilterInterface;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Result\SearchResultItem;
-use App\Searching\Value\Security\SearchPermissionFilterResult;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Result\SearchResultItem;
+use App\Searching\ValueObject\Security\SearchPermissionFilterResult;
 
 final readonly class SearchPermissionFilter implements SearchPermissionFilterInterface
 {

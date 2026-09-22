@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Service\Serialization;
 
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 
 final class SearchRegistrySerializer
 {

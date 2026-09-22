@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Value;
 
-use App\Searching\Value\Indexing\SearchIndexCriteria;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Query\SearchQueryLogCriteria;
-use App\Searching\Value\Tuning\SearchRelevanceProfileCriteria;
-use App\Searching\Value\Tuning\SearchSynonymCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Query\SearchQueryLogCriteria;
+use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
+use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 use PHPUnit\Framework\TestCase;
 
 final class SearchCriteriaValueTest extends TestCase

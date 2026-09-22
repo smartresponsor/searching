@@ -13,11 +13,11 @@ use App\Searching\Entity\SearchIndexEntity;
 use App\Searching\Service\Health\SearchHealthChecker;
 use App\Searching\Service\Provider\SearchProviderStatusCollector;
 use App\Searching\Service\Registry\SearchProviderRegistry;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class SearchHealthCheckerCoverageTest extends TestCase

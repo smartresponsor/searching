@@ -6,8 +6,8 @@ namespace App\Searching\Tests\Observability;
 
 use App\Searching\Entity\SearchQueryLogEntity;
 use App\Searching\Service\Serialization\SearchQueryExecutionTraceSerializer;
-use App\Searching\Value\Observability\SearchExecutionContext;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryExecutionTraceContextTest extends TestCase

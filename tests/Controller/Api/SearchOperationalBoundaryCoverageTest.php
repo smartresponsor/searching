@@ -20,11 +20,11 @@ use App\Searching\Service\Serialization\SearchRegistrySerializer;
 use App\Searching\Service\Serialization\SearchReindexDispatchResultSerializer;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
 use App\Searching\Service\Serialization\SearchReindexResultSerializer;
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Indexing\SearchReindexResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Indexing\SearchReindexResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Repository;
 
 use App\Searching\Entity\SearchReindexJobEntity;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

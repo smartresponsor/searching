@@ -7,7 +7,8 @@ namespace App\Searching\Service\Indexing;
 use App\Searching\Contract\Indexing\SearchDocumentIndexerInterface;
 use App\Searching\Contract\Indexing\SearchIndexedResourceTrackerInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
-use App\Searching\Value\Document\SearchDocument;
+use App\Searching\Normalizer\SearchDocumentNormalizer;
+use App\Searching\ValueObject\Document\SearchDocument;
 
 final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInterface
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Message;
 
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
 /**
  * Messenger-safe request for running a reindex job outside the current HTTP/CLI request.

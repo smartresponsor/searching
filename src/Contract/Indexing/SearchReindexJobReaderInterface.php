@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Contract\Indexing;
 
 use App\Searching\Entity\SearchReindexJobEntity;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 
 interface SearchReindexJobReaderInterface
 {

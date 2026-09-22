@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Health;
 
-use App\Searching\Value\Health\SearchHealthReport;
+use App\Searching\ValueObject\Health\SearchHealthReport;
 
 interface SearchHealthCheckerInterface
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Searching\Tests;
 
 use App\Searching\Service\Flow\SearchOperationLimiter;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
 use PHPUnit\Framework\TestCase;
 
 final class SearchOperationLimiterTest extends TestCase

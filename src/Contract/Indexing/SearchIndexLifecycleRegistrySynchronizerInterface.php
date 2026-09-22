@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Indexing;
 
-use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Indexing\SearchIndexLifecycleRegistrySyncResult;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
 interface SearchIndexLifecycleRegistrySynchronizerInterface
 {

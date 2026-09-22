@@ -19,17 +19,17 @@ use App\Searching\Service\Serialization\SearchIndexSerializer;
 use App\Searching\Service\Serialization\SearchReindexJobSerializer;
 use App\Searching\Service\Serialization\SearchRelevanceProfileSerializer;
 use App\Searching\Service\Serialization\SearchSynonymSerializer;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Health\SearchHealthIndicator;
-use App\Searching\Value\Indexing\SearchDocumentFingerprint;
-use App\Searching\Value\Indexing\SearchIndexedResourceState;
-use App\Searching\Value\Indexing\SearchIndexLifecycleRegistrySyncResult;
-use App\Searching\Value\Provider\SearchBulkOperation;
-use App\Searching\Value\Provider\SearchBulkOperationSet;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchQueryExecutionTrace;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Health\SearchHealthIndicator;
+use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceState;
+use App\Searching\ValueObject\Indexing\SearchIndexLifecycleRegistrySyncResult;
+use App\Searching\ValueObject\Provider\SearchBulkOperation;
+use App\Searching\ValueObject\Provider\SearchBulkOperationSet;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use PHPUnit\Framework\TestCase;
 
 final class SearchRuntimeValueCoverageTest extends TestCase

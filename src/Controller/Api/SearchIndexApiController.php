@@ -7,7 +7,7 @@ namespace App\Searching\Controller\Api;
 use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
 use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
 use App\Searching\Service\Serialization\SearchIndexSerializer;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

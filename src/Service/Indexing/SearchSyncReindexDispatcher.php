@@ -8,9 +8,9 @@ use App\Searching\Builder\Indexing\SearchReindexIdempotencyKeyBuilder;
 use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
 use App\Searching\Contract\Indexing\SearchReindexCoordinatorInterface;
 use App\Searching\Contract\Indexing\SearchReindexDispatcherInterface;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
-use App\Searching\Value\Indexing\SearchReindexDispatchResult;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
 final readonly class SearchSyncReindexDispatcher implements SearchReindexDispatcherInterface
 {

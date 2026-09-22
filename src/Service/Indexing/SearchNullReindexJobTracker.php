@@ -6,7 +6,7 @@ namespace App\Searching\Service\Indexing;
 
 use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
 use App\Searching\Entity\SearchReindexJobEntity;
-use App\Searching\Value\Observability\SearchExecutionContext;
+use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
 final class SearchNullReindexJobTracker implements SearchReindexJobTrackerInterface
 {

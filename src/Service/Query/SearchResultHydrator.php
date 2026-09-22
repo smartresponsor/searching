@@ -6,8 +6,8 @@ namespace App\Searching\Service\Query;
 
 use App\Searching\Contract\Producer\SearchResultItemHydratorInterface;
 use App\Searching\Contract\Query\SearchResultHydratorInterface;
-use App\Searching\Value\Result\SearchResultHydrationResult;
-use App\Searching\Value\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchResultHydrationResult;
+use App\Searching\ValueObject\Result\SearchResultItem;
 
 final class SearchResultHydrator implements SearchResultHydratorInterface
 {

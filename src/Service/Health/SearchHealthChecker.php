@@ -10,11 +10,11 @@ use App\Searching\Contract\Indexing\SearchIndexReaderInterface;
 use App\Searching\Contract\Indexing\SearchReindexJobReaderInterface;
 use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\Service\Provider\SearchProviderStatusCollector;
-use App\Searching\Value\Health\SearchHealthIndicator;
-use App\Searching\Value\Health\SearchHealthReport;
-use App\Searching\Value\Indexing\SearchIndexCriteria;
-use App\Searching\Value\Indexing\SearchIndexedResourceCriteria;
-use App\Searching\Value\Indexing\SearchReindexJobCriteria;
+use App\Searching\ValueObject\Health\SearchHealthIndicator;
+use App\Searching\ValueObject\Health\SearchHealthReport;
+use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
+use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
+use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 
 final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
 {

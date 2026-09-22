@@ -12,13 +12,13 @@ use App\Searching\Contract\Provider\SearchBulkOperationBuilderInterface;
 use App\Searching\Contract\Provider\SearchIndexLifecycleProviderInterface;
 use App\Searching\Contract\Provider\SearchIndexMappingBuilderInterface;
 use App\Searching\Contract\Provider\SearchProviderInterface;
-use App\Searching\Value\Document\SearchDocument;
-use App\Searching\Value\Provider\SearchIndexLifecycleResult;
-use App\Searching\Value\Provider\SearchProviderConfiguration;
-use App\Searching\Value\Provider\SearchProviderResult;
-use App\Searching\Value\Provider\SearchProviderStatus;
-use App\Searching\Value\Query\SearchQuery;
-use App\Searching\Value\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Document\SearchDocument;
+use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
+use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
+use App\Searching\ValueObject\Provider\SearchProviderResult;
+use App\Searching\ValueObject\Provider\SearchProviderStatus;
+use App\Searching\ValueObject\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 
 abstract class SearchAbstractBackendProvider implements SearchProviderInterface, SearchIndexLifecycleProviderInterface
 {
@@ -90,7 +90,7 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         }
 
         return array_map(
-            static fn ($item) => new \App\Searching\Value\Result\SearchSuggestion(
+            static fn ($item) => new \App\Searching\ValueObject\Result\SearchSuggestion(
                 text: $item->title,
                 score: $item->score,
                 component: $item->component,

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Searching\Contract\Flow;
 
-use App\Searching\Value\Flow\SearchOperationLimitDecision;
-use App\Searching\Value\Flow\SearchOperationLimitRequest;
+use App\Searching\ValueObject\Flow\SearchOperationLimitDecision;
+use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
 
 interface SearchOperationLimiterInterface
 {

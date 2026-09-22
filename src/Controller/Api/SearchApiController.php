@@ -8,7 +8,7 @@ use App\Searching\Contract\Observability\SearchExecutionContextResolverInterface
 use App\Searching\Contract\Query\SearchQueryExecutorInterface;
 use App\Searching\Exception\SearchOperationLimitedException;
 use App\Searching\Service\Serialization\SearchResultSerializer;
-use App\Searching\Value\Query\SearchQuery;
+use App\Searching\ValueObject\Query\SearchQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

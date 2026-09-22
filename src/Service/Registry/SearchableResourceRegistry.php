@@ -6,7 +6,7 @@ namespace App\Searching\Service\Registry;
 
 use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
 use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
-use App\Searching\Value\Registry\SearchableResourceDefinition;
+use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 
 final class SearchableResourceRegistry implements SearchableResourceRegistryInterface
 {
