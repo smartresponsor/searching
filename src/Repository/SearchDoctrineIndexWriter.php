@@ -8,6 +8,9 @@ use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
 use App\Searching\Entity\SearchIndexEntity;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Defines the search doctrine index writer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDoctrineIndexWriter implements SearchIndexWriterInterface
 {
     public function __construct(
@@ -88,6 +91,9 @@ final readonly class SearchDoctrineIndexWriter implements SearchIndexWriterInter
         return $index;
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(SearchIndexEntity $index): void
     {
         $this->entityManager->remove($index);

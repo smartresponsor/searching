@@ -8,8 +8,14 @@ use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
 use App\Searching\ValueObject\Flow\SearchOperationLimitDecision;
 use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
 
+/**
+ * Defines the search null operation limiter responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchNullOperationLimiter implements SearchOperationLimiterInterface
 {
+    /**
+     * Executes the decide responsibility defined by the Searching component contract.
+     */
     public function decide(SearchOperationLimitRequest $request): SearchOperationLimitDecision
     {
         return SearchOperationLimitDecision::allow([

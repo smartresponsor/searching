@@ -6,6 +6,9 @@ namespace App\Searching\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Defines the search synonym entity responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_synonym')]
 class SearchSynonymEntity

@@ -6,6 +6,9 @@ namespace App\Searching\Service\Registry;
 
 use App\Searching\Contract\Provider\SearchProviderInterface;
 
+/**
+ * Defines the search provider registry responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchProviderRegistry
 {
     /** @var array<string, SearchProviderInterface> */

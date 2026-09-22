@@ -8,6 +8,9 @@ use App\Searching\ValueObject\Result\SearchFacet;
 use App\Searching\ValueObject\Result\SearchResultItem;
 use App\Searching\ValueObject\Result\SearchSuggestion;
 
+/**
+ * Defines the search provider result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchProviderResult
 {
     /**

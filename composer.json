@@ -119,10 +119,10 @@
   "scripts": {
     "test": "phpunit",
     "bridge:seal": "php tools/searching/final-search-bridge-seal-guard.php",
-    "test:coverage": [
-      "@php -r \"if (!is_dir('var/coverage')) { mkdir('var/coverage', 0777, true); }\"",
-      "@php -d xdebug.mode=coverage vendor/bin/phpunit --path-coverage --coverage-text=var/coverage/summary.txt"
-    ],
+    "docs:phpdoc": "@php tools/documentation/searching-phpdoc-hardening.php",
+    "test:coverage": "@php tools/coverage/searching-php-coverage.php --coverage-text=var/coverage/summary.txt",
+    "test:coverage:path": "@php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text=var/coverage/phpunit-path.txt --path-coverage",
+    "test:behavioral-coverage": "@php tools/coverage/searching-behavioral-coverage.php",
     "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
     "cs:fix": "php-cs-fixer fix --verbose",
     "stan": "phpstan analyse --memory-limit=1G",

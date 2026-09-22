@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Indexing;
 
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
+/**
+ * Defines the search reindex result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexResult
 {
     /**

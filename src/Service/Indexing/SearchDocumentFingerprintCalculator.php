@@ -7,8 +7,14 @@ namespace App\Searching\Service\Indexing;
 use App\Searching\ValueObject\Document\SearchDocument;
 use App\Searching\ValueObject\Indexing\SearchDocumentFingerprint;
 
+/**
+ * Defines the search document fingerprint calculator responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchDocumentFingerprintCalculator
 {
+    /**
+     * Executes the fingerprint responsibility defined by the Searching component contract.
+     */
     public function fingerprint(SearchDocument $document): SearchDocumentFingerprint
     {
         $payload = [

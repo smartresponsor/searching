@@ -11,6 +11,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search health command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:health', description: 'Print Searching provider, registry, lifecycle, freshness, and backlog health.')]
 final class SearchHealthCommand extends Command
 {
@@ -21,6 +24,9 @@ final class SearchHealthCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $report = $this->healthChecker->check();

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Indexing;
 
+/**
+ * Defines the search index lifecycle registry sync result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexLifecycleRegistrySyncResult
 {
     public function __construct(
@@ -13,11 +16,17 @@ final readonly class SearchIndexLifecycleRegistrySyncResult
     ) {
     }
 
+    /**
+     * Executes the synced responsibility defined by the Searching component contract.
+     */
     public static function synced(string $status = 'synced'): self
     {
         return new self(true, $status);
     }
 
+    /**
+     * Executes the skipped responsibility defined by the Searching component contract.
+     */
     public static function skipped(string $reason): self
     {
         return new self(false, 'skipped', $reason);

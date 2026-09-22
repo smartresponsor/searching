@@ -11,6 +11,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search reindex enqueue command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:index:enqueue')]
 final class SearchReindexEnqueueCommand extends Command
 {
@@ -19,6 +22,9 @@ final class SearchReindexEnqueueCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -28,6 +34,9 @@ final class SearchReindexEnqueueCommand extends Command
             ->addOption('requested-by', null, InputOption::VALUE_OPTIONAL, 'Actor or system that requested the reindex.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $changedSince = null;

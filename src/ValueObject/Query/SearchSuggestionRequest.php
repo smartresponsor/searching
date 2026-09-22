@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Query;
 
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
+/**
+ * Defines the search suggestion request responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchSuggestionRequest
 {
     /**
@@ -30,6 +33,9 @@ final readonly class SearchSuggestionRequest
     ) {
     }
 
+    /**
+     * Executes the to internal query responsibility defined by the Searching component contract.
+     */
     public function toInternalQuery(): SearchSuggestionQuery
     {
         return new SearchSuggestionQuery(

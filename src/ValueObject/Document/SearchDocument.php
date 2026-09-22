@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Document;
 
+/**
+ * Defines the search document responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDocument
 {
     /**

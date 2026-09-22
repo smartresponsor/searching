@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Flow;
 
+/**
+ * Defines the search operation limit decision responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchOperationLimitDecision
 {
     /** @param array<string, mixed> $metadata */
@@ -34,6 +37,9 @@ final readonly class SearchOperationLimitDecision
         return new self(false, true, $retryAfterSeconds, $reason, $metadata);
     }
 
+    /**
+     * Executes the status responsibility defined by the Searching component contract.
+     */
     public function status(): string
     {
         if ($this->allowed) {

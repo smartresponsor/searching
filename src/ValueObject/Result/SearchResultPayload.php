@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Result;
 
+/**
+ * Defines the search result payload responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResultPayload
 {
     public const WORD = 'search';
@@ -59,6 +62,9 @@ final readonly class SearchResultPayload
         ];
     }
 
+    /**
+     * Executes the template name responsibility defined by the Searching component contract.
+     */
     public function templateName(): string
     {
         return $this->templateName;

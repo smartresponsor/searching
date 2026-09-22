@@ -8,8 +8,14 @@ use App\Searching\Contract\Provider\SearchIndexMappingBuilderInterface;
 use App\Searching\ValueObject\Provider\SearchIndexMapping;
 use App\Searching\ValueObject\Provider\SearchProviderConfiguration;
 
+/**
+ * Defines the search index mapping builder responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchIndexMappingBuilder implements SearchIndexMappingBuilderInterface
 {
+    /**
+     * Builds the build used by the Searching component execution and integration boundaries.
+     */
     public function build(string $indexName, string $component, string $resourceType, SearchProviderConfiguration $configuration): SearchIndexMapping
     {
         $textAnalyzer = $this->optionString($configuration, 'text_analyzer', 'standard');

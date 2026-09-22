@@ -7,6 +7,9 @@ namespace App\Searching\Entity;
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Defines the search reindex job entity responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_reindex_job')]
 #[ORM\Index(name: 'idx_search_reindex_job_status', columns: ['status'])]
@@ -256,6 +259,9 @@ class SearchReindexJobEntity
         return $this->updatedAt;
     }
 
+    /**
+     * Executes the mark queued responsibility defined by the Searching component contract.
+     */
     public function markQueued(string $dispatchMode, string $idempotencyKey): void
     {
         $now = new \DateTimeImmutable();
@@ -266,6 +272,9 @@ class SearchReindexJobEntity
         $this->updatedAt = $now;
     }
 
+    /**
+     * Executes the mark dispatch failed responsibility defined by the Searching component contract.
+     */
     public function markDispatchFailed(string $errorMessage): void
     {
         $now = new \DateTimeImmutable();
@@ -278,6 +287,9 @@ class SearchReindexJobEntity
         $this->updatedAt = $now;
     }
 
+    /**
+     * Executes the mark running responsibility defined by the Searching component contract.
+     */
     public function markRunning(int $providerCount): void
     {
         $now = new \DateTimeImmutable();

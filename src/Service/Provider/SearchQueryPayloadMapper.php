@@ -6,6 +6,9 @@ namespace App\Searching\Service\Provider;
 
 use App\Searching\ValueObject\Query\SearchQuery;
 
+/**
+ * Defines the search query payload mapper responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchQueryPayloadMapper
 {
     /**

@@ -12,6 +12,9 @@ use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
 use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
+/**
+ * Defines the search sync reindex dispatcher responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchSyncReindexDispatcher implements SearchReindexDispatcherInterface
 {
     public function __construct(
@@ -21,6 +24,9 @@ final readonly class SearchSyncReindexDispatcher implements SearchReindexDispatc
     ) {
     }
 
+    /**
+     * Dispatches the dispatch through the Searching component asynchronous boundary.
+     */
     public function dispatch(
         ?string $component = null,
         ?string $resourceType = null,

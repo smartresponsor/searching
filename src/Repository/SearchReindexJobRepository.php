@@ -60,6 +60,9 @@ final class SearchReindexJobRepository extends ServiceEntityRepository
         return $jobs;
     }
 
+    /**
+     * Counts the by criteria matching the supplied Searching component criteria.
+     */
     public function countByCriteria(SearchReindexJobCriteria $criteria): int
     {
         $qb = $this->createQueryBuilder('job')

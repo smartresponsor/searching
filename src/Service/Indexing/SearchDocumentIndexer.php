@@ -10,6 +10,9 @@ use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Normalizer\SearchDocumentNormalizer;
 use App\Searching\ValueObject\Document\SearchDocument;
 
+/**
+ * Defines the search document indexer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInterface
 {
     public function __construct(
@@ -21,6 +24,9 @@ final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInter
     ) {
     }
 
+    /**
+     * Indexes the index through the Searching component indexing boundary.
+     */
     public function index(SearchDocument $document): void
     {
         $fingerprint = $this->fingerprintCalculator->fingerprint($document);
@@ -41,6 +47,9 @@ final readonly class SearchDocumentIndexer implements SearchDocumentIndexerInter
         }
     }
 
+    /**
+     * Executes the bulk index responsibility defined by the Searching component contract.
+     */
     public function bulkIndex(iterable $documents): void
     {
         $normalized = [];

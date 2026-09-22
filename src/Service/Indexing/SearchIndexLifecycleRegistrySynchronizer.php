@@ -9,6 +9,9 @@ use App\Searching\Contract\Indexing\SearchIndexWriterInterface;
 use App\Searching\ValueObject\Indexing\SearchIndexLifecycleRegistrySyncResult;
 use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
+/**
+ * Defines the search index lifecycle registry synchronizer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexLifecycleRegistrySynchronizer implements SearchIndexLifecycleRegistrySynchronizerInterface
 {
     public function __construct(
@@ -16,6 +19,9 @@ final readonly class SearchIndexLifecycleRegistrySynchronizer implements SearchI
     ) {
     }
 
+    /**
+     * Executes the sync responsibility defined by the Searching component contract.
+     */
     public function sync(string $component, string $resourceType, SearchIndexLifecycleResult $result): SearchIndexLifecycleRegistrySyncResult
     {
         $enabled = 'delete' !== $result->operation || !in_array($result->status, ['deleted', 'missing', 'unavailable'], true);

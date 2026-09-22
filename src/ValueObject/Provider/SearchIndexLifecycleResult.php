@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Provider;
 
+/**
+ * Defines the search index lifecycle result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexLifecycleResult
 {
     /**
@@ -19,6 +22,9 @@ final readonly class SearchIndexLifecycleResult
     ) {
     }
 
+    /**
+     * Executes the unavailable responsibility defined by the Searching component contract.
+     */
     public static function unavailable(string $providerName, string $indexName, string $operation, string $reason): self
     {
         return new self(

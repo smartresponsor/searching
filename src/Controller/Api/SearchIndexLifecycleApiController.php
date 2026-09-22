@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search index lifecycle api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexLifecycleApiController
 {
     public function __construct(
@@ -18,6 +21,9 @@ final readonly class SearchIndexLifecycleApiController
     ) {
     }
 
+    /**
+     * Executes the ensure responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/index/ensure', name: 'searching_api_index_ensure', methods: ['POST'])]
     public function ensure(Request $request): JsonResponse
     {
@@ -41,6 +47,9 @@ final readonly class SearchIndexLifecycleApiController
         ));
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     #[Route('/api/search/index/delete', name: 'searching_api_index_delete', methods: ['POST'])]
     public function delete(Request $request): JsonResponse
     {

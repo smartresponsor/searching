@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search relevance profile api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchRelevanceProfileApiController
 {
     public function __construct(
@@ -22,6 +25,9 @@ final readonly class SearchRelevanceProfileApiController
     ) {
     }
 
+    /**
+     * Lists the list exposed through the Searching component read boundary.
+     */
     #[Route('/api/search/relevance/profile', name: 'searching_api_relevance_profiles_list', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
@@ -35,6 +41,9 @@ final readonly class SearchRelevanceProfileApiController
         ]);
     }
 
+    /**
+     * Creates the create required by the Searching component runtime flow.
+     */
     #[Route('/api/search/relevance/profile', name: 'searching_api_relevance_profiles_create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
@@ -43,6 +52,9 @@ final readonly class SearchRelevanceProfileApiController
         return new JsonResponse($this->serializer->serialize($profile), JsonResponse::HTTP_CREATED);
     }
 
+    /**
+     * Executes the update responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/relevance/profile/{id}', name: 'searching_api_relevance_profiles_update', requirements: ['id' => '\\d+'], methods: ['PATCH', 'PUT'])]
     public function update(int $id, Request $request): JsonResponse
     {
@@ -56,6 +68,9 @@ final readonly class SearchRelevanceProfileApiController
         return new JsonResponse($this->serializer->serialize($profile));
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     #[Route('/api/search/relevance/profile/{id}', name: 'searching_api_relevance_profiles_delete', requirements: ['id' => '\\d+'], methods: ['DELETE'])]
     public function delete(int $id): JsonResponse
     {

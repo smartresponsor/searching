@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Tuning;
 
+/**
+ * Defines the search relevance profile criteria responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchRelevanceProfileCriteria
 {
     public function __construct(

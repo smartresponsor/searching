@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Indexing;
 
+/**
+ * Defines the search document fingerprint responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDocumentFingerprint
 {
     public function __construct(
@@ -15,6 +18,9 @@ final readonly class SearchDocumentFingerprint
     ) {
     }
 
+    /**
+     * Executes the matches responsibility defined by the Searching component contract.
+     */
     public function matches(?string $knownHash, ?\DateTimeImmutable $knownSourceUpdatedAt): bool
     {
         return $knownHash === $this->documentHash

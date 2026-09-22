@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 
+/**
+ * Defines the search query execution trace serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchQueryExecutionTraceSerializer
 {
     /**

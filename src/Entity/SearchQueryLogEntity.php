@@ -7,6 +7,9 @@ namespace App\Searching\Entity;
 use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Defines the search query log entity responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_query_log')]
 class SearchQueryLogEntity

@@ -12,6 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search index lifecycle command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:index:lifecycle', description: 'Prepare or remove managed search indexes.')]
 final class SearchIndexLifecycleCommand extends Command
 {
@@ -20,6 +23,9 @@ final class SearchIndexLifecycleCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -29,6 +35,9 @@ final class SearchIndexLifecycleCommand extends Command
             ->addOption('provider', null, InputOption::VALUE_OPTIONAL, 'Provider nameEntity. Omit to run ensure for all providers.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $operation = $input->getArgument('operation');

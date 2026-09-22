@@ -7,6 +7,9 @@ namespace App\Searching\Contract\Query;
 use App\Searching\ValueObject\Result\SearchResultHydrationResult;
 use App\Searching\ValueObject\Result\SearchResultItem;
 
+/**
+ * Defines the search result hydrator interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchResultHydratorInterface
 {
     /**

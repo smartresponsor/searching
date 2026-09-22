@@ -16,6 +16,9 @@ use App\Searching\ValueObject\Indexing\SearchIndexCriteria;
 use App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria;
 use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 
+/**
+ * Defines the search health checker responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
 {
     public function __construct(
@@ -29,6 +32,9 @@ final readonly class SearchHealthChecker implements SearchHealthCheckerInterface
     ) {
     }
 
+    /**
+     * Executes the check responsibility defined by the Searching component contract.
+     */
     public function check(): SearchHealthReport
     {
         $indicators = [

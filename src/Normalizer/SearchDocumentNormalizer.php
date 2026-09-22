@@ -6,8 +6,14 @@ namespace App\Searching\Normalizer;
 
 use App\Searching\ValueObject\Document\SearchDocument;
 
+/**
+ * Defines the search document normalizer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchDocumentNormalizer
 {
+    /**
+     * Normalizes the normalize according to the Searching component boundary contract.
+     */
     public function normalize(SearchDocument $document): SearchDocument
     {
         return new SearchDocument(

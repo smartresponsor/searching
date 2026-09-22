@@ -16,6 +16,9 @@ use App\Searching\ValueObject\Query\SearchQuery;
 use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use App\Searching\ValueObject\Result\SearchResult;
 
+/**
+ * Defines the search query executor responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
 {
     public function __construct(
@@ -29,6 +32,9 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
     ) {
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     public function execute(SearchQuery $query): SearchResult
     {
         $startedAt = microtime(true);

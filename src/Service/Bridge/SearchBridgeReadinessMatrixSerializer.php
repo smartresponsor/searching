@@ -7,6 +7,9 @@ namespace App\Searching\Service\Bridge;
 use App\Searching\ValueObject\Bridge\SearchBridgeReadinessItem;
 use App\Searching\ValueObject\Bridge\SearchBridgeReadinessMatrix;
 
+/**
+ * Defines the search bridge readiness matrix serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchBridgeReadinessMatrixSerializer
 {
     /**

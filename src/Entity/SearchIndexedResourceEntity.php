@@ -6,6 +6,9 @@ namespace App\Searching\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Defines the search indexed resource entity responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_indexed_resource')]
 #[ORM\UniqueConstraint(name: 'uniq_search_indexed_resource_identity', columns: ['component', 'resource_type', 'resource_id'])]
@@ -113,6 +116,9 @@ class SearchIndexedResourceEntity
         return $this->updatedAt;
     }
 
+    /**
+     * Executes the mark indexed responsibility defined by the Searching component contract.
+     */
     public function markIndexed(string $documentHash, \DateTimeImmutable $sourceUpdatedAt): void
     {
         $now = new \DateTimeImmutable();
@@ -124,6 +130,9 @@ class SearchIndexedResourceEntity
         $this->updatedAt = $now;
     }
 
+    /**
+     * Executes the mark unchanged responsibility defined by the Searching component contract.
+     */
     public function markUnchanged(string $documentHash, \DateTimeImmutable $sourceUpdatedAt): void
     {
         $this->documentHash = $documentHash;
@@ -133,6 +142,9 @@ class SearchIndexedResourceEntity
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * Executes the mark failed responsibility defined by the Searching component contract.
+     */
     public function markFailed(string $documentHash, \DateTimeImmutable $sourceUpdatedAt, string $errorMessage): void
     {
         $this->documentHash = $documentHash;
@@ -142,6 +154,9 @@ class SearchIndexedResourceEntity
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * Executes the mark removed responsibility defined by the Searching component contract.
+     */
     public function markRemoved(): void
     {
         $this->status = 'removed';

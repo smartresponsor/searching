@@ -15,6 +15,9 @@ use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+/**
+ * Defines the search messenger reindex dispatcher responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchMessengerReindexDispatcher implements SearchReindexDispatcherInterface
 {
     public function __construct(
@@ -27,6 +30,9 @@ final readonly class SearchMessengerReindexDispatcher implements SearchReindexDi
     ) {
     }
 
+    /**
+     * Dispatches the dispatch through the Searching component asynchronous boundary.
+     */
     public function dispatch(
         ?string $component = null,
         ?string $resourceType = null,

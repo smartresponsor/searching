@@ -7,6 +7,9 @@ namespace App\Searching\Service\Serialization;
 use App\Searching\ValueObject\Health\SearchHealthIndicator;
 use App\Searching\ValueObject\Health\SearchHealthReport;
 
+/**
+ * Defines the search health report serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchHealthReportSerializer
 {
     /**

@@ -9,6 +9,9 @@ use App\Searching\Contract\Indexing\SearchReindexJobTrackerInterface;
 use App\Searching\Message\SearchReindexMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+/**
+ * Defines the search reindex message handler responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsMessageHandler]
 final readonly class SearchReindexMessageHandler
 {

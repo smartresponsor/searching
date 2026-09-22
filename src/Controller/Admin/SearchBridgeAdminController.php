@@ -9,6 +9,9 @@ use App\Searching\Service\Bridge\SearchBridgeConfigSerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search bridge admin controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchBridgeAdminController
 {
     public function __construct(
@@ -17,6 +20,9 @@ final readonly class SearchBridgeAdminController
     ) {
     }
 
+    /**
+     * Executes the interfacing responsibility defined by the Searching component contract.
+     */
     #[Route('/admin/search/bridge/interfacing', name: 'searching_admin_bridge_interfacing', methods: ['GET'])]
     public function interfacing(): JsonResponse
     {

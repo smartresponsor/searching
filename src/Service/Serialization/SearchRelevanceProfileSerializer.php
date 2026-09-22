@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 
+/**
+ * Defines the search relevance profile serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchRelevanceProfileSerializer
 {
     /**

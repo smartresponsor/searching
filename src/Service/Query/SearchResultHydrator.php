@@ -9,6 +9,9 @@ use App\Searching\Contract\Query\SearchResultHydratorInterface;
 use App\Searching\ValueObject\Result\SearchResultHydrationResult;
 use App\Searching\ValueObject\Result\SearchResultItem;
 
+/**
+ * Defines the search result hydrator responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchResultHydrator implements SearchResultHydratorInterface
 {
     /**

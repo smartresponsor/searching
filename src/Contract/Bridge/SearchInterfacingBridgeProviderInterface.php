@@ -10,10 +10,16 @@ use App\Searching\ValueObject\Query\SearchSuggestionRequest;
 use App\Searching\ValueObject\Result\SearchResponse;
 use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
+/**
+ * Defines the search interfacing bridge provider interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchInterfacingBridgeProviderInterface
 {
     public function getBridgeConfig(): SearchBridgeConfig;
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     public function search(SearchQueryRequest $query): SearchResponse;
 
     /**

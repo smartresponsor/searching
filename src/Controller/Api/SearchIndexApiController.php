@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search index api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexApiController
 {
     public function __construct(
@@ -22,6 +25,9 @@ final readonly class SearchIndexApiController
     ) {
     }
 
+    /**
+     * Lists the list exposed through the Searching component read boundary.
+     */
     #[Route('/api/search/index', name: 'searching_api_indexes', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
@@ -35,6 +41,9 @@ final readonly class SearchIndexApiController
         ]);
     }
 
+    /**
+     * Creates the create required by the Searching component runtime flow.
+     */
     #[Route('/api/search/index', name: 'searching_api_indexes_create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
@@ -43,6 +52,9 @@ final readonly class SearchIndexApiController
         return new JsonResponse($this->serializer->serialize($index), 201);
     }
 
+    /**
+     * Executes the update responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/index/{token}', name: 'searching_api_indexes_update', methods: ['PATCH'])]
     public function update(string $token, Request $request): JsonResponse
     {
@@ -61,6 +73,9 @@ final readonly class SearchIndexApiController
         return new JsonResponse($this->serializer->serialize($this->writer->update($index, $this->jsonPayload($request))));
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     #[Route('/api/search/index/{token}', name: 'searching_api_indexes_delete', methods: ['DELETE'])]
     public function delete(string $token, Request $request): JsonResponse
     {

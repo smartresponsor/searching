@@ -10,6 +10,9 @@ use App\Searching\ValueObject\Document\SearchDocument;
 use App\Searching\ValueObject\Provider\SearchBulkOperation;
 use App\Searching\ValueObject\Provider\SearchBulkOperationSet;
 
+/**
+ * Defines the search bulk operation builder responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchBulkOperationBuilder implements SearchBulkOperationBuilderInterface
 {
     public function __construct(
@@ -18,6 +21,9 @@ final class SearchBulkOperationBuilder implements SearchBulkOperationBuilderInte
     ) {
     }
 
+    /**
+     * Builds the index operation used by the Searching component execution and integration boundaries.
+     */
     public function buildIndexOperation(SearchDocument $document, string $indexPrefix): SearchBulkOperation
     {
         return new SearchBulkOperation(
@@ -28,6 +34,9 @@ final class SearchBulkOperationBuilder implements SearchBulkOperationBuilderInte
         );
     }
 
+    /**
+     * Builds the index operations used by the Searching component execution and integration boundaries.
+     */
     public function buildIndexOperations(iterable $documents, string $indexPrefix): SearchBulkOperationSet
     {
         $operations = [];

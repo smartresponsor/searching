@@ -54,6 +54,9 @@ final class SearchIndexRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Counts the by criteria matching the supplied Searching component criteria.
+     */
     public function countByCriteria(SearchIndexCriteria $criteria): int
     {
         $qb = $this->createQueryBuilder('searchIndex')

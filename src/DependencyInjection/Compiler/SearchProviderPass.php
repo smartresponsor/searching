@@ -9,8 +9,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Defines the search provider pass responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchProviderPass implements CompilerPassInterface
 {
+    /**
+     * Processes the process through the Searching component runtime workflow.
+     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(SearchProviderRegistry::class)) {

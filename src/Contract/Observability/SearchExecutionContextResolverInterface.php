@@ -7,6 +7,9 @@ namespace App\Searching\Contract\Observability;
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Defines the search execution context resolver interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchExecutionContextResolverInterface
 {
     /**

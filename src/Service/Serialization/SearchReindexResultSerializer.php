@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\ValueObject\Indexing\SearchReindexResult;
 
+/**
+ * Defines the search reindex result serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchReindexResultSerializer
 {
     /**

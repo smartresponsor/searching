@@ -8,6 +8,9 @@ use App\Searching\Contract\Flow\SearchOperationLimiterInterface;
 use App\Searching\ValueObject\Flow\SearchOperationLimitDecision;
 use App\Searching\ValueObject\Flow\SearchOperationLimitRequest;
 
+/**
+ * Defines the search operation limiter responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchOperationLimiter implements SearchOperationLimiterInterface
 {
     /** @var array<string, array{window_start:int, used:int}> */
@@ -22,6 +25,9 @@ final class SearchOperationLimiter implements SearchOperationLimiterInterface
     ) {
     }
 
+    /**
+     * Executes the decide responsibility defined by the Searching component contract.
+     */
     public function decide(SearchOperationLimitRequest $request): SearchOperationLimitDecision
     {
         $limit = $this->operationLimits[$request->operation] ?? null;

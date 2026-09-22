@@ -1,5 +1,5 @@
 = Product Capability Audit: Searching
-:revdate: 2026-09-21
+:revdate: 2026-09-22
 
 == Boundary verdict
 
@@ -31,7 +31,7 @@ Searching owns search execution, query/tuning metadata and external search contr
 
 == Milestone direction
 
-M1: formalize fuzzy/synonym/sort/filter contracts.
-M2: boosting/pinning and zero-result strategies.
-M3: facet aggregation acceptance with Faceting/Indexing is COMPLETE at the Searching contract boundary; autocomplete composition with Tagging/Cataloging remains a separate growth item.
+First milestone: formalize fuzzy/synonym/sort/filter contracts.
+Second milestone: boosting/pinning and zero-result strategies.
+Facet integration milestone: facet aggregation acceptance with Faceting/Indexing is COMPLETE at the Searching contract boundary; autocomplete composition with Tagging/Cataloging remains a separate growth item.
 

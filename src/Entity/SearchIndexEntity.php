@@ -6,6 +6,9 @@ namespace App\Searching\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Defines the search index entity responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_index')]
 #[ORM\UniqueConstraint(name: 'uniq_search_index_identity', columns: ['provider', 'component', 'resource_type'])]
@@ -139,12 +142,18 @@ class SearchIndexEntity
         return $this->updatedAt;
     }
 
+    /**
+     * Executes the rename responsibility defined by the Searching component contract.
+     */
     public function rename(string $nameEntity): void
     {
         $this->nameEntity = $nameEntity;
         $this->touch();
     }
 
+    /**
+     * Executes the update index name responsibility defined by the Searching component contract.
+     */
     public function updateIndexName(string $indexName): void
     {
         $this->indexName = $indexName;
@@ -157,12 +166,18 @@ class SearchIndexEntity
         $this->touch();
     }
 
+    /**
+     * Executes the mark indexed responsibility defined by the Searching component contract.
+     */
     public function markIndexed(?\DateTimeImmutable $indexedAt = null): void
     {
         $this->lastIndexedAt = $indexedAt ?? new \DateTimeImmutable();
         $this->touch();
     }
 
+    /**
+     * Executes the apply responsibility defined by the Searching component contract.
+     */
     public function apply(string $nameEntity, string $indexName, bool $enabled): void
     {
         $this->nameEntity = $nameEntity;
@@ -171,6 +186,9 @@ class SearchIndexEntity
         $this->touch();
     }
 
+    /**
+     * Executes the mark lifecycle result responsibility defined by the Searching component contract.
+     */
     public function markLifecycleResult(string $operation, string $status, ?string $errorMessage = null): void
     {
         $this->lastLifecycleOperation = $operation;

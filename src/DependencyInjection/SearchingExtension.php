@@ -165,8 +165,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Defines the searching extension responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchingExtension extends Extension
 {
+    /**
+     * Loads the load required by the Searching component runtime configuration.
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();

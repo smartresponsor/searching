@@ -12,6 +12,9 @@ use App\Searching\ValueObject\Query\SearchQueryRequest;
 use App\Searching\ValueObject\Result\SearchResultPayload;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Defines the search result payload builder responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResultPayloadBuilder
 {
     public function __construct(

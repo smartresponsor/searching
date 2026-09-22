@@ -8,6 +8,9 @@ use App\Searching\Contract\Tuning\SearchSynonymWriterInterface;
 use App\Searching\Entity\SearchSynonymEntity;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Defines the search doctrine synonym writer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDoctrineSynonymWriter implements SearchSynonymWriterInterface
 {
     public function __construct(private EntityManagerInterface $entityManager)
@@ -49,6 +52,9 @@ final readonly class SearchDoctrineSynonymWriter implements SearchSynonymWriterI
         return $synonym;
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(SearchSynonymEntity $synonym): void
     {
         $this->entityManager->remove($synonym);

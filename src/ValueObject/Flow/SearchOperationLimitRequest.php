@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Flow;
 
 use App\Searching\ValueObject\Query\SearchQuery;
 
+/**
+ * Defines the search operation limit request responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchOperationLimitRequest
 {
     /** @param array<string, mixed> $metadata */
@@ -20,6 +23,9 @@ final readonly class SearchOperationLimitRequest
         }
     }
 
+    /**
+     * Executes the for search query responsibility defined by the Searching component contract.
+     */
     public static function forSearchQuery(SearchQuery $query): self
     {
         return new self(
@@ -37,6 +43,9 @@ final readonly class SearchOperationLimitRequest
         );
     }
 
+    /**
+     * Executes the for reindex dispatch responsibility defined by the Searching component contract.
+     */
     public static function forReindexDispatch(
         ?string $component = null,
         ?string $resourceType = null,

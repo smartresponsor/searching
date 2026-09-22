@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 
+/**
+ * Defines the search registry serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchRegistrySerializer
 {
     /**

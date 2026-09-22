@@ -13,6 +13,9 @@ use App\Searching\ValueObject\Tuning\SearchQueryTuning;
 use App\Searching\ValueObject\Tuning\SearchRelevanceProfileCriteria;
 use App\Searching\ValueObject\Tuning\SearchSynonymCriteria;
 
+/**
+ * Defines the search query tuning resolver responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchQueryTuningResolver implements SearchQueryTuningResolverInterface
 {
     public function __construct(
@@ -21,6 +24,9 @@ final readonly class SearchQueryTuningResolver implements SearchQueryTuningResol
     ) {
     }
 
+    /**
+     * Resolves the resolve required by the Searching component execution flow.
+     */
     public function resolve(SearchQuery $query): SearchQueryTuning
     {
         $matchedSynonyms = $this->resolveSynonyms($query);

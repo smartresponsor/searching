@@ -9,6 +9,9 @@ use App\Searching\Service\Serialization\SearchHealthReportSerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search health api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchHealthApiController
 {
     public function __construct(

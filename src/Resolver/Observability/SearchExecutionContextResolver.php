@@ -9,12 +9,18 @@ use App\Searching\ValueObject\Observability\SearchExecutionContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Defines the search execution context resolver responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchExecutionContextResolver implements SearchExecutionContextResolverInterface
 {
     public function __construct(private ?RequestStack $requestStack = null)
     {
     }
 
+    /**
+     * Resolves the resolve required by the Searching component execution flow.
+     */
     public function resolve(?Request $request = null, ?string $sourceOperation = null, ?string $actorId = null, array $metadata = []): SearchExecutionContext
     {
         $request ??= $this->requestStack?->getCurrentRequest();

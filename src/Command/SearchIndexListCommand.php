@@ -13,6 +13,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search index list command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:index:list', description: 'List registered Searching index definitions.')]
 final class SearchIndexListCommand extends Command
 {
@@ -23,6 +26,9 @@ final class SearchIndexListCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -34,6 +40,9 @@ final class SearchIndexListCommand extends Command
             ->addOption('enabled', null, InputOption::VALUE_REQUIRED, 'Filter enabled indexes: true or false.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $criteria = SearchIndexCriteria::fromArray([

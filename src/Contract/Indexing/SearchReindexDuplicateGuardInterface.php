@@ -11,5 +11,8 @@ use App\Searching\Entity\SearchReindexJobEntity;
  */
 interface SearchReindexDuplicateGuardInterface
 {
+    /**
+     * Finds the open duplicate through the Searching component read or persistence boundary.
+     */
     public function findOpenDuplicate(string $idempotencyKey): ?SearchReindexJobEntity;
 }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Indexing;
 
+/**
+ * Defines the search reindex job criteria responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexJobCriteria
 {
     public function __construct(
@@ -60,8 +63,8 @@ final readonly class SearchReindexJobCriteria
 
         try {
             return new \DateTimeImmutable($string);
-        } catch (\Throwable) {
-            return null;
+        } catch (\Throwable $exception) {
+            throw new \InvalidArgumentException(sprintf('Invalid date criteria value "%s".', $string), previous: $exception);
         }
     }
 

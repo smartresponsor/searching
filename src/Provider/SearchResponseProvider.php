@@ -16,6 +16,9 @@ use App\Searching\ValueObject\Query\SearchQueryRequest;
 use App\Searching\ValueObject\Query\SearchSuggestionRequest;
 use App\Searching\ValueObject\Result\SearchResponse;
 
+/**
+ * Defines the search response provider responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResponseProvider implements SearchResponseProviderInterface, SearchSuggestionResponseProviderInterface
 {
     public function __construct(
@@ -27,11 +30,17 @@ final readonly class SearchResponseProvider implements SearchResponseProviderInt
     ) {
     }
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     public function search(SearchQueryRequest $query): SearchResponse
     {
         return $this->responseMapper->mapResult($this->queryExecutor->execute($query->toInternalQuery()));
     }
 
+    /**
+     * Builds suggestions for the suggest through the Searching component query boundary.
+     */
     public function suggest(SearchSuggestionRequest $query): array
     {
         return array_map(

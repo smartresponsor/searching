@@ -15,8 +15,14 @@ use App\Searching\ValueObject\Result\SearchResultItem;
 use App\Searching\ValueObject\Result\SearchSuggestion;
 use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
+/**
+ * Defines the search response mapper responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchResponseMapper
 {
+    /**
+     * Maps the result into the stable Searching component boundary representation.
+     */
     public function mapResult(SearchResult $result): SearchResponse
     {
         return new SearchResponse(
@@ -31,6 +37,9 @@ final class SearchResponseMapper
         );
     }
 
+    /**
+     * Maps the item into the stable Searching component boundary representation.
+     */
     public function mapItem(SearchResultItem $item): SearchResponseItem
     {
         return new SearchResponseItem(
@@ -47,16 +56,25 @@ final class SearchResponseMapper
         );
     }
 
+    /**
+     * Maps the facet into the stable Searching component boundary representation.
+     */
     public function mapFacet(SearchFacet $facet): SearchFacetResponse
     {
         return new SearchFacetResponse($facet->identifier, $facet->buckets);
     }
 
+    /**
+     * Maps the highlight into the stable Searching component boundary representation.
+     */
     public function mapHighlight(SearchHighlight $highlight): SearchHighlightResponse
     {
         return new SearchHighlightResponse($highlight->field, $highlight->fragments);
     }
 
+    /**
+     * Maps the suggestion into the stable Searching component boundary representation.
+     */
     public function mapSuggestion(SearchSuggestion $suggestion): SearchSuggestionResponse
     {
         $routeParameters = $suggestion->metadata['routeParameters'] ?? null;

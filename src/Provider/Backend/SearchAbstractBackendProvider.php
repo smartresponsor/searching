@@ -20,6 +20,9 @@ use App\Searching\ValueObject\Provider\SearchProviderStatus;
 use App\Searching\ValueObject\Query\SearchQuery;
 use App\Searching\ValueObject\Query\SearchSuggestionQuery;
 
+/**
+ * Defines the search abstract backend provider responsibility within the Searching component runtime and its typed boundaries.
+ */
 abstract class SearchAbstractBackendProvider implements SearchProviderInterface, SearchIndexLifecycleProviderInterface
 {
     public function __construct(
@@ -33,6 +36,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
     ) {
     }
 
+    /**
+     * Indexes the index through the Searching component indexing boundary.
+     */
     public function index(SearchDocument $document): void
     {
         $operation = $this->bulkOperationBuilder->buildIndexOperation($document, $this->configuration->indexPrefix);
@@ -44,6 +50,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         );
     }
 
+    /**
+     * Executes the bulk index responsibility defined by the Searching component contract.
+     */
     public function bulkIndex(iterable $documents): void
     {
         $operationSet = $this->bulkOperationBuilder->buildIndexOperations($documents, $this->configuration->indexPrefix);
@@ -62,6 +71,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         }
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(string $component, string $resourceType, string $resourceId): void
     {
         $indexName = $this->buildIndexName($component, $resourceType);
@@ -70,6 +82,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         $this->backendClient->delete($indexName, $documentId);
     }
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     public function search(SearchQuery $query): SearchProviderResult
     {
         return $this->backendClient->search(
@@ -78,6 +93,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         );
     }
 
+    /**
+     * Builds suggestions for the suggest through the Searching component query boundary.
+     */
     public function suggest(SearchSuggestionQuery $query): array
     {
         $result = $this->backendClient->search(
@@ -107,11 +125,17 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         return $this->backendClient->getStatus($this->configuration->nameEntity, $this->configuration->toBackendConfiguration());
     }
 
+    /**
+     * Indexes the exists through the Searching component indexing boundary.
+     */
     public function indexExists(string $component, string $resourceType): bool
     {
         return $this->backendClient->indexExists($this->buildIndexName($component, $resourceType));
     }
 
+    /**
+     * Executes the ensure index responsibility defined by the Searching component contract.
+     */
     public function ensureIndex(string $component, string $resourceType): SearchIndexLifecycleResult
     {
         $indexName = $this->buildIndexName($component, $resourceType);
@@ -149,6 +173,9 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         );
     }
 
+    /**
+     * Deletes the index through the Searching component mutation boundary.
+     */
     public function deleteIndex(string $component, string $resourceType): SearchIndexLifecycleResult
     {
         $indexName = $this->buildIndexName($component, $resourceType);
@@ -191,11 +218,17 @@ abstract class SearchAbstractBackendProvider implements SearchProviderInterface,
         return is_string($reason) && '' !== trim($reason) ? $reason : 'Search backend is not available.';
     }
 
+    /**
+     * Builds the index name used by the Searching component execution and integration boundaries.
+     */
     protected function buildIndexName(string $component, string $resourceType): string
     {
         return $this->indexNameBuilder->buildForParts($this->configuration->indexPrefix, $component, $resourceType);
     }
 
+    /**
+     * Builds the document id used by the Searching component execution and integration boundaries.
+     */
     protected function buildDocumentId(string $component, string $resourceType, string $resourceId): string
     {
         return $this->indexNameBuilder->buildDocumentIdForParts($component, $resourceType, $resourceId);

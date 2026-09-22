@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\Entity\SearchReindexJobEntity;
 
+/**
+ * Defines the search reindex job serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexJobSerializer
 {
     /**

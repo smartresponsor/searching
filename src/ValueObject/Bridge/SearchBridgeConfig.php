@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Bridge;
 
 use App\Searching\ValueObject\Provider\SearchCapability;
 
+/**
+ * Defines the search bridge config responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchBridgeConfig
 {
     /**

@@ -11,6 +11,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search index rebuild command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:index:rebuild')]
 final class SearchIndexRebuildCommand extends Command
 {
@@ -19,6 +22,9 @@ final class SearchIndexRebuildCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -27,6 +33,9 @@ final class SearchIndexRebuildCommand extends Command
             ->addOption('since', null, InputOption::VALUE_OPTIONAL, 'Only ask producers for documents changed since this date/time.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $changedSince = null;

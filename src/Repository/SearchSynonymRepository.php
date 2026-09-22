@@ -35,6 +35,9 @@ final class SearchSynonymRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Counts the by criteria matching the supplied Searching component criteria.
+     */
     public function countByCriteria(SearchSynonymCriteria $criteria): int
     {
         $queryBuilder = $this->createCriteriaQueryBuilder($criteria);

@@ -6,6 +6,9 @@ namespace App\Searching\Contract\Tuning;
 
 use App\Searching\Entity\SearchSynonymEntity;
 
+/**
+ * Defines the search synonym writer interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchSynonymWriterInterface
 {
     /**
@@ -18,5 +21,8 @@ interface SearchSynonymWriterInterface
      */
     public function update(SearchSynonymEntity $synonym, array $payload): SearchSynonymEntity;
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(SearchSynonymEntity $synonym): void;
 }

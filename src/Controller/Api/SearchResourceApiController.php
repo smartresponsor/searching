@@ -9,6 +9,9 @@ use App\Searching\Service\Serialization\SearchRegistrySerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search resource api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResourceApiController
 {
     public function __construct(

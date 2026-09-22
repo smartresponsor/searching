@@ -12,6 +12,9 @@ use App\Searching\ValueObject\Bridge\SearchBridgeEmptyState;
 use App\Searching\ValueObject\Bridge\SearchBridgeResultPageConfig;
 use App\Searching\ValueObject\Bridge\SearchBridgeRouteHint;
 
+/**
+ * Defines the search bridge config serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchBridgeConfigSerializer
 {
     public function __construct(private SearchResponseSerializer $responseSerializer)

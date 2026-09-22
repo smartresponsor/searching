@@ -13,6 +13,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search query log list command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:query-log:list', description: 'List recent Searching query log entries.')]
 final class SearchQueryLogListCommand extends Command
 {
@@ -23,6 +26,9 @@ final class SearchQueryLogListCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -35,6 +41,9 @@ final class SearchQueryLogListCommand extends Command
             ->addOption('successful', null, InputOption::VALUE_REQUIRED, 'Filter by success flag: true or false.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $criteria = SearchQueryLogCriteria::fromArray([

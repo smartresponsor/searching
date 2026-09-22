@@ -9,6 +9,9 @@ use App\Searching\Entity\SearchReindexJobEntity;
 use App\Searching\Repository\SearchReindexJobRepository;
 use App\Searching\ValueObject\Indexing\SearchReindexJobCriteria;
 
+/**
+ * Defines the search reindex job reader responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexJobReader implements SearchReindexJobReaderInterface
 {
     public function __construct(private SearchReindexJobRepository $repository)
@@ -23,11 +26,17 @@ final readonly class SearchReindexJobReader implements SearchReindexJobReaderInt
         return $this->repository->findByCriteria($criteria);
     }
 
+    /**
+     * Counts the count matching the supplied Searching component criteria.
+     */
     public function count(SearchReindexJobCriteria $criteria): int
     {
         return $this->repository->countByCriteria($criteria);
     }
 
+    /**
+     * Finds the one through the Searching component read or persistence boundary.
+     */
     public function findOne(string $jobKey): ?SearchReindexJobEntity
     {
         return $this->repository->findOneByJobKey($jobKey);

@@ -7,6 +7,9 @@ namespace App\Searching\Service\Provider;
 use App\Searching\Service\Registry\SearchProviderRegistry;
 use App\Searching\ValueObject\Provider\SearchProviderStatus;
 
+/**
+ * Defines the search provider status collector responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchProviderStatusCollector
 {
     public function __construct(

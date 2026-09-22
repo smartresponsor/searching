@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\Entity\SearchSynonymEntity;
 
+/**
+ * Defines the search synonym serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchSynonymSerializer
 {
     /**

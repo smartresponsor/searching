@@ -6,6 +6,9 @@ namespace App\Searching\Contract\Producer;
 
 use App\Searching\ValueObject\Document\SearchDocument;
 
+/**
+ * Defines the searchable document provider interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchableDocumentProviderInterface
 {
     public function getSearchableResourceName(): string;

@@ -11,6 +11,9 @@ use App\Searching\Contract\Registry\SearchableResourceRegistryInterface;
 use App\Searching\ValueObject\Indexing\SearchReindexResult;
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
+/**
+ * Defines the search reindex coordinator responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexCoordinator implements SearchReindexCoordinatorInterface
 {
     public function __construct(
@@ -20,11 +23,17 @@ final readonly class SearchReindexCoordinator implements SearchReindexCoordinato
     ) {
     }
 
+    /**
+     * Executes the request reindex responsibility defined by the Searching component contract.
+     */
     public function requestReindex(?string $component = null, ?string $resourceType = null, ?string $requestedBy = null, ?\DateTimeImmutable $changedSince = null): string
     {
         return $this->jobTracker->request($component, $resourceType, $requestedBy, $changedSince)->getJobKey();
     }
 
+    /**
+     * Executes the reindex responsibility defined by the Searching component contract.
+     */
     public function reindex(?string $component = null, ?string $resourceType = null, ?\DateTimeImmutable $changedSince = null, ?SearchExecutionContext $executionContext = null): SearchReindexResult
     {
         $job = $this->jobTracker->request($component, $resourceType, changedSince: $changedSince, executionContext: $executionContext);
@@ -32,6 +41,9 @@ final readonly class SearchReindexCoordinator implements SearchReindexCoordinato
         return $this->reindexExistingJob($job->getJobKey(), $component, $resourceType, $changedSince, $executionContext);
     }
 
+    /**
+     * Executes the reindex existing job responsibility defined by the Searching component contract.
+     */
     public function reindexExistingJob(string $jobId, ?string $component = null, ?string $resourceType = null, ?\DateTimeImmutable $changedSince = null, ?SearchExecutionContext $executionContext = null): SearchReindexResult
     {
         $providers = $this->resourceRegistry->matching($component, $resourceType);

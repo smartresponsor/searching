@@ -19,6 +19,9 @@ final readonly class SearchBridgeReadinessMatrix
     ) {
     }
 
+    /**
+     * Executes the first integration seal responsibility defined by the Searching component contract.
+     */
     public static function firstIntegrationSeal(): self
     {
         return new self(

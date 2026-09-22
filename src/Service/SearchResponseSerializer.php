@@ -11,6 +11,9 @@ use App\Searching\ValueObject\Result\SearchResponse;
 use App\Searching\ValueObject\Result\SearchResponseItem;
 use App\Searching\ValueObject\Result\SearchSuggestionResponse;
 
+/**
+ * Defines the search response serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchResponseSerializer
 {
     /**

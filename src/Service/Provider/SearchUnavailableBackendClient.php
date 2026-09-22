@@ -8,13 +8,22 @@ use App\Searching\Contract\Provider\SearchBackendClientInterface;
 use App\Searching\ValueObject\Provider\SearchProviderResult;
 use App\Searching\ValueObject\Provider\SearchProviderStatus;
 
+/**
+ * Defines the search unavailable backend client responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchUnavailableBackendClient implements SearchBackendClientInterface
 {
+    /**
+     * Indexes the index through the Searching component indexing boundary.
+     */
     public function index(string $indexName, string $documentId, array $payload): void
     {
         // Intentionally no-op. This backend is used when no real client is configured.
     }
 
+    /**
+     * Executes the bulk index responsibility defined by the Searching component contract.
+     */
     public function bulkIndex(string $indexName, iterable $documents): void
     {
         foreach ($documents as $_document) {
@@ -22,11 +31,17 @@ final class SearchUnavailableBackendClient implements SearchBackendClientInterfa
         }
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(string $indexName, string $documentId): void
     {
         // Intentionally no-op.
     }
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     public function search(string $indexName, array $payload): SearchProviderResult
     {
         return new SearchProviderResult(
@@ -42,16 +57,25 @@ final class SearchUnavailableBackendClient implements SearchBackendClientInterfa
         );
     }
 
+    /**
+     * Indexes the exists through the Searching component indexing boundary.
+     */
     public function indexExists(string $indexName): bool
     {
         return false;
     }
 
+    /**
+     * Creates the index required by the Searching component runtime flow.
+     */
     public function createIndex(string $indexName, array $mapping): void
     {
         // Intentionally no-op. A real backend client must create physical indexes.
     }
 
+    /**
+     * Deletes the index through the Searching component mutation boundary.
+     */
     public function deleteIndex(string $indexName): void
     {
         // Intentionally no-op. A real backend client must delete physical indexes.

@@ -11,6 +11,9 @@ use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\ValueObject\Document\SearchDocument;
 use App\Searching\ValueObject\Indexing\SearchDocumentChangeResult;
 
+/**
+ * Defines the search incremental indexer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIncrementalIndexer implements SearchIncrementalIndexerInterface
 {
     public function __construct(
@@ -21,6 +24,9 @@ final readonly class SearchIncrementalIndexer implements SearchIncrementalIndexe
     ) {
     }
 
+    /**
+     * Indexes the changed document through the Searching component indexing boundary.
+     */
     public function indexChangedDocument(SearchDocument $document, string $changeReason = 'changed'): SearchDocumentChangeResult
     {
         $fingerprint = $this->fingerprintCalculator->fingerprint($document);
@@ -41,6 +47,9 @@ final readonly class SearchIncrementalIndexer implements SearchIncrementalIndexe
         );
     }
 
+    /**
+     * Removes the resource through the Searching component mutation boundary.
+     */
     public function removeResource(string $component, string $resourceType, string $resourceId, string $changeReason = 'removed'): SearchDocumentChangeResult
     {
         $this->searchProvider->delete($component, $resourceType, $resourceId);

@@ -8,6 +8,9 @@ use App\Searching\Service\SearchResponseSerializer;
 use App\Searching\ValueObject\Result\SearchResponse;
 use App\Searching\ValueObject\Result\SearchResultPayload;
 
+/**
+ * Defines the search result payload factory responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResultPayloadFactory
 {
     public function __construct(private SearchResponseSerializer $serializer)

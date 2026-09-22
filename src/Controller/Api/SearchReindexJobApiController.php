@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search reindex job api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexJobApiController
 {
     public function __construct(
@@ -20,6 +23,9 @@ final readonly class SearchReindexJobApiController
     ) {
     }
 
+    /**
+     * Lists the list exposed through the Searching component read boundary.
+     */
     #[Route('/api/search/reindex/job', name: 'searching_api_reindex_jobs', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
@@ -33,6 +39,9 @@ final readonly class SearchReindexJobApiController
         ]);
     }
 
+    /**
+     * Executes the view responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/reindex/job/{token}', name: 'searching_api_reindex_job_view', methods: ['GET'])]
     public function view(string $token): JsonResponse
     {

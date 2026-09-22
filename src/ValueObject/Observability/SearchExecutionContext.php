@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Observability;
 
+/**
+ * Defines the search execution context responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchExecutionContext
 {
     /**
@@ -49,6 +52,9 @@ final readonly class SearchExecutionContext
         ], static fn (mixed $value): bool => null !== $value && [] !== $value);
     }
 
+    /**
+     * Executes the with source operation responsibility defined by the Searching component contract.
+     */
     public function withSourceOperation(string $sourceOperation): self
     {
         return new self(

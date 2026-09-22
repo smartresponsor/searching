@@ -667,3 +667,12 @@ Task: `engine-20260921193925-searching-4a9919`
 - Scoped `gating/gate` lock metadata refresh restored executable Gating in this workspace. The resulting Gating run exposed broader pre-existing Searching canon debt unrelated to this Faceting slice; that debt remains a separate RC-hardening workstream and is not hidden by the Faceting acceptance commit.
 - `PRODUCT_CAPABILITY_AUDIT.adoc` now records Filters/facets consumption as PARITY and marks Faceting/Indexing aggregation acceptance complete at the Searching contract boundary; autocomplete composition remains separate growth work.
 
+## 2026-09-22 — Canonical RC hardening closure
+
+- Eliminated silent date-filter fallbacks in indexed-resource, reindex-job and query-log criteria. Invalid non-empty date filters now fail fast with `InvalidArgumentException`; absent and non-scalar optional values still mean that no date filter was supplied.
+- Added deterministic two-pass PHPUnit coverage production: standard coverage supplies Lines/Methods while a separate path-instrumented pass supplies Branches. Final canonical metrics are Lines 4206/4486 (93.76%), Methods 635/718 (88.44%), Branches 2060/2310 (89.18%).
+- Added repository-owned Canon042 evidence production over existing PHPUnit integration/API/runtime/faceting tests and the existing Playwright harness. Final evidence is functional 2/2, behavioral 3/3, UI 1/1 and critical 3/3.
+- Performed semantic PHPDoc hardening across Searching runtime contracts using repository-owned deterministic tooling, then normalized the result with PHP-CS-Fixer. Canon031 now reports classes 241/248 (97.2%) and contract methods 326/395 (82.5%), both above the 70% threshold.
+- Verification is GREEN: PHPStan 0 errors, PHPUnit 181 tests / 1161 assertions, Playwright 1/1, and Gating 68 rules / 0 failed / 0 warning / 0 suppressed.
+- `PRODUCT_CAPABILITY_AUDIT.adoc` now uses explicit milestone wording rather than ambiguous M-number shorthand.
+

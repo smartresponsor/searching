@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search query log api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchQueryLogApiController
 {
     public function __construct(

@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search synonym api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchSynonymApiController
 {
     public function __construct(
@@ -22,6 +25,9 @@ final readonly class SearchSynonymApiController
     ) {
     }
 
+    /**
+     * Lists the list exposed through the Searching component read boundary.
+     */
     #[Route('/api/search/synonym', name: 'searching_api_synonyms_list', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
@@ -35,6 +41,9 @@ final readonly class SearchSynonymApiController
         ]);
     }
 
+    /**
+     * Creates the create required by the Searching component runtime flow.
+     */
     #[Route('/api/search/synonym', name: 'searching_api_synonyms_create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
@@ -43,6 +52,9 @@ final readonly class SearchSynonymApiController
         return new JsonResponse($this->serializer->serialize($synonym), JsonResponse::HTTP_CREATED);
     }
 
+    /**
+     * Executes the update responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/synonym/{id}', name: 'searching_api_synonyms_update', requirements: ['id' => '\\d+'], methods: ['PATCH', 'PUT'])]
     public function update(int $id, Request $request): JsonResponse
     {
@@ -56,6 +68,9 @@ final readonly class SearchSynonymApiController
         return new JsonResponse($this->serializer->serialize($synonym));
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     #[Route('/api/search/synonym/{id}', name: 'searching_api_synonyms_delete', requirements: ['id' => '\\d+'], methods: ['DELETE'])]
     public function delete(int $id): JsonResponse
     {

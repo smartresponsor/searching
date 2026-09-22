@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Result;
 
+/**
+ * Defines the search result hydration result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResultHydrationResult
 {
     /**
@@ -17,11 +20,17 @@ final readonly class SearchResultHydrationResult
     ) {
     }
 
+    /**
+     * Executes the hydrated count responsibility defined by the Searching component contract.
+     */
     public function hydratedCount(): int
     {
         return count($this->items);
     }
 
+    /**
+     * Executes the dropped count responsibility defined by the Searching component contract.
+     */
     public function droppedCount(): int
     {
         return count($this->droppedItems);

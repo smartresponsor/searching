@@ -11,6 +11,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search document remove command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:document:remove', description: 'Remove a source resource from the active search provider index.')]
 final class SearchDocumentRemoveCommand extends Command
 {
@@ -20,6 +23,9 @@ final class SearchDocumentRemoveCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -28,6 +34,9 @@ final class SearchDocumentRemoveCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'Source resource id.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $component = $input->getArgument('component');

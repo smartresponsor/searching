@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Query;
 
 use App\Searching\ValueObject\Observability\SearchExecutionContext;
 
+/**
+ * Defines the search query responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchQuery
 {
     /**

@@ -7,6 +7,9 @@ namespace App\Searching\Contract\Registry;
 use App\Searching\Contract\Producer\SearchableDocumentProviderInterface;
 use App\Searching\ValueObject\Registry\SearchableResourceDefinition;
 
+/**
+ * Defines the searchable resource registry interface responsibility within the Searching component runtime and its typed boundaries.
+ */
 interface SearchableResourceRegistryInterface
 {
     /**
@@ -24,5 +27,8 @@ interface SearchableResourceRegistryInterface
      */
     public function matching(?string $component = null, ?string $resourceType = null): array;
 
+    /**
+     * Executes the add responsibility defined by the Searching component contract.
+     */
     public function add(SearchableDocumentProviderInterface $provider): void;
 }

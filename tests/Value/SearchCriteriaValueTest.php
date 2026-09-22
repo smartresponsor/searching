@@ -105,7 +105,7 @@ final class SearchCriteriaValueTest extends TestCase
 
         $invalid = SearchReindexJobCriteria::fromArray([
             'jobKey' => [],
-            'createdFrom' => 'not-a-date',
+            'createdFrom' => '',
             'createdTo' => new \stdClass(),
             'limit' => 'nope',
             'offset' => -1,
@@ -200,7 +200,7 @@ final class SearchCriteriaValueTest extends TestCase
             'resource' => 123,
             'id' => ' ',
             'stale' => 'not-a-bool',
-            'indexedFrom' => 'not-a-date',
+            'indexedFrom' => '',
             'indexedTo' => new \stdClass(),
             'limit' => 'bad',
             'offset' => -2,
@@ -253,7 +253,7 @@ final class SearchCriteriaValueTest extends TestCase
             'query' => new \stdClass(),
             'successful' => 'maybe',
             'from' => new \stdClass(),
-            'to' => 'invalid-date',
+            'to' => '',
         ], 31);
         self::assertSame(31, $fallback->limit);
         self::assertSame(0, $fallback->offset);
@@ -261,6 +261,22 @@ final class SearchCriteriaValueTest extends TestCase
         self::assertNull($fallback->successful);
         self::assertNull($fallback->from);
         self::assertNull($fallback->to);
+    }
+
+    public function testCriteriaRejectInvalidNonEmptyDateFilters(): void
+    {
+        foreach ([
+            static fn (): SearchReindexJobCriteria => SearchReindexJobCriteria::fromArray(['createdFrom' => 'not-a-date']),
+            static fn (): SearchIndexedResourceCriteria => SearchIndexedResourceCriteria::fromArray(['indexedFrom' => 'not-a-date']),
+            static fn (): SearchQueryLogCriteria => SearchQueryLogCriteria::fromArray(['from' => 'not-a-date']),
+        ] as $factory) {
+            try {
+                $factory();
+                self::fail('Invalid non-empty date criteria must be rejected.');
+            } catch (\InvalidArgumentException $exception) {
+                self::assertStringContainsString('Invalid date criteria value', $exception->getMessage());
+            }
+        }
     }
 
     public function testQueryLogCriteriaRejectsInvalidConstructorBounds(): void
@@ -296,7 +312,7 @@ final class SearchCriteriaValueTest extends TestCase
             'jobKey' => ' ',
             'component' => 321,
             'createdFrom' => '',
-            'createdTo' => 'definitely-not-a-date',
+            'createdTo' => '',
             'limit' => new \stdClass(),
             'offset' => 'not-an-int',
         ], 19);

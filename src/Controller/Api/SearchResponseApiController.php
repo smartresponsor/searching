@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search response api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchResponseApiController
 {
     public function __construct(
@@ -25,6 +28,9 @@ final readonly class SearchResponseApiController
     ) {
     }
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     #[Route('/api/search/response', name: 'searching_api_response_search', methods: ['GET'])]
     public function search(Request $request): JsonResponse
     {
@@ -50,6 +56,9 @@ final readonly class SearchResponseApiController
         return new JsonResponse($this->serializer->serializeResult($result));
     }
 
+    /**
+     * Builds suggestions for the suggest through the Searching component query boundary.
+     */
     #[Route('/api/search/response/suggest', name: 'searching_api_response_suggest', methods: ['GET'])]
     public function suggest(Request $request): JsonResponse
     {
@@ -73,6 +82,9 @@ final readonly class SearchResponseApiController
         ]);
     }
 
+    /**
+     * Executes the capability responsibility defined by the Searching component contract.
+     */
     #[Route('/api/search/capability', name: 'searching_api_capability', methods: ['GET'])]
     public function capability(): JsonResponse
     {

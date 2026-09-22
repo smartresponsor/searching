@@ -11,6 +11,9 @@ use App\Searching\Contract\Provider\SearchIndexLifecycleProviderInterface;
 use App\Searching\Service\Registry\SearchProviderRegistry;
 use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
+/**
+ * Defines the search index lifecycle manager responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexLifecycleManager implements SearchIndexLifecycleManagerInterface
 {
     public function __construct(
@@ -21,6 +24,9 @@ final readonly class SearchIndexLifecycleManager implements SearchIndexLifecycle
     ) {
     }
 
+    /**
+     * Executes the ensure responsibility defined by the Searching component contract.
+     */
     public function ensure(string $providerName, string $component, string $resourceType): SearchIndexLifecycleResult
     {
         $provider = $this->providerRegistry->get($providerName);
@@ -42,6 +48,9 @@ final readonly class SearchIndexLifecycleManager implements SearchIndexLifecycle
         return $result;
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(string $providerName, string $component, string $resourceType): SearchIndexLifecycleResult
     {
         $provider = $this->providerRegistry->get($providerName);
@@ -63,6 +72,9 @@ final readonly class SearchIndexLifecycleManager implements SearchIndexLifecycle
         return $result;
     }
 
+    /**
+     * Executes the ensure for all providers responsibility defined by the Searching component contract.
+     */
     public function ensureForAllProviders(string $component, string $resourceType): array
     {
         $results = [];

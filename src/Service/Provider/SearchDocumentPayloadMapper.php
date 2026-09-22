@@ -6,6 +6,9 @@ namespace App\Searching\Service\Provider;
 
 use App\Searching\ValueObject\Document\SearchDocument;
 
+/**
+ * Defines the search document payload mapper responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchDocumentPayloadMapper
 {
     /**

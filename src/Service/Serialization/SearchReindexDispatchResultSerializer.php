@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\ValueObject\Indexing\SearchReindexDispatchResult;
 
+/**
+ * Defines the search reindex dispatch result serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexDispatchResultSerializer
 {
     public function __construct(private SearchReindexResultSerializer $syncResultSerializer = new SearchReindexResultSerializer())

@@ -9,6 +9,9 @@ use App\Searching\Service\Serialization\SearchProviderStatusSerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search provider status api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchProviderStatusApiController
 {
     public function __construct(

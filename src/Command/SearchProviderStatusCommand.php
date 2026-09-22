@@ -10,6 +10,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search provider status command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:provider:status')]
 final class SearchProviderStatusCommand extends Command
 {
@@ -18,6 +21,9 @@ final class SearchProviderStatusCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $status = $this->searchProvider->getStatus();

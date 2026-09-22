@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\Entity\SearchIndexEntity;
 
+/**
+ * Defines the search index serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchIndexSerializer
 {
     /**

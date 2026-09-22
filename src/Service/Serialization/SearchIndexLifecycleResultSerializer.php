@@ -6,6 +6,9 @@ namespace App\Searching\Service\Serialization;
 
 use App\Searching\ValueObject\Provider\SearchIndexLifecycleResult;
 
+/**
+ * Defines the search index lifecycle result serializer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final class SearchIndexLifecycleResultSerializer
 {
     /**

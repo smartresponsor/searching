@@ -9,6 +9,9 @@ use App\Searching\Event\SearchDocumentChangedEvent;
 use App\Searching\Event\SearchDocumentRemovedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Defines the search document change subscriber responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDocumentChangeSubscriber implements EventSubscriberInterface
 {
     public function __construct(
@@ -24,11 +27,17 @@ final readonly class SearchDocumentChangeSubscriber implements EventSubscriberIn
         ];
     }
 
+    /**
+     * Executes the on document changed responsibility defined by the Searching component contract.
+     */
     public function onDocumentChanged(SearchDocumentChangedEvent $event): void
     {
         $this->incrementalIndexer->indexChangedDocument($event->document, $event->changeReason);
     }
 
+    /**
+     * Executes the on document removed responsibility defined by the Searching component contract.
+     */
     public function onDocumentRemoved(SearchDocumentRemovedEvent $event): void
     {
         $this->incrementalIndexer->removeResource(

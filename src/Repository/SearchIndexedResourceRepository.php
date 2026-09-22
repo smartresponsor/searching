@@ -70,6 +70,9 @@ final class SearchIndexedResourceRepository extends ServiceEntityRepository
         return $resources;
     }
 
+    /**
+     * Counts the by criteria matching the supplied Searching component criteria.
+     */
     public function countByCriteria(\App\Searching\ValueObject\Indexing\SearchIndexedResourceCriteria $criteria): int
     {
         $qb = $this->createQueryBuilder('resource')

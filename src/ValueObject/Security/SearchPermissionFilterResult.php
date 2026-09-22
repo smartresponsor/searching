@@ -6,6 +6,9 @@ namespace App\Searching\ValueObject\Security;
 
 use App\Searching\ValueObject\Result\SearchResultItem;
 
+/**
+ * Defines the search permission filter result responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchPermissionFilterResult
 {
     /**
@@ -19,11 +22,17 @@ final readonly class SearchPermissionFilterResult
     ) {
     }
 
+    /**
+     * Executes the denied count responsibility defined by the Searching component contract.
+     */
     public function deniedCount(): int
     {
         return count($this->deniedItems);
     }
 
+    /**
+     * Executes the allowed count responsibility defined by the Searching component contract.
+     */
     public function allowedCount(): int
     {
         return count($this->allowedItems);

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Query;
 
+/**
+ * Defines the search query log criteria responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchQueryLogCriteria
 {
     public function __construct(
@@ -112,10 +115,12 @@ final readonly class SearchQueryLogCriteria
             return null;
         }
 
+        $string = (string) $value;
+
         try {
-            return new \DateTimeImmutable((string) $value);
-        } catch (\Throwable) {
-            return null;
+            return new \DateTimeImmutable($string);
+        } catch (\Throwable $exception) {
+            throw new \InvalidArgumentException(sprintf('Invalid date criteria value "%s".', $string), previous: $exception);
         }
     }
 }

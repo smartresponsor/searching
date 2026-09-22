@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Searching\ValueObject\Result;
 
+/**
+ * Defines the search facet response responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchFacetResponse
 {
     public string $identifier;

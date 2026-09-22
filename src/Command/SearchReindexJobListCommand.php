@@ -13,6 +13,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Defines the search reindex job list command responsibility within the Searching component runtime and its typed boundaries.
+ */
 #[AsCommand(name: 'searching:reindex-job:list', description: 'List Searching reindex jobs.')]
 final class SearchReindexJobListCommand extends Command
 {
@@ -23,6 +26,9 @@ final class SearchReindexJobListCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Executes the configure responsibility defined by the Searching component contract.
+     */
     protected function configure(): void
     {
         $this
@@ -36,6 +42,9 @@ final class SearchReindexJobListCommand extends Command
             ->addOption('to', null, InputOption::VALUE_REQUIRED, 'Filter jobs created to this date/time.');
     }
 
+    /**
+     * Executes the execute operation through the Searching component runtime boundary.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $criteria = SearchReindexJobCriteria::fromArray([

@@ -18,6 +18,9 @@ use App\Searching\ValueObject\Query\SearchQueryRequest;
 use App\Searching\ValueObject\Query\SearchSuggestionRequest;
 use App\Searching\ValueObject\Result\SearchResponse;
 
+/**
+ * Defines the search interfacing bridge provider responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchInterfacingBridgeProvider implements SearchInterfacingBridgeProviderInterface
 {
     public function __construct(
@@ -87,11 +90,17 @@ final readonly class SearchInterfacingBridgeProvider implements SearchInterfacin
         );
     }
 
+    /**
+     * Searches the search through the Searching component query boundary.
+     */
     public function search(SearchQueryRequest $query): SearchResponse
     {
         return $this->responseProvider->search($query);
     }
 
+    /**
+     * Builds suggestions for the suggest through the Searching component query boundary.
+     */
     public function suggest(SearchSuggestionRequest $query): array
     {
         return $this->suggestionProvider->suggest($query);

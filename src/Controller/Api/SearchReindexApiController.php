@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search reindex api controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexApiController
 {
     public function __construct(

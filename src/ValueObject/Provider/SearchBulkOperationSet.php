@@ -16,6 +16,9 @@ final readonly class SearchBulkOperationSet implements \IteratorAggregate, \Coun
     {
     }
 
+    /**
+     * Counts the count matching the supplied Searching component criteria.
+     */
     public function count(): int
     {
         return count($this->operations);

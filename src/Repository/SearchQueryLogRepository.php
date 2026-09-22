@@ -35,6 +35,9 @@ final class SearchQueryLogRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Counts the by criteria matching the supplied Searching component criteria.
+     */
     public function countByCriteria(SearchQueryLogCriteria $criteria): int
     {
         $queryBuilder = $this->createCriteriaQueryBuilder($criteria);

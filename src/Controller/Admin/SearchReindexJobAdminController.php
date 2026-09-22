@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Defines the search reindex job admin controller responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchReindexJobAdminController
 {
     public function __construct(
@@ -20,6 +23,9 @@ final readonly class SearchReindexJobAdminController
     ) {
     }
 
+    /**
+     * Lists the list exposed through the Searching component read boundary.
+     */
     #[Route('/admin/search/reindex/job', name: 'searching_admin_reindex_jobs', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {

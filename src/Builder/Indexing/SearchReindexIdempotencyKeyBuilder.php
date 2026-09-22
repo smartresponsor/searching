@@ -9,6 +9,9 @@ namespace App\Searching\Builder\Indexing;
  */
 final readonly class SearchReindexIdempotencyKeyBuilder
 {
+    /**
+     * Builds the build used by the Searching component execution and integration boundaries.
+     */
     public function build(?string $component = null, ?string $resourceType = null, ?\DateTimeImmutable $changedSince = null): string
     {
         $payload = [

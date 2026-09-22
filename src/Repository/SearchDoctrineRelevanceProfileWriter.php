@@ -8,6 +8,9 @@ use App\Searching\Contract\Tuning\SearchRelevanceProfileWriterInterface;
 use App\Searching\Entity\SearchRelevanceProfileEntity;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Defines the search doctrine relevance profile writer responsibility within the Searching component runtime and its typed boundaries.
+ */
 final readonly class SearchDoctrineRelevanceProfileWriter implements SearchRelevanceProfileWriterInterface
 {
     public function __construct(private EntityManagerInterface $entityManager)
@@ -51,6 +54,9 @@ final readonly class SearchDoctrineRelevanceProfileWriter implements SearchRelev
         return $profile;
     }
 
+    /**
+     * Deletes the delete through the Searching component mutation boundary.
+     */
     public function delete(SearchRelevanceProfileEntity $profile): void
     {
         $this->entityManager->remove($profile);
