@@ -7,7 +7,6 @@
     "collectioning/collection": "dev-master",
     "cruding/crud": "dev-master",
     "easycorp/easyadmin-bundle": "^5.0",
-    "faceting/facet": "dev-master",
     "interfacing/interface": "dev-master",
     "objecting/object": "dev-master",
     "tabling/table": "dev-master",
@@ -90,16 +89,6 @@
     },
     {
       "type": "path",
-      "url": "../Faceting",
-      "options": {
-        "symlink": true,
-        "versions": {
-          "faceting/facet": "dev-master"
-        }
-      }
-    },
-    {
-      "type": "path",
       "url": "../Gating",
       "options": {
         "symlink": true,
@@ -158,11 +147,6 @@
       "@test",
       "@gate"
     ]
-  },
-  "config": {
-    "allow-plugins": {
-      "symfony/runtime": true
-    }
   },
   "extra": {
     "symfony": {
