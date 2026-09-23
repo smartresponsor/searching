@@ -3,6 +3,7 @@ doctrine:
     url: 'sqlite:///%kernel.project_dir%/var/searching.db'
   orm:
     auto_mapping: false
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     mappings:
       Searching:
         type: attribute

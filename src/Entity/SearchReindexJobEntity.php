@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'search_reindex_job')]
+#[ORM\UniqueConstraint(name: 'uniq_search_reindex_job_job_key', columns: ['job_key'])]
 #[ORM\Index(name: 'idx_search_reindex_job_status', columns: ['status'])]
 #[ORM\Index(name: 'idx_search_reindex_job_component_resource', columns: ['component', 'resource_type'])]
 #[ORM\Index(name: 'idx_search_reindex_job_created_at', columns: ['created_at'])]
@@ -23,7 +24,7 @@ class SearchReindexJobEntity
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(name: 'job_key', type: 'string', length: 64, unique: true)]
+    #[ORM\Column(name: 'job_key', type: 'string', length: 64)]
     private string $jobKey;
 
     #[ORM\Column(type: 'string', length: 120, nullable: true)]
