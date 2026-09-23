@@ -29,6 +29,17 @@ final class SearchPermissionCheckerTest extends TestCase
         self::assertSame('vendor_mismatch', $decision->reason);
     }
 
+    public function testItDeniesVendorScopedResultWithoutVendorIdentity(): void
+    {
+        $decision = (new SearchPermissionChecker())->decide(
+            $this->item(['vendor_id' => 'vendor-a']),
+            new SearchQuery('demo'),
+        );
+
+        self::assertFalse($decision->allowed);
+        self::assertSame('vendor_mismatch', $decision->reason);
+    }
+
     public function testItRequiresOwnerMatchForPrivateResults(): void
     {
         $checker = new SearchPermissionChecker();

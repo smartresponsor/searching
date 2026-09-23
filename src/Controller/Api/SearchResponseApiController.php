@@ -34,6 +34,10 @@ final readonly class SearchResponseApiController
     #[Route('/api/search/response', name: 'searching_api_response_search', methods: ['GET'])]
     public function search(Request $request): JsonResponse
     {
+        if ($this->hasIdentityClaim($request)) {
+            return new JsonResponse(['error' => 'untrusted_search_identity'], 400);
+        }
+
         try {
             $result = $this->responseProvider->search(new SearchQueryRequest(
                 query: trim((string) $request->query->get('q', '')),
@@ -43,11 +47,11 @@ final readonly class SearchResponseApiController
                 page: max(1, $request->query->getInt('page', 1)),
                 limit: max(1, $request->query->getInt('limit', 20)),
                 locale: $this->nullableString($request, 'locale'),
-                vendorId: $this->nullableString($request, 'vendorId'),
-                userId: $this->nullableString($request, 'userId'),
+                vendorId: null,
+                userId: null,
                 includeHighlights: $request->query->getBoolean('highlights', true),
                 includeFacets: $request->query->getBoolean('facets', true),
-                executionContext: $this->executionContextResolver->resolve($request, 'search.response.query', $this->nullableString($request, 'userId')),
+                executionContext: $this->executionContextResolver->resolve($request, 'search.response.query'),
             ));
         } catch (SearchOperationLimitedException $exception) {
             return $this->limitedResponse($exception);
@@ -62,6 +66,10 @@ final readonly class SearchResponseApiController
     #[Route('/api/search/response/suggest', name: 'searching_api_response_suggest', methods: ['GET'])]
     public function suggest(Request $request): JsonResponse
     {
+        if ($this->hasIdentityClaim($request)) {
+            return new JsonResponse(['error' => 'untrusted_search_identity'], 400);
+        }
+
         $suggestions = $this->suggestionProvider->suggest(new SearchSuggestionRequest(
             query: trim((string) $request->query->get('q', '')),
             components: $this->csv($request, 'component'),
@@ -69,11 +77,11 @@ final readonly class SearchResponseApiController
             filters: $this->filters($request),
             limit: max(1, min(25, $request->query->getInt('limit', 10))),
             locale: $this->nullableString($request, 'locale'),
-            vendorId: $this->nullableString($request, 'vendorId'),
-            userId: $this->nullableString($request, 'userId'),
+            vendorId: null,
+            userId: null,
             includeSynonyms: $request->query->getBoolean('synonyms', true),
             includeFuzzy: $request->query->getBoolean('fuzzy', true),
-            executionContext: $this->executionContextResolver->resolve($request, 'search.response.suggest', $this->nullableString($request, 'userId')),
+            executionContext: $this->executionContextResolver->resolve($request, 'search.response.suggest'),
         ));
 
         return new JsonResponse([
@@ -135,6 +143,17 @@ final readonly class SearchResponseApiController
         }
 
         return $filters;
+    }
+
+    private function hasIdentityClaim(Request $request): bool
+    {
+        foreach (['userId', 'user_id', 'vendorId', 'vendor_id'] as $name) {
+            if ($request->query->has($name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function nullableString(Request $request, string $nameEntity): ?string

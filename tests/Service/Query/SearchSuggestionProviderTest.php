@@ -37,6 +37,7 @@ final class SearchSuggestionProviderTest extends TestCase
         self::assertSame(['cataloging'], $lastQuery->components);
         self::assertSame(['product'], $lastQuery->resourceTypes);
         self::assertSame(5, $lastQuery->limit);
+        self::assertCount(1, $suggestions);
         self::assertSame('phone', $suggestions[0]->text);
     }
 
@@ -77,7 +78,11 @@ final class CapturingSuggestionSearchProvider implements SearchProviderInterface
     {
         $this->lastQuery = $query;
 
-        return [new SearchSuggestion('phone', 1.0, 'cataloging', 'product', '42')];
+        return [
+            new SearchSuggestion('phone', 1.0, 'cataloging', 'product', '42', ['visibility' => 'public']),
+            new SearchSuggestion('private phone', 1.0, 'cataloging', 'product', '43', ['visibility' => 'private']),
+            new SearchSuggestion('unclassified phone', 1.0, 'cataloging', 'product', '44'),
+        ];
     }
 
     public function getStatus(): SearchProviderStatus

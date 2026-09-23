@@ -151,6 +151,8 @@ Searching now has a final Symfony-side permission guard after provider search:
 
 Search backend filtering is treated as an optimization only. User-facing results must pass the final application-side permission filter before they are serialized for API/UI usage. The default checker uses normalized result metadata such as `visibility`, `vendorId`, `ownerId`, `allowedUserIds`, and `requiredPermissions`. Host applications may replace the checker with Symfony voter/security-aware logic later.
 
+Security boundary for the current HTTP API: `userId` and `vendorId` query claims (including snake-case aliases) receive HTTP 400; callers cannot set an authorization identity in the URL. Until a trusted host authentication integration supplies identity, these routes execute anonymously. Vendor-scoped records require a matching trusted Vendor identity. With final permission filtering enabled, the executor omits provider facets and embedded suggestions because provider-wide aggregates cannot be verified against the final application permission decision. Public suggestion requests return only suggestions explicitly marked `metadata.visibility: public`. Per-item denial/hydration diagnostics and pre-filter provider counts remain in internal traces, not in the returned result metadata. A host may enable richer scoped facets and suggestions only after implementing a verified authorization-aware source contract.
+
 ## v0.9 query logging and execution trace
 
 Searching now records a provider-neutral query execution trace around every `SearchQueryExecutor::execute()` call:

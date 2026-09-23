@@ -26,7 +26,9 @@ use App\Searching\ValueObject\Provider\SearchProviderStatus;
 use App\Searching\ValueObject\Query\SearchQuery;
 use App\Searching\ValueObject\Query\SearchQueryExecutionTrace;
 use App\Searching\ValueObject\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Result\SearchFacet;
 use App\Searching\ValueObject\Result\SearchResultItem;
+use App\Searching\ValueObject\Result\SearchSuggestion;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryExecutorTest extends TestCase
@@ -63,8 +65,11 @@ final class SearchQueryExecutorTest extends TestCase
 
         self::assertSame(1, $result->total);
         self::assertSame('public', $result->items[0]->resourceId);
-        self::assertSame(2, $result->metadata['provider_total']);
-        self::assertSame(1, $result->metadata['permission_denied_count']);
+        self::assertArrayNotHasKey('provider_total', $result->metadata);
+        self::assertArrayNotHasKey('permission_denied_count', $result->metadata);
+        self::assertArrayNotHasKey('permission_denied_items', $result->metadata);
+        self::assertSame([], $result->facets);
+        self::assertSame([], $result->suggestions);
         $trace = $logger->lastTrace;
         if (null === $trace) {
             self::fail('Expected query execution trace.');
@@ -94,14 +99,9 @@ final class SearchQueryExecutorTest extends TestCase
 
         $result = $executor->execute(new SearchQuery('invoice', userId: 'user-1'));
 
-        self::assertSame(1, $result->metadata['hydration_dropped_count']);
-        $droppedItems = $result->metadata['hydration_dropped_items'] ?? null;
-        if (!is_array($droppedItems)) {
-            self::fail('Expected hydration dropped items metadata.');
-        }
-        /** @var list<array{reason: string}> $droppedItems */
-        self::assertSame('source_missing_or_stale', $droppedItems[0]['reason']);
-        self::assertSame(1, $result->metadata['permission_original_count']);
+        self::assertArrayNotHasKey('hydration_dropped_count', $result->metadata);
+        self::assertArrayNotHasKey('hydration_dropped_items', $result->metadata);
+        self::assertArrayNotHasKey('permission_original_count', $result->metadata);
         self::assertSame(1, $result->total);
         self::assertSame('public', $result->items[0]->resourceId);
     }
@@ -163,6 +163,9 @@ final class SearchQueryExecutorTest extends TestCase
         self::assertSame(2, $result->total);
         self::assertFalse($result->metadata['result_hydration']);
         self::assertFalse($result->metadata['permission_filtering']);
+        self::assertSame(2, $result->metadata['provider_total']);
+        self::assertCount(1, $result->facets);
+        self::assertCount(1, $result->suggestions);
         $queryTrace = $result->metadata['query_trace'] ?? null;
         if (!is_array($queryTrace)) {
             self::fail('Expected query trace metadata.');
@@ -245,6 +248,8 @@ final class FakeResultSearchProvider implements SearchProviderInterface
                     metadata: ['visibility' => 'private', 'ownerId' => 'user-2'],
                 ),
             ],
+            facets: [new SearchFacet('visibility', ['private' => 1])],
+            suggestions: [new SearchSuggestion('Private order', resourceId: 'private')],
         );
     }
 

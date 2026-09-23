@@ -28,6 +28,10 @@ final readonly class SearchApiController
     #[Route('/api/search', name: 'searching_api_search', methods: ['GET'])]
     public function __invoke(Request $request): JsonResponse
     {
+        if ($this->hasIdentityClaim($request)) {
+            return new JsonResponse(['error' => 'untrusted_search_identity'], 400);
+        }
+
         try {
             $result = $this->searchQueryExecutor->execute(new SearchQuery(
                 query: trim((string) $request->query->get('q', '')),
@@ -37,11 +41,11 @@ final readonly class SearchApiController
                 page: max(1, $request->query->getInt('page', 1)),
                 limit: max(1, $request->query->getInt('limit', 20)),
                 locale: $this->nullableString($request, 'locale'),
-                vendorId: $this->nullableString($request, 'vendorId'),
-                userId: $this->nullableString($request, 'userId'),
+                vendorId: null,
+                userId: null,
                 includeHighlights: $request->query->getBoolean('highlights', true),
                 includeFacets: $request->query->getBoolean('facets', true),
-                executionContext: $this->executionContextResolver->resolve($request, 'search.query', $this->nullableString($request, 'userId')),
+                executionContext: $this->executionContextResolver->resolve($request, 'search.query'),
             ));
         } catch (SearchOperationLimitedException $exception) {
             $statusCode = $exception->decision->deferred ? 202 : 429;
@@ -89,6 +93,17 @@ final readonly class SearchApiController
         }
 
         return $filters;
+    }
+
+    private function hasIdentityClaim(Request $request): bool
+    {
+        foreach (['userId', 'user_id', 'vendorId', 'vendor_id'] as $name) {
+            if ($request->query->has($name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function nullableString(Request $request, string $nameEntity): ?string

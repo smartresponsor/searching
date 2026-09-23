@@ -26,7 +26,7 @@ final class SearchPermissionChecker implements SearchPermissionCheckerInterface
         }
 
         $itemVendorId = $this->stringMetadata($item, 'vendorId') ?? $this->stringMetadata($item, 'vendor_id');
-        if (null !== $query->vendorId && null !== $itemVendorId && $itemVendorId !== $query->vendorId) {
+        if (null !== $itemVendorId && $itemVendorId !== $query->vendorId) {
             return SearchPermissionDecision::deny('vendor_mismatch', [
                 'queryVendorId' => $query->vendorId,
                 'itemVendorId' => $itemVendorId,

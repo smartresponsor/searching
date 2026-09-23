@@ -7,6 +7,7 @@ namespace App\Searching\Provider\Query;
 use App\Searching\Contract\Provider\SearchProviderInterface;
 use App\Searching\Contract\Query\SearchSuggestionProviderInterface;
 use App\Searching\ValueObject\Query\SearchSuggestionQuery;
+use App\Searching\ValueObject\Result\SearchSuggestion;
 
 /**
  * Defines the search suggestion provider responsibility within the Searching component runtime and its typed boundaries.
@@ -34,6 +35,10 @@ final readonly class SearchSuggestionProvider implements SearchSuggestionProvide
             return [];
         }
 
-        return $this->searchProvider->suggest($query);
+        // A suggestion has no source-entity hydration boundary; only explicitly public data is safe to expose.
+        return array_values(array_filter(
+            $this->searchProvider->suggest($query),
+            static fn (SearchSuggestion $suggestion): bool => 'public' === ($suggestion->metadata['visibility'] ?? null),
+        ));
     }
 }

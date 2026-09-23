@@ -75,22 +75,28 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
             $providerResult = $this->searchProvider->search($query);
             $items = $providerResult->items;
             $deniedCount = 0;
-            $metadata = $providerResult->metadata + [
+            $hydrationDroppedCount = 0;
+            $metadata = ($this->permissionFiltering ? [] : $providerResult->metadata) + [
                 'provider_name' => $providerName,
-                'provider_total' => $providerResult->total,
                 'permission_filtering' => $this->permissionFiltering,
                 'operation_limit' => $limitDecision->toMetadata(),
                 'execution_context' => $this->contextMetadata($query),
             ];
 
+            if (!$this->permissionFiltering) {
+                $metadata['provider_total'] = $providerResult->total;
+            }
+
             if ($this->resultHydration) {
                 $hydrationResult = $this->resultHydrator->hydrate($items);
                 $items = $hydrationResult->items;
+                $hydrationDroppedCount = $hydrationResult->droppedCount();
                 $metadata['result_hydration'] = true;
-                $metadata['hydration_original_count'] = $hydrationResult->originalCount;
-                $metadata['hydration_hydrated_count'] = $hydrationResult->hydratedCount();
-                $metadata['hydration_dropped_count'] = $hydrationResult->droppedCount();
-                $metadata['hydration_dropped_items'] = $hydrationResult->droppedItems;
+                if (!$this->permissionFiltering) {
+                    $metadata['hydration_original_count'] = $hydrationResult->originalCount;
+                    $metadata['hydration_hydrated_count'] = $hydrationResult->hydratedCount();
+                    $metadata['hydration_dropped_count'] = $hydrationResult->droppedCount();
+                }
             } else {
                 $metadata['result_hydration'] = false;
             }
@@ -99,10 +105,7 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
                 $filterResult = $this->permissionFilter->filterResult($items, $query);
                 $items = $filterResult->allowedItems;
                 $deniedCount = $filterResult->deniedCount();
-                $metadata['permission_original_count'] = $filterResult->originalCount;
                 $metadata['permission_allowed_count'] = $filterResult->allowedCount();
-                $metadata['permission_denied_count'] = $deniedCount;
-                $metadata['permission_denied_items'] = $filterResult->deniedItems;
             }
 
             $durationMs = $this->durationMs($startedAt);
@@ -124,7 +127,7 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
                     'limit' => $query->limit,
                     'locale' => $query->locale,
                     'result_hydration' => $this->resultHydration,
-                    'hydration_dropped_count' => $metadata['hydration_dropped_count'] ?? 0,
+                    'hydration_dropped_count' => $hydrationDroppedCount,
                     'operation_limit' => $limitDecision->toMetadata(),
                     'execution_context' => $this->contextMetadata($query),
                 ],
@@ -136,8 +139,6 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
                 'provider_name' => $trace->providerName,
                 'duration_ms' => $trace->durationMs,
                 'returned_total' => $trace->returnedTotal,
-                'denied_count' => $trace->deniedCount,
-                'hydration_dropped_count' => $metadata['hydration_dropped_count'] ?? 0,
                 'successful' => $trace->successful,
                 'operation_limit_status' => $limitDecision->status(),
                 'correlation_id' => $query->executionContext?->correlationId,
@@ -150,8 +151,9 @@ final readonly class SearchQueryExecutor implements SearchQueryExecutorInterface
                 page: $query->page,
                 limit: $query->limit,
                 items: $items,
-                facets: $providerResult->facets,
-                suggestions: $providerResult->suggestions,
+                // Provider aggregates can include records outside the final application permission filter.
+                facets: $this->permissionFiltering ? [] : $providerResult->facets,
+                suggestions: $this->permissionFiltering ? [] : $providerResult->suggestions,
                 metadata: $metadata,
             );
         } catch (\Throwable $exception) {

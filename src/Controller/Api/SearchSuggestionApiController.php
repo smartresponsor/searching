@@ -27,10 +27,13 @@ final readonly class SearchSuggestionApiController
     #[Route('/api/search/suggest', name: 'searching_api_search_suggest', methods: ['GET'])]
     public function __invoke(Request $request): JsonResponse
     {
+        if ($this->hasIdentityClaim($request)) {
+            return new JsonResponse(['error' => 'untrusted_search_identity'], 400);
+        }
+
         $query = trim((string) $request->query->get('q', ''));
         $limit = max(1, min(50, $request->query->getInt('limit', 10)));
-        $actorId = $this->nullableString($request->query->get('userId', $request->query->get('user_id')));
-        $executionContext = $this->executionContextResolver->resolve($request, 'search.suggest', $actorId);
+        $executionContext = $this->executionContextResolver->resolve($request, 'search.suggest');
         $suggestions = $this->suggestionProvider->suggestByQuery(new SearchSuggestionQuery(
             query: $query,
             components: $this->csv($request->query->get('components')),
@@ -38,8 +41,8 @@ final readonly class SearchSuggestionApiController
             filters: [],
             limit: $limit,
             locale: $this->nullableString($request->query->get('locale')),
-            vendorId: $this->nullableString($request->query->get('vendorId', $request->query->get('vendor_id'))),
-            userId: $actorId,
+            vendorId: null,
+            userId: null,
             includeSynonyms: $request->query->getBoolean('synonyms', true),
             includeFuzzy: $request->query->getBoolean('fuzzy', true),
             executionContext: $executionContext,
@@ -75,6 +78,17 @@ final readonly class SearchSuggestionApiController
             static fn (string $item): string => trim($item),
             explode(',', $value),
         ), static fn (string $item): bool => '' !== $item));
+    }
+
+    private function hasIdentityClaim(Request $request): bool
+    {
+        foreach (['userId', 'user_id', 'vendorId', 'vendor_id'] as $name) {
+            if ($request->query->has($name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function nullableString(mixed $value): ?string

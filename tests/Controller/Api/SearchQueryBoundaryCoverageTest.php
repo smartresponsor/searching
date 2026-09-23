@@ -45,8 +45,8 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
                 && 1 === $query->page
                 && 1 === $query->limit
                 && 'en' === $query->locale
-                && 'vendor-1' === $query->vendorId
-                && 'user-1' === $query->userId
+                && null === $query->vendorId
+                && null === $query->userId
                 && false === $query->includeHighlights
                 && true === $query->includeFacets
                 && $context === $query->executionContext;
@@ -61,14 +61,36 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
             'page' => '0',
             'limit' => '0',
             'locale' => ' en ',
-            'vendorId' => ' vendor-1 ',
-            'userId' => ' user-1 ',
             'highlights' => 'false',
             'facets' => 'true',
         ]));
 
         self::assertSame(200, $response->getStatusCode());
         self::assertStringContainsString('"query":"needle"', (string) $response->getContent());
+    }
+
+    public function testPublicSearchEndpointsRejectClientIdentityClaimsBeforeCallingProviders(): void
+    {
+        $resolver = $this->createMock(SearchExecutionContextResolverInterface::class);
+        $resolver->expects(self::never())->method('resolve');
+        $executor = $this->createMock(SearchQueryExecutorInterface::class);
+        $executor->expects(self::never())->method('execute');
+        $suggestions = $this->createMock(SearchSuggestionProviderInterface::class);
+        $suggestions->expects(self::never())->method('suggestByQuery');
+        $responses = $this->createMock(SearchResponseProviderInterface::class);
+        $responses->expects(self::never())->method('search');
+        $responseSuggestions = $this->createMock(SearchSuggestionResponseProviderInterface::class);
+        $responseSuggestions->expects(self::never())->method('suggest');
+
+        self::assertSame(400, (new SearchApiController($executor, new SearchResultSerializer(), $resolver))(
+            new Request(['userId' => 'somebody-else']),
+        )->getStatusCode());
+        self::assertSame(400, (new SearchSuggestionApiController($suggestions, new SearchResultSerializer(), $resolver))(
+            new Request(['vendor_id' => 'another-vendor']),
+        )->getStatusCode());
+        $controller = new SearchResponseApiController($responses, $responseSuggestions, new SearchResponseSerializer(), $resolver);
+        self::assertSame(400, $controller->search(new Request(['vendorId' => 'another-vendor']))->getStatusCode());
+        self::assertSame(400, $controller->suggest(new Request(['user_id' => 'somebody-else']))->getStatusCode());
     }
 
     public function testSearchApiMapsLimitedOperationToRetryResponse(): void
@@ -122,8 +144,8 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
             return ['ordering', 'catalog'] === $query->components
                 && ['order'] === $query->resourceTypes
                 && 50 === $query->limit
-                && 'user-4' === $query->userId
-                && 'vendor-4' === $query->vendorId
+                && null === $query->userId
+                && null === $query->vendorId
                 && false === $query->includeSynonyms
                 && $context === $query->executionContext;
         }))->willReturn([new SearchSuggestion('Needle', 1.0, 'ordering', 'order', '42')]);
@@ -133,8 +155,6 @@ final class SearchQueryBoundaryCoverageTest extends TestCase
             'components' => 'ordering,catalog',
             'resources' => 'order',
             'limit' => '99',
-            'user_id' => ' user-4 ',
-            'vendor_id' => ' vendor-4 ',
             'synonyms' => 'false',
         ]));
 
