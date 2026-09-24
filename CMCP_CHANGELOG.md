@@ -40,7 +40,8 @@
 - Canon040 remains green: lines 93.9%, methods 89.2%, branches 89.0%. Canon042 remains 100% across functional/behavioral/UI/critical inventories.
 - `composer check:searching`: PASS; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone boot healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
 - During this run another in-scope commit advanced local `master` to `f2d083e` (`searching: remove placeholder provider path`) and corrected the stale provider documentation. That committed work is preserved and not restaged by this cache-locality commit.
-- Remaining pre-existing dirty state is the Composer license metadata change; it is explicitly excluded from this commit.
+- Follow-up license-tail review proved the remaining Composer metadata was not unrelated noise: signed commit `14ec5e1` had already adopted repository `LICENSE` / `NOTICE` for PolyForm Noncommercial 1.0.0, while both Composer manifests still advertised `proprietary`.
+- Development and production Composer license metadata are now aligned to `PolyForm-Noncommercial-1.0.0`; this closes the already-started licensing change without altering runtime dependencies or behavior.
 
 Task: `engine-20260911151642-searching-91a85f`
 Component: `Searching`
