@@ -1,5 +1,47 @@
 # CMCP RC Orchestration Journal
 
+## 2026-09-24 — RC cache locality and factual documentation hardening
+
+### Reconnaissance baseline
+
+- Current branch: `master`, HEAD `0289204997ea91e70b273fa29d35d27169a56f46`, synchronized with `origin/master` at task start.
+- Preserved pre-existing unrelated dirty state: modified `.gating/README.md`, modified Composer license metadata, and untracked `LICENSE` / `NOTICE`.
+- Re-read Searching instructions, README/AsciiDoc architecture and capability material, Composer/runtime/test configuration, source/test inventory, Git state, Code Memory scope, and the mandatory Objecting/Cruding/Viewing/Interfacing/Gating/Canonization contour.
+- Canonization textual rules consulted directly: Canon018, Canon021, Canon022, Canon023, Canon024, Canon025, Canon032, Canon033, Canon043, Canon053, plus the current Architecture Guard Matrix.
+
+### Target-to-canon mapping
+
+- Canon018: `searching/search` maps to `App\\Searching\\ => src/` and `Search*` component vocabulary; current identity remains canonical.
+- Canon021: generic CRUD ownership remains in Cruding; this pass adds no CRUD machinery.
+- Canon022: Searching is standalone and declares the complete direct baseline: Cruding, Collectioning, Tabling, Viewing, Interfacing, Objecting, and EasyAdmin.
+- Canon023/043: first-party development path repositories remain symlinked and use exact `dev-master` identity.
+- Canon024/033: production manifest remains path-independent and identity-parity constrained.
+- Canon025/032: standalone boot and reusable bundle registration are already materialized.
+- Canon053: current Searching sibling symlinks are all within the canonical exception contour; no product-capability coupling is introduced.
+
+### Market / maturity split
+
+- RC expectations: safe degraded backend behavior, deterministic provider contracts, permission-aware result projection, observable index/reindex lifecycle, reproducible package/runtime quality gates, and factual architecture documentation.
+- Growth remains separate: hybrid lexical/vector retrieval, reranking, relevance evaluation/experimentation, richer typo tolerance, analytics/personalization, and provider-specific production clients. These are not required for RC correctness.
+
+### RC-critical work selected
+
+- Fresh `composer quality` reached PHPStan after a clean PHP-CS-Fixer pass but failed because PHPStan tried to create its cache under the Windows system temp directory on C: and received `errno=28 No space left on device`.
+- Keep PHPStan semantics unchanged while making its temporary/cache location repository-local under ignored `var/phpstan` on the workspace disk.
+- Correct stale architecture wording that still described Elasticsearch/OpenSearch provider adapters as placeholders even though the active runtime already delegates through `SearchBackendClientInterface`.
+
+### Gates and acceptance
+
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit`: PASS, no advisories.
+- Initial `composer quality`: BLOCKED only by PHPStan writing to the full Windows system temp volume (`errno=28 No space left on device`). PHP-CS-Fixer had already passed with 0/318 fixable files.
+- Added `tmpDir: var/phpstan`; standalone `composer stan`: PASS, 317/317 files, 0 errors.
+- Re-run `composer quality`: PASS; PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 183 tests / 1179 assertions, Gating 70 rules / 0 failed / 0 warning.
+- Canon040 remains green: lines 93.9%, methods 89.2%, branches 89.0%. Canon042 remains 100% across functional/behavioral/UI/critical inventories.
+- `composer check:searching`: PASS; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone boot healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
+- During this run another in-scope commit advanced local `master` to `f2d083e` (`searching: remove placeholder provider path`) and corrected the stale provider documentation. That committed work is preserved and not restaged by this cache-locality commit.
+- Remaining pre-existing dirty state is the Composer license metadata change; it is explicitly excluded from this commit.
+
 Task: `engine-20260911151642-searching-91a85f`
 Component: `Searching`
 Authoritative workspace: `D:\PhpstormProjects\www\Searching`
