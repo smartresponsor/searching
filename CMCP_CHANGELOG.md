@@ -1,5 +1,48 @@
 # CMCP RC Orchestration Journal
 
+## 2026-09-24 — RC cache locality and factual documentation hardening
+
+### Reconnaissance baseline
+
+- Current branch: `master`, HEAD `0289204997ea91e70b273fa29d35d27169a56f46`, synchronized with `origin/master` at task start.
+- Preserved pre-existing unrelated dirty state: modified `.gating/README.md`, modified Composer license metadata, and untracked `LICENSE` / `NOTICE`.
+- Re-read Searching instructions, README/AsciiDoc architecture and capability material, Composer/runtime/test configuration, source/test inventory, Git state, Code Memory scope, and the mandatory Objecting/Cruding/Viewing/Interfacing/Gating/Canonization contour.
+- Canonization textual rules consulted directly: Canon018, Canon021, Canon022, Canon023, Canon024, Canon025, Canon032, Canon033, Canon043, Canon053, plus the current Architecture Guard Matrix.
+
+### Target-to-canon mapping
+
+- Canon018: `searching/search` maps to `App\\Searching\\ => src/` and `Search*` component vocabulary; current identity remains canonical.
+- Canon021: generic CRUD ownership remains in Cruding; this pass adds no CRUD machinery.
+- Canon022: Searching is standalone and declares the complete direct baseline: Cruding, Collectioning, Tabling, Viewing, Interfacing, Objecting, and EasyAdmin.
+- Canon023/043: first-party development path repositories remain symlinked and use exact `dev-master` identity.
+- Canon024/033: production manifest remains path-independent and identity-parity constrained.
+- Canon025/032: standalone boot and reusable bundle registration are already materialized.
+- Canon053: current Searching sibling symlinks are all within the canonical exception contour; no product-capability coupling is introduced.
+
+### Market / maturity split
+
+- RC expectations: safe degraded backend behavior, deterministic provider contracts, permission-aware result projection, observable index/reindex lifecycle, reproducible package/runtime quality gates, and factual architecture documentation.
+- Growth remains separate: hybrid lexical/vector retrieval, reranking, relevance evaluation/experimentation, richer typo tolerance, analytics/personalization, and provider-specific production clients. These are not required for RC correctness.
+
+### RC-critical work selected
+
+- Fresh `composer quality` reached PHPStan after a clean PHP-CS-Fixer pass but failed because PHPStan tried to create its cache under the Windows system temp directory on C: and received `errno=28 No space left on device`.
+- Keep PHPStan semantics unchanged while making its temporary/cache location repository-local under ignored `var/phpstan` on the workspace disk.
+- Correct stale architecture wording that still described Elasticsearch/OpenSearch provider adapters as placeholders even though the active runtime already delegates through `SearchBackendClientInterface`.
+
+### Gates and acceptance
+
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit`: PASS, no advisories.
+- Initial `composer quality`: BLOCKED only by PHPStan writing to the full Windows system temp volume (`errno=28 No space left on device`). PHP-CS-Fixer had already passed with 0/318 fixable files.
+- Added `tmpDir: var/phpstan`; standalone `composer stan`: PASS, 317/317 files, 0 errors.
+- Re-run `composer quality`: PASS; PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 183 tests / 1179 assertions, Gating 70 rules / 0 failed / 0 warning.
+- Canon040 remains green: lines 93.9%, methods 89.2%, branches 89.0%. Canon042 remains 100% across functional/behavioral/UI/critical inventories.
+- `composer check:searching`: PASS; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone boot healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
+- During this run another in-scope commit advanced local `master` to `f2d083e` (`searching: remove placeholder provider path`) and corrected the stale provider documentation. That committed work is preserved and not restaged by this cache-locality commit.
+- Follow-up license-tail review proved the remaining Composer metadata was not unrelated noise: signed commit `14ec5e1` had already adopted repository `LICENSE` / `NOTICE` for PolyForm Noncommercial 1.0.0, while both Composer manifests still advertised `proprietary`.
+- Development and production Composer license metadata are now aligned to `PolyForm-Noncommercial-1.0.0`; this closes the already-started licensing change without altering runtime dependencies or behavior.
+
 Task: `engine-20260911151642-searching-91a85f`
 Component: `Searching`
 Authoritative workspace: `D:\PhpstormProjects\www\Searching`
@@ -703,6 +746,32 @@ Task: `engine-20260921193925-searching-4a9919`
 - Final gates: `composer quality` GREEN (CS 0/318, PHPStan 317/317 with 0 errors, PHPUnit 183 tests / 1179 assertions, Gating 70 rules / 0 failed / 0 warning); Canon040 Lines 93.72%, Methods 88.35%, Branches 89.05%; Canon042 functional/behavioral/UI/critical all 100%. `composer check:searching` GREEN with Symfony 8.1.7 / PHP 8.4.13 standalone boot and bridge seal PASS.
 - Code Memory: repository graph plan resolves active project `D-PhpstormProjects-www-Searching` with global `www` navigation read-only; no blocking reason, while a repository-declared `memory:scope:resolve` Composer script is absent.
 - Integration safety: `.gating/README.md` was already staged before this work and `master` was already one commit ahead of `origin/master`; neither state is silently folded into this RC change.
+
+## 2026-09-24 — RC placeholder and consumer-gating cleanup
+
+### Reconnaissance baseline
+
+- Baseline: master at 0289204997ea91e70b273fa29d35d27169a56f46, synchronized with origin/master before this run.
+- Pre-existing worktree changes: modified .gating/README.md and composer.json, plus untracked LICENSE and NOTICE. Composer/license changes are unrelated and remain preserved.
+- Read Searching instructions, README, Composer manifest, architecture/final-integration docs, source/test inventory and RC diagnostics; mandatory Objecting, Cruding, Viewing, Interfacing contracts; Canonization textual Canon018, Canon021, Canon022, Canon023, Canon024, Canon025, Canon032, Canon033, Canon043 and Canon053 plus the guard matrix; Gating executable companion.
+- Canon mapping: searching/search maps to App\\Searching\\ plus Search*; generic CRUD remains Cruding-owned; standalone baseline is already declared; local symlink/version and dual-runtime/package identity rules apply; Canon053 permits the current helper symlink contour.
+
+### Selected work
+
+- RC-critical: remove unused SearchAbstractUnavailableProvider placeholder production logic; correct stale provider architecture wording; restore .gating/README.md to consumer-artifact ownership.
+- Growth: relevance evaluation, typo tolerance, hybrid/vector retrieval, reranking, federated search, personalization and richer analytics remain post-RC.
+- Safeguards: preserve unrelated Composer/license work; verify no references remain; rerun Composer, static/unit/Gating/RC checks and final Git state.
+
+### Implementation and acceptance
+
+- Removed all production `not implemented yet` behavior from the unused unavailable-provider branch. Because the execution policy forbids file deletion, `SearchAbstractUnavailableProvider` is retained as a compatibility base over the canonical `SearchAbstractBackendProvider`; repository reference search finds no runtime/test/config consumer outside the class itself.
+- Updated the provider architecture document to describe Elasticsearch/OpenSearch as the implemented backend-neutral adapters over `SearchBackendClientInterface`.
+- Canon052 cleanup: confirmed consumer `.gating/` was a local copied owner tree rather than a junction to the clean sibling `Gating` repository, then moved non-generated owner artifacts non-destructively into `var/cache`. The tracked consumer README was restored to its canonical content.
+- Verification: changed-PHP lint GREEN; Composer validate strict/check-lock GREEN; Composer audit reports no advisories; CS GREEN (0/318 fixable); PHPStan GREEN (317/317, 0 errors); PHPUnit GREEN (183 tests / 1179 assertions); schema parity GREEN with no pending migrations; aggregate `check:searching` GREEN including Symfony 8.1.7 / PHP 8.4.13 standalone boot and bridge seal.
+- Gating final: 70 rules, 0 failed, 0 warning, 0 suppressed. Canon013, Canon040, Canon042, Canon052, Canon053 and Canon054 are all GREEN. Fresh Canon040 evidence: lines 93.9%, methods 89.2%, branches 89.0%; Canon042 functional/behavioral/UI/critical inventories are all 100%.
+- A concurrent/pre-existing license track advanced local master during this run from `0289204` to `14ec5e1` with commit `license: adopt PolyForm Noncommercial 1.0.0` containing LICENSE/NOTICE only. This run did not create or alter that commit; the related dirty `composer.json` license field remains outside this RC change and must not be staged into the Searching cleanup commit.
+
+
 
 
 
