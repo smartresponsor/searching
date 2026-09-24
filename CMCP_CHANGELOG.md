@@ -704,5 +704,31 @@ Task: `engine-20260921193925-searching-4a9919`
 - Code Memory: repository graph plan resolves active project `D-PhpstormProjects-www-Searching` with global `www` navigation read-only; no blocking reason, while a repository-declared `memory:scope:resolve` Composer script is absent.
 - Integration safety: `.gating/README.md` was already staged before this work and `master` was already one commit ahead of `origin/master`; neither state is silently folded into this RC change.
 
+## 2026-09-24 — RC placeholder and consumer-gating cleanup
+
+### Reconnaissance baseline
+
+- Baseline: master at 0289204997ea91e70b273fa29d35d27169a56f46, synchronized with origin/master before this run.
+- Pre-existing worktree changes: modified .gating/README.md and composer.json, plus untracked LICENSE and NOTICE. Composer/license changes are unrelated and remain preserved.
+- Read Searching instructions, README, Composer manifest, architecture/final-integration docs, source/test inventory and RC diagnostics; mandatory Objecting, Cruding, Viewing, Interfacing contracts; Canonization textual Canon018, Canon021, Canon022, Canon023, Canon024, Canon025, Canon032, Canon033, Canon043 and Canon053 plus the guard matrix; Gating executable companion.
+- Canon mapping: searching/search maps to App\\Searching\\ plus Search*; generic CRUD remains Cruding-owned; standalone baseline is already declared; local symlink/version and dual-runtime/package identity rules apply; Canon053 permits the current helper symlink contour.
+
+### Selected work
+
+- RC-critical: remove unused SearchAbstractUnavailableProvider placeholder production logic; correct stale provider architecture wording; restore .gating/README.md to consumer-artifact ownership.
+- Growth: relevance evaluation, typo tolerance, hybrid/vector retrieval, reranking, federated search, personalization and richer analytics remain post-RC.
+- Safeguards: preserve unrelated Composer/license work; verify no references remain; rerun Composer, static/unit/Gating/RC checks and final Git state.
+
+### Implementation and acceptance
+
+- Removed all production `not implemented yet` behavior from the unused unavailable-provider branch. Because the execution policy forbids file deletion, `SearchAbstractUnavailableProvider` is retained as a compatibility base over the canonical `SearchAbstractBackendProvider`; repository reference search finds no runtime/test/config consumer outside the class itself.
+- Updated the provider architecture document to describe Elasticsearch/OpenSearch as the implemented backend-neutral adapters over `SearchBackendClientInterface`.
+- Canon052 cleanup: confirmed consumer `.gating/` was a local copied owner tree rather than a junction to the clean sibling `Gating` repository, then moved non-generated owner artifacts non-destructively into `var/cache`. The tracked consumer README was restored to its canonical content.
+- Verification: changed-PHP lint GREEN; Composer validate strict/check-lock GREEN; Composer audit reports no advisories; CS GREEN (0/318 fixable); PHPStan GREEN (317/317, 0 errors); PHPUnit GREEN (183 tests / 1179 assertions); schema parity GREEN with no pending migrations; aggregate `check:searching` GREEN including Symfony 8.1.7 / PHP 8.4.13 standalone boot and bridge seal.
+- Gating final: 70 rules, 0 failed, 0 warning, 0 suppressed. Canon013, Canon040, Canon042, Canon052, Canon053 and Canon054 are all GREEN. Fresh Canon040 evidence: lines 93.9%, methods 89.2%, branches 89.0%; Canon042 functional/behavioral/UI/critical inventories are all 100%.
+- A concurrent/pre-existing license track advanced local master during this run from `0289204` to `14ec5e1` with commit `license: adopt PolyForm Noncommercial 1.0.0` containing LICENSE/NOTICE only. This run did not create or alter that commit; the related dirty `composer.json` license field remains outside this RC change and must not be staged into the Searching cleanup commit.
+
+
+
 
 

@@ -18,8 +18,8 @@ Producer components expose `SearchableDocumentProviderInterface` implementations
 ## MVP providers
 
 - `SearchNullProvider` for disabled/local/test mode.
-- `SearchElasticsearchProvider` placeholder for future Elasticsearch implementation.
-- `SearchOpenSearchProvider` placeholder for future OpenSearch implementation.
+- `SearchElasticsearchProvider` backend-neutral Elasticsearch adapter using the configured `SearchBackendClientInterface`.
+- `SearchOpenSearchProvider` backend-neutral OpenSearch adapter using the configured `SearchBackendClientInterface`.
 
 ## v0.3 API and admin surface
 
