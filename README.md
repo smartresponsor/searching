@@ -1,6 +1,6 @@
 # Searching
 
-Smart Responsor component responsible for user-facing business-data search.
+Searching component responsible for user-facing business-data search.
 
 Searching is intentionally separate from Discovery:
 

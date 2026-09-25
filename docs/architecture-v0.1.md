@@ -1,6 +1,6 @@
 # Searching Architecture v0.1
 
-Searching is the Smart Responsor component responsible for user-facing business-data search.
+Searching is the platform component responsible for user-facing business-data search.
 
 Producer components expose `SearchableDocumentProviderInterface` implementations. Searching normalizes those documents, indexes them through `SearchProviderInterface`, executes user queries through `SearchQueryExecutorInterface`, and returns permission-aware search results for Interfacing/API consumers.
 

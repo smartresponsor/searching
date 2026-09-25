@@ -1,6 +1,6 @@
 {
   "name": "searching/search",
-  "description": "Smart Responsor Searching component for user-facing business-data search.",
+  "description": "Searching component for user-facing business-data search.",
   "type": "symfony-bundle",
   "license": "PolyForm-Noncommercial-1.0.0",
   "require": {

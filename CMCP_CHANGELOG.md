@@ -771,6 +771,54 @@ Task: `engine-20260921193925-searching-4a9919`
 - Gating final: 70 rules, 0 failed, 0 warning, 0 suppressed. Canon013, Canon040, Canon042, Canon052, Canon053 and Canon054 are all GREEN. Fresh Canon040 evidence: lines 93.9%, methods 89.2%, branches 89.0%; Canon042 functional/behavioral/UI/critical inventories are all 100%.
 - A concurrent/pre-existing license track advanced local master during this run from `0289204` to `14ec5e1` with commit `license: adopt PolyForm Noncommercial 1.0.0` containing LICENSE/NOTICE only. This run did not create or alter that commit; the related dirty `composer.json` license field remains outside this RC change and must not be staged into the Searching cleanup commit.
 
+## 2026-09-25 — Canon055 platform identity terminology RC closure
+
+Task: `engine-20260925220946-searching-5c9115`
+
+### Reconnaissance baseline
+
+- Workspace resolved through Console MCP as `D:\\PhpstormProjects\\www\\Searching`; branch `master`, HEAD `8a97f8c32aedf6dadcecf8705e84d0cd32479355`, synchronized with `origin/master` at task start.
+- Preserved pre-existing unrelated dirty state: modified `.gating/README.md`.
+- Read Searching instructions, README, Composer development/production manifests, current gate/runtime/test scripts, previous CMCP journal, and mandatory Objecting/Cruding/Viewing/Interfacing/Gating/Canonization contract contour.
+- Canonization textual rules consulted directly: Canon043, Canon045, Canon052, Canon053, Canon055, plus the authoritative Architecture README.
+- Canon mapping: `searching/search` maps to `App\\Searching\\`; generic CRUD remains Cruding-owned; current helper symlink contour is allowed by Canon053; development dependency versions and root repository closure satisfy Canon043/045; Gating integration is materialized; Canon055 applies to human-facing platform/repository identity text.
+
+### Market / maturity split
+
+- RC expectations: deterministic search/query contracts, permission-safe result projection, suggestion/autocomplete, synonym/relevance tuning, operational observability, reproducible static/runtime quality, and neutral platform/component ownership language.
+- Current mature search products reinforce search-time synonym management, suggestion/autocomplete and typo-tolerance/relevance controls.
+- Growth remains separate: deeper judged relevance evaluation, hybrid lexical/vector retrieval, reranking, experimentation/personalization, and provider-specific production optimization are not required for this RC closure.
+
+### RC-critical work selected
+
+- Deterministic `composer gate` failed only Canon055 because four current human-facing surfaces promoted the historical Smart Responsor consumer identity into platform/repository identity.
+- Remediate only the four gate-proven candidates: `AGENTS.md`, `README.md`, `docs/architecture-v0.1.md`, and `composer.json:description`.
+- Preserve all runtime behavior, dependency graph, routes, persistence, UI and the pre-existing `.gating/README.md` modification.
+
+### Baseline gates
+
+- `composer check:searching`: GREEN; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone test kernel healthy, bridge seal PASS, PHP-CS-Fixer clean, PHPStan 317/317 with 0 errors, PHPUnit 183 tests / 1179 assertions.
+- Initial `composer gate`: RED only on Canon055; forbidden-architecture and typed-layer checks GREEN.
+
+### Implementation
+
+- Replaced consumer-branded platform heading in `AGENTS.md` with neutral multi-domain SaaS platform terminology.
+- Rephrased Searching repository/architecture descriptions in `README.md` and `docs/architecture-v0.1.md` to identify Searching as a component rather than the consumer identity.
+- Neutralized the human-facing Composer package description while leaving technical package/vendor locators unchanged.
+- Kept `composer.prod.json` human-facing package description aligned with the same neutral identity; production technical package locators remain unchanged.
+
+### Acceptance
+
+- `composer gate`: GREEN; Canon055 PASS, 0 failed / 0 warning.
+- `composer validate --strict --check-lock`: GREEN.
+- `composer quality`: GREEN; PHP-CS-Fixer 0/318 fixable, PHPStan 317/317 with 0 errors, PHPUnit 183 tests / 1179 assertions, Gating 0 failures.
+- `composer check:searching`: GREEN; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone test kernel healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
+- No browser/mobile/UI source, route, navigation, form, or interaction behavior changed, so new visual evidence is not applicable.
+- `AGENTS.md` is a local untracked/non-versioned instruction surface in this workspace; its Canon055 wording was corrected locally for deterministic gate parity but is not part of the Git commit.
+- Pre-existing modified `.gating/README.md` remains preserved and intentionally excluded from this task's integration set.
+
+
+
 
 
 
