@@ -815,7 +815,8 @@ Task: `engine-20260925220946-searching-5c9115`
 - `composer check:searching`: GREEN; production manifest valid, Symfony 8.1.7 / PHP 8.4.13 standalone test kernel healthy, bridge seal PASS, CS/PHPStan/PHPUnit green.
 - No browser/mobile/UI source, route, navigation, form, or interaction behavior changed, so new visual evidence is not applicable.
 - `AGENTS.md` is a local untracked/non-versioned instruction surface in this workspace; its Canon055 wording was corrected locally for deterministic gate parity but is not part of the Git commit.
-- Pre-existing modified `.gating/README.md` remains preserved and intentionally excluded from this task's integration set.
+- The remaining modified `.gating/README.md` was semantically reviewed after the initial commit. Its content was owner-side Gating documentation copied into a consumer repository and contradicted Canon052's artifact-only boundary; it was therefore not committed as value.
+- Restored `.gating/README.md` to the canonical consumer artifact-only README already present in `HEAD`, eliminating the dirty worktree without importing Gating ownership text into Searching.
 
 
 
