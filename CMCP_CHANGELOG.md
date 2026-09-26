@@ -818,9 +818,44 @@ Task: `engine-20260925220946-searching-5c9115`
 - The remaining modified `.gating/README.md` was semantically reviewed after the initial commit. Its content was owner-side Gating documentation copied into a consumer repository and contradicted Canon052's artifact-only boundary; it was therefore not committed as value.
 - Restored `.gating/README.md` to the canonical consumer artifact-only README already present in `HEAD`, eliminating the dirty worktree without importing Gating ownership text into Searching.
 
+## 2026-09-26 — Autonomous RC reconnaissance and Gating consumer-boundary repair
 
+Task: `engine-20260926081640-searching-866208`
 
+### Reconnaissance baseline
 
+- Workspace resolved through Console MCP as `D:\\PhpstormProjects\\www\\Searching`; branch `master`, HEAD `09aa491210a3fab20fe51bda05f401a7c4decb1a`, tracking `origin/master` with zero ahead/behind at task start.
+- The only pre-existing dirty path was `.gating/README.md`; its diff copied owner-side Gating documentation into the Searching consumer artifact surface.
+- Read the authoritative task specification, Searching AGENTS/README/Composer manifests and quality scripts, the mandatory Objecting/Cruding/Viewing/Interfacing contracts, Gating owner contract, and materialized Canonization rules including Canon001, Canon004, Canon005, Canon007, Canon008, Canon010, Canon015, Canon017, Canon018, Canon021, Canon022-026, Canon032, Canon033, Canon038, Canon043, Canon052, and Canon053.
+- Code Memory resolves the Searching repository graph as the active implementation graph with the workspace graph navigation-only; no repository `memory:scope:resolve` Composer script is declared.
 
+### Target-to-canon mapping
 
+- Canon018: `searching/search` maps to `App\\Searching\\ => src/` and `Search*` subject vocabulary.
+- Canon021: generic CRUD remains Cruding-owned; this pass adds no component-local generic CRUD engine.
+- Canon022-026/032/033/043/053: current standalone/bundle, production-manifest, development symlink, version, and helper-dependency topology remains the existing canonical contour.
+- Canon052: consumer-local `.gating/` is artifact-only; owner runtime/policy documentation must not replace the consumer boundary README.
 
+### Market / maturity split
+
+- Mature search systems treat typo tolerance, filtering/faceting, tunable ranking, autocomplete and measured relevance evaluation as baseline-to-advanced capabilities; hybrid lexical/vector retrieval and reranking are growth capabilities whose quality must be evaluated against domain query/judgment sets.
+- RC-critical work remains correctness, packaging, permission safety, deterministic verification, observability, and canonical repository boundaries. Hybrid/vector retrieval, experimentation/personalization, and provider-specific optimization remain post-RC growth.
+
+### RC-critical work selected and implemented
+
+- Repaired the only observed current-tree canonical defect: restored `.gating/README.md` from copied Gating-owner documentation to the Searching consumer artifact-only contract required by Canon052.
+- No browser/mobile UI, navigation, forms, or user-flow behavior changed; new visual evidence is therefore not applicable to this repair.
+
+### Verification and acceptance
+
+- Heavy asynchronous starts were initially deferred by Console MCP runtime capacity with `REPOSITORY_WORKER_WAITING_RUNTIME_CAPACITY` / `ADMIT_LIGHT_ONLY`; synchronous repository-owned executions remained available and were used without restarting the healthy runtime.
+- `composer validate --strict --check-lock`: GREEN.
+- `composer audit --format=summary`: GREEN, no security vulnerability advisories.
+- Tracked PHP syntax gate: GREEN.
+- Standalone Symfony boot: GREEN on Symfony 8.1.7 / PHP 8.4.13 with `App\\Searching\\Kernel` in `test`.
+- `composer stan`: GREEN, 317/317 files, 0 errors.
+- PHPUnit: GREEN, 183 tests / 1179 assertions.
+- `composer gate`: GREEN, 9 evaluated rules, 0 failures, 0 warnings, 2 expected profile-related skips.
+- `composer check:searching`: GREEN; production manifest valid, standalone boot healthy, bridge seal PASS, PHP-CS-Fixer 0/318 fixable, PHPStan 0 errors, PHPUnit 183/183.
+- The noncanonical pre-existing `.gating/README.md` diff is fully removed; the remaining tracked change is this orchestration journal entry.
+- No browser/mobile UI, navigation, forms, or user-flow source changed, so behavioral screenshot evidence is not applicable.
