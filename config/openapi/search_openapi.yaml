@@ -1,0 +1,262 @@
+openapi: 3.1.0
+info:
+  title: Searching API
+  version: 1.0.0
+  description: Canonical external HTTP contract for the Searching component.
+paths:
+  /api/search:
+    get:
+      operationId: search
+      summary: Search business records.
+      responses:
+        '200':
+          description: Search result.
+  /api/search/bridge/interfacing:
+    get:
+      operationId: searchBridgeInterfacing
+      summary: Read the Interfacing bridge contract.
+      responses:
+        '200':
+          description: Interfacing bridge payload.
+  /api/search/health:
+    get:
+      operationId: searchHealth
+      summary: Read Searching readiness.
+      responses:
+        '200':
+          description: Readiness report.
+  /api/search/resource:
+    get:
+      operationId: searchResource
+      summary: List searchable resources.
+      responses:
+        '200':
+          description: Searchable resource list.
+  /api/search/provider/status:
+    get:
+      operationId: searchProviderStatus
+      summary: Read search-provider status.
+      responses:
+        '200':
+          description: Provider status.
+  /api/search/query/log:
+    get:
+      operationId: searchQueryLog
+      summary: List search query logs.
+      responses:
+        '200':
+          description: Query-log list.
+  /api/search/reindex:
+    post:
+      operationId: searchReindex
+      summary: Dispatch a reindex operation.
+      responses:
+        '202':
+          description: Reindex accepted.
+  /api/search/reindex/job:
+    get:
+      operationId: searchReindexJobList
+      summary: List reindex jobs.
+      responses:
+        '200':
+          description: Reindex-job list.
+  /api/search/reindex/job/{token}:
+    get:
+      operationId: searchReindexJobView
+      summary: Read one reindex job.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reindex-job state.
+  /api/search/index/ensure:
+    post:
+      operationId: searchIndexEnsure
+      summary: Ensure the configured search index exists.
+      responses:
+        '200':
+          description: Index lifecycle state.
+  /api/search/index/delete:
+    post:
+      operationId: searchIndexDeleteLifecycle
+      summary: Delete the configured backend search index.
+      responses:
+        '200':
+          description: Index lifecycle state.
+  /api/search/index:
+    get:
+      operationId: searchIndexList
+      summary: List registered search indexes.
+      responses:
+        '200':
+          description: Search-index list.
+    post:
+      operationId: searchIndexCreate
+      summary: Register a search index.
+      responses:
+        '201':
+          description: Search index created.
+  /api/search/index/{token}:
+    patch:
+      operationId: searchIndexUpdate
+      summary: Update a registered search index.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search index updated.
+    delete:
+      operationId: searchIndexDelete
+      summary: Delete a registered search index.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Search index deleted.
+  /api/search/relevance/profile:
+    get:
+      operationId: searchRelevanceProfileList
+      summary: List relevance profiles.
+      responses:
+        '200':
+          description: Relevance-profile list.
+    post:
+      operationId: searchRelevanceProfileCreate
+      summary: Create a relevance profile.
+      responses:
+        '201':
+          description: Relevance profile created.
+  /api/search/relevance/profile/{id}:
+    patch:
+      operationId: searchRelevanceProfilePatch
+      summary: Partially update a relevance profile.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Relevance profile updated.
+    put:
+      operationId: searchRelevanceProfileReplace
+      summary: Replace a relevance profile.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Relevance profile replaced.
+    delete:
+      operationId: searchRelevanceProfileDelete
+      summary: Delete a relevance profile.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Relevance profile deleted.
+  /api/search/synonym:
+    get:
+      operationId: searchSynonymList
+      summary: List search synonyms.
+      responses:
+        '200':
+          description: Synonym list.
+    post:
+      operationId: searchSynonymCreate
+      summary: Create a search synonym.
+      responses:
+        '201':
+          description: Synonym created.
+  /api/search/synonym/{id}:
+    patch:
+      operationId: searchSynonymPatch
+      summary: Partially update a synonym.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Synonym updated.
+    put:
+      operationId: searchSynonymReplace
+      summary: Replace a synonym.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Synonym replaced.
+    delete:
+      operationId: searchSynonymDelete
+      summary: Delete a synonym.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Synonym deleted.
+  /api/search/response:
+    get:
+      operationId: searchResponse
+      summary: Read the bridge-safe search response.
+      responses:
+        '200':
+          description: Search response.
+  /api/search/response/suggest:
+    get:
+      operationId: searchResponseSuggest
+      summary: Read bridge-safe search suggestions.
+      responses:
+        '200':
+          description: Suggestion response.
+  /api/search/capability:
+    get:
+      operationId: searchCapability
+      summary: Read Searching surface capabilities.
+      responses:
+        '200':
+          description: Capability payload.
+  /api/search/suggest:
+    get:
+      operationId: searchSuggest
+      summary: Search suggestions.
+      responses:
+        '200':
+          description: Suggestion list.
+  /api/search/indexed/resource:
+    get:
+      operationId: searchIndexedResource
+      summary: List indexed-resource freshness records.
+      responses:
+        '200':
+          description: Indexed-resource list.

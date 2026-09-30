@@ -1,5 +1,62 @@
 # CMCP RC Orchestration Journal
 
+## 2026-09-29 — Canonical external API contract RC remediation
+
+Task: `engine-20260930023344-searching-663e34`
+
+### Reconnaissance baseline
+
+- Workspace resolved through Console MCP as `D:\\PhpstormProjects\\www\\Searching`; branch `master`, HEAD `d9e9de334c81a41c746dfd0c2d41d464f33aeaf1`, synchronized with `origin/master` at task start.
+- Preserved pre-existing dirty state: modified `.gating/README.md`. Its diff contains Gating-owner documentation copied into the Searching consumer artifact surface and is not silently folded into this task.
+- Fresh upstream Gating evidence for fingerprint `f497f1d644d71de9b61623315f65019d7209c1a098af91245992d0abbf49ebd6` reports three failures: Canon052 consumer `.gating/` topology, Canon056 missing canonical OpenAPI source, and Canon063 missing method-parity denominator. Canon040/042 are freshness warnings.
+- Fresh Inspecting evidence reports 20 medium maintainability/design observations and no autofixable findings; they are hardening evidence rather than automatic RC blockers.
+- Read current Searching instructions, README, development/production Composer manifests, route/runtime/test configuration, previous orchestration journal, required Objecting/Cruding/Viewing/Interfacing contracts, Gating enforcement, and authoritative Canonization rules.
+
+### Target-to-canon mapping
+
+- Canon052: `gating/gate` dependency, development symlink, standard `gate` / aggregate `quality` scripts, and production package declaration are already canonical; the remaining failure is copied non-artifact content physically present under consumer `.gating/`.
+- Canon056: Searching exposes ordinary first-party external `/api/search...` routes, so every external runtime path must be mirrored by one canonical OpenAPI source.
+- Canon058/059: canonical source is `config/openapi/search_openapi.yaml`, derived from package subject token `search`; generated/public/docs/legacy copies are not denominators.
+- Canon061: because Searching owns an OpenAPI source, `nelmio/api-doc-bundle` is a direct runtime dependency.
+- Canon062: one canonical source exists, so no profile alias is required.
+- Canon063: explicit runtime HTTP method sets must mirror OpenAPI operation keys bidirectionally.
+- Canon021 remains unchanged: this work documents Searching business APIs and does not add generic CRUD route/controller machinery.
+
+### Market and maturity split
+
+- RC-critical: deterministic public API inventory, explicit path/method contract, provider isolation, permission-safe response boundaries, operability, and reproducible gates.
+- Growth: judged relevance evaluation, A/B experimentation, behavioral analytics, hybrid lexical/vector retrieval, reranking, richer asynchronous search/PIT workflows, and provider-specific optimization remain post-RC.
+
+### Selected implementation
+
+- Materialize the canonical Searching OpenAPI source with exact current runtime path/method coverage.
+- Declare/register NelmioApiDocBundle in development and production package contracts and refresh dependency lock state.
+- Re-run Gating after mutation; handle Canon052 only through a content-preserving/non-destructive topology repair if Console MCP evidence proves that is safe under this task's destructive-operation prohibition.
+- Refresh applicable deterministic and behavioral/coverage evidence after repository mutation.
+
+### Planned acceptance
+
+- Composer validate/check-lock and production manifest validation.
+- Symfony standalone/container/YAML validation where available.
+- PHP-CS-Fixer, PHPStan, PHPUnit, schema parity and Searching aggregate check.
+- Gating with Canon056/058/059/061/063 parity GREEN.
+- Behavioral/UI stack only if runtime/UI behavior is affected; this OpenAPI/package change does not itself alter user-visible UI.
+- Final Git diff, branch/upstream state, coherent commit/publication when safe and authorized.
+
+### Implementation and acceptance
+
+- Canon052: all copied owner-side executable/policy/runtime content was moved non-destructively from consumer `.gating/` into ignored `var/cache/cmcp-canon052-*`; the pre-existing owner-copy README was preserved under `var/cache` and the tracked consumer artifact-boundary README was restored byte-for-byte. Follow-up repository searches find no Gating owner namespace/rule/documentation tail under `.gating/`.
+- Canon056/058/059/063: added one canonical `config/openapi/search_openapi.yaml` with every current external `/api/search...` runtime path and explicit method, including the attribute route `GET /api/search/indexed/resource`.
+- Canon061: `nelmio/api-doc-bundle:^5.12.2` is a direct runtime dependency in both development and production manifests. The bundle is intentionally not activated in the minimal standalone kernel; Canon061 requires producer dependency ownership, while the host controls documentation runtime exposure.
+- Composer resolution advanced the local first-party/path dependency closure. That exposed the current Failing public contract rename; Searching now implements `FailureOperationInventoryProviderInterface`, yields `FailureOperationInventoryDTO`, and tests through `FailureOperationInventory` instead of the removed legacy identities.
+- Standalone Symfony container lint exposed a pre-existing missing `kernel.secret` contract. `config/packages/framework.yaml` now provides an overridable `APP_SECRET` environment contract with a non-sensitive local default. Symfony `about` and `lint:container` are GREEN.
+- Deterministic gates: Composer development manifest strict/check-lock GREEN; production manifest GREEN; YAML lint GREEN; Doctrine schema/migration parity GREEN; PHP syntax GREEN; git diff-check GREEN; Composer audit GREEN with no advisories.
+- Aggregate quality: PHP-CS-Fixer 0 fixable files, PHPStan 0 errors, PHPUnit 184 tests / 1180 assertions, local Gating 0 failed / 0 warning. `composer check:searching` is GREEN including standalone Symfony 8.1.8 / PHP 8.4.13 boot and bridge seal.
+- Coverage evidence refreshed despite the synchronous tool-return timeout: `var/coverage/summary.txt` reports Lines 93.88% (4232/4508), Methods 89.25% (639/716), Branches 89.06% (2092/2349); path-instrumented evidence is timestamped 2026-09-30 03:07:37.
+- Behavioral/UI evidence refreshed: PHPUnit GREEN plus Playwright 1/1; functional 2/2, behavioral 3/3, UI 1/1, critical 3/3. No user-visible UI/navigation/form behavior changed, so screenshot capture is not applicable.
+- Fresh post-mutation Inspecting report `D--PhpstormProjects-www-Searching-20260930-030837.json`: PHPStan 0, 20 medium structural observations, 0 high/critical, 0 autofixable. Findings remain advisory maintainability/design debt and do not invalidate this canon remediation.
+- The current owner-policy Gating CLI registers 9 consumer rules and is GREEN. The earlier 68-rule CanonScanning report is an orchestration-produced verifier surface and no direct Console MCP rerun capability is exposed in this execution context; its actionable RED causes were independently remediated against the current textual Canon056/058/059/061/063 and executable Canon052 contracts.
+
 ## 2026-09-24 — RC cache locality and factual documentation hardening
 
 ### Reconnaissance baseline

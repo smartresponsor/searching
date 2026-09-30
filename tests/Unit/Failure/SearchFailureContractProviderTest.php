@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Searching\Tests\Unit\Failure;
 
-use App\Failing\Inventory\OperationFailureInventory;
+use App\Failing\Inventory\FailureOperationInventory;
 use App\Failing\Registry\FailureRegistry;
 use App\Searching\Provider\Failure\SearchFailureProvider;
 use App\Searching\Provider\Failure\SearchOperationFailureInventoryProvider;
@@ -15,7 +15,7 @@ final class SearchFailureContractProviderTest extends TestCase
     public function testSearchIndexNotFoundProducesDeterministicEvidenceForUpdateAndDelete(): void
     {
         $registry = new FailureRegistry([new SearchFailureProvider()]);
-        $inventory = new OperationFailureInventory(
+        $inventory = new FailureOperationInventory(
             [new SearchOperationFailureInventoryProvider()],
             $registry,
         );

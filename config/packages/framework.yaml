@@ -1,1 +1,5 @@
-framework: {}
+parameters:
+  env(APP_SECRET): 'searching-standalone-default'
+
+framework:
+  secret: '%env(APP_SECRET)%'
